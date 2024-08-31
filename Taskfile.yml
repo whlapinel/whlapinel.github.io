@@ -10,5 +10,5 @@ tasks:
     cmds:
       - echo 'Building...'
       - tsc --build
-      - npx tailwindcss -i ./input.css -o ./public/styles/styles.css
+      - npx tailwindcss -i ./input.css -o ./docs/styles/styles.css
     silent: true
