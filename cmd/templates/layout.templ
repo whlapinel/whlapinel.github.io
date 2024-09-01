@@ -1,0 +1,33 @@
+package templates
+
+import "strings"
+
+templ Layout() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>Will Lapinel's Portfolio</title>
+			<link rel="stylesheet" href="./styles/styles.css"/>
+			<script src="./js/htmx.js" defer></script>
+		</head>
+		<body class="bg-slate-800" hx-boost="true">
+			<header>
+				<h1 class="text-white">Will Lapinel's Site!</h1>
+				<nav class="flex">
+					for _, page := range Pages {
+						<a
+							href={ templ.SafeURL("/" + strings.ToLower(page.Title) + ".html") }
+							hx-target="#page"
+							hx-select="#page"
+						>{ page.Title }</a>
+					}
+				</nav>
+			</header>
+			<main id="page">
+				{ children... }
+			</main>
+		</body>
+	</html>
+}

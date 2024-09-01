@@ -9,6 +9,8 @@ tasks:
   build:
     cmds:
       - echo 'Building...'
+      - templ generate
+      - go run ./cmd/main.go
       - tsc --build
       - npx tailwindcss -i ./input.css -o ./docs/styles/styles.css
     silent: true
