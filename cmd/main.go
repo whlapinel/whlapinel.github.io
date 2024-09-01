@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-	// This is a comment
 	err := templates.RenderPages()
 	if err != nil {
 		log.Fatalf("failed to render pages: %v", err)

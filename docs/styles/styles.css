@@ -562,13 +562,79 @@ video {
   display: flex;
 }
 
+.grid {
+  display: grid;
+}
+
+.aspect-auto {
+  aspect-ratio: auto;
+}
+
+.max-h-0 {
+  max-height: 0px;
+}
+
+.max-h-96 {
+  max-height: 24rem;
+}
+
+.max-w-\[80vw\] {
+  max-width: 80vw;
+}
+
 .grow {
   flex-grow: 1;
+}
+
+.grid-cols-\[1fr_4fr\] {
+  grid-template-columns: 1fr 4fr;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.divide-y > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-y-reverse: 0;
+  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .bg-slate-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+}
+
+.p-1 {
+  padding: 0.25rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 .text-white {
@@ -584,6 +650,12 @@ video {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-all {
+  transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }

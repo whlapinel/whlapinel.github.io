@@ -1,7 +1,5 @@
 package templates
 
-import "strings"
-
 templ Layout() {
 	<!DOCTYPE html>
 	<html lang="en">
@@ -14,18 +12,33 @@ templ Layout() {
 		</head>
 		<body class="bg-slate-800" hx-boost="true">
 			<header>
-				<h1 class="text-white">Will Lapinel's Site!</h1>
-				<nav class="flex">
+				<a
+					href={ templ.SafeURL("/index.html") }
+					hx-target="#page"
+					hx-select="#page"
+				>
+					<svg width="200" height="80" xmlns="http://www.w3.org/2000/svg">
+						<!-- Background -->
+						<rect width="200" height="100" fill="#1e293b"></rect>
+						<!-- Text: Initials -->
+						<text x="10" y="60" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="#4ade80">
+							WHL
+						</text>
+						<!-- Decorative Line -->
+						<line x1="10" y1="70" x2="190" y2="70" stroke="#3b82f6" stroke-width="2"></line>
+					</svg>
+				</a>
+				<nav class="flex gap-2 text-white font-bold p-1">
 					for _, page := range Pages {
 						<a
-							href={ templ.SafeURL("/" + strings.ToLower(page.Title) + ".html") }
+							href={ templ.SafeURL("/" + page.FileName()) }
 							hx-target="#page"
 							hx-select="#page"
 						>{ page.Title }</a>
 					}
 				</nav>
 			</header>
-			<main id="page">
+			<main id="page" class="max-w-[80vw] flex flex-col items-center">
 				{ children... }
 			</main>
 		</body>

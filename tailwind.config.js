@@ -8,4 +8,8 @@ module.exports = {
         extend: {},
     },
     plugins: [],
+    safelist: [
+        "max-h-0",
+        "max-h-96",
+    ],
 }
