@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Will Lapinel's Portfolio</title>
-    <link rel="stylesheet" href="public/styles/styles.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <script src="./js/htmx.js" defer></script>
 </head>
 
 <body class="bg-slate-800">
     <h1 class="text-white">Will Lapinel's Site!</h1>
+    <button hx-get="/hello.html" hx-target="#hello">Get Hello</button>
+    <div id="hello"></div>
 
 </body>
 
