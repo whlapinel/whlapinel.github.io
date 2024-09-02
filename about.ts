@@ -3,7 +3,7 @@
     for (const collapsible of collapsibles) {
         collapsible.addEventListener('click', () => {
             collapsible.nextElementSibling?.classList.toggle('max-h-0')
-            collapsible.nextElementSibling?.classList.toggle('max-h-96')
+            collapsible.nextElementSibling?.classList.toggle('max-h-fit')
         })
     }
 })();

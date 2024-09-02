@@ -10,7 +10,7 @@ templ Layout() {
 			<link rel="stylesheet" href="/styles/styles.css"/>
 			<script src="/js/htmx.js" defer></script>
 		</head>
-		<body class="bg-slate-800" hx-boost="true">
+		<body class="bg-slate-800 text-white" hx-boost="true">
 			<header>
 				<a
 					href={ templ.SafeURL("/index.html") }
@@ -38,7 +38,7 @@ templ Layout() {
 					}
 				</nav>
 			</header>
-			<main id="page" class="max-w-[80vw] flex flex-col items-center">
+			<main id="page">
 				{ children... }
 			</main>
 		</body>

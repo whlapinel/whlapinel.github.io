@@ -1,6 +1,9 @@
 package templates
 
-import "strings"
+import (
+	"gh_static_portfolio/cmd/data"
+	"strings"
+)
 
 type AboutSection struct {
 	Title     string
@@ -18,25 +21,25 @@ func (s *AboutSection) FileName() string {
 
 templ AboutComponent() {
 	@Layout() {
-		<script src="/js/collapsible.js" defer></script>
-		<div class="grid grid-cols-[1fr_5fr]">
-			<nav class="flex flex-col gap-2">
+		<script src="/js/about.js" defer></script>
+		<div class="grid grid-cols-[1fr_4fr] items-start">
+			<nav class="flex flex-col gap-2 static px-2 py-4 border-teal-900 bg-slate-700 rounded-r-md max-w-fit h-fit" id="side-nav">
 				<ul>
 					for _, section := range AboutSections {
 						<li>
-							<a href={ "/about/" + templ.SafeURL(section.FileName()) }>{ section.Title }</a>
+							<a href={ "/about/" + templ.SafeURL(section.FileName()) } class="hover:bg-slate-600 rounded p-1">{ section.Title }</a>
 						</li>
 					}
 				</ul>
 			</nav>
 			<div class="text-white flex flex-col gap-2 max-w-[80vw]" id="section">
-				<div class=" grid grid-cols-[1fr_4fr] p-2 gap-3">
+				<div class=" grid grid-cols-[1fr_4fr] p-2 gap-3" id="welcome-div">
 					<div class=" aspect-auto">
-						<img src="/images/profile.jpg" alt="Will Lapinel" class="rounded-full"/>
+						<img src="/images/profile.jpg" alt="Will Lapinel" class="rounded-full" height="128" width="128"/>
 					</div>
 					<div>
 						<p class="text-white">
-							Hello! I'm Will Lapinel. I teach Python at Phillip O. Berry Academy of Technology. I'm a software engineer with a passion for web development. I have experience with a wide range of technologies. I'm always looking for new opportunities to learn and grow as a developer.
+							Hello! I'm Will Lapinel. Please select an item from the left in order to learn more about me.
 						</p>
 					</div>
 				</div>
@@ -48,7 +51,7 @@ templ AboutComponent() {
 
 templ PersonalComponent() {
 	@AboutComponent() {
-		@CollapsibleList("Personal") {
+		@CollapsibleListComponent("Personal", true) {
 			<p>
 				{ "I'm a software engineer with a passion for web development. I have experience with a wide range of technologies. I'm always looking for new opportunities to learn and grow as a developer." }
 			</p>
@@ -58,8 +61,8 @@ templ PersonalComponent() {
 
 templ SkillsListComponent() {
 	@AboutComponent() {
-		@CollapsibleList("Skills") {
-			for _, item := range SkillItems {
+		@CollapsibleListComponent("Skills", true) {
+			for _, item := range data.SkillItems {
 				@SkillsListItem(item)
 			}
 		}
@@ -68,8 +71,8 @@ templ SkillsListComponent() {
 
 templ EducationListComponent() {
 	@AboutComponent() {
-		@CollapsibleList("Education") {
-			for _, item := range EducationItems {
+		@CollapsibleListComponent("Education", true) {
+			for _, item := range data.EducationItems {
 				@EducationListItem(item)
 			}
 		}
@@ -78,8 +81,8 @@ templ EducationListComponent() {
 
 templ WorkHistoryComponent() {
 	@AboutComponent() {
-		@CollapsibleList("Work History") {
-			for _, item := range WorkHistoryItems {
+		@CollapsibleListComponent("Work History", true) {
+			for _, item := range data.WorkHistoryItems {
 				@WorkHistoryListItem(item)
 			}
 		}
@@ -88,15 +91,15 @@ templ WorkHistoryComponent() {
 
 templ ProjectListComponent() {
 	@AboutComponent() {
-		@CollapsibleList("Projects") {
-			for _, item := range ProjectItems {
+		@CollapsibleListComponent("Projects", true) {
+			for _, item := range data.ProjectItems {
 				@ProjectListItem(item)
 			}
 		}
 	}
 }
 
-templ SkillsListItem(item *SkillItem) {
+templ SkillsListItem(item *data.SkillItem) {
 	<li>
 		<h3>
 			{ item.Title }
@@ -107,9 +110,9 @@ templ SkillsListItem(item *SkillItem) {
 	</li>
 }
 
-templ ProjectListItem(item *ProjectItem) {
-	<li>
-		<h3>
+templ ProjectListItem(item *data.ProjectItem) {
+	<li class="p-3">
+		<h3 class="font-bold text-lg">
 			{ item.Title }
 		</h3>
 		<p>
@@ -124,9 +127,9 @@ templ ProjectListItem(item *ProjectItem) {
 	</li>
 }
 
-templ WorkHistoryListItem(item *WorkHistoryItem) {
-	<li>
-		<h3>
+templ WorkHistoryListItem(item *data.WorkHistoryItem) {
+	<li class="p-3">
+		<h3 class="font-semibold text-lg">
 			{ item.Company }
 		</h3>
 		<p>
@@ -141,19 +144,19 @@ templ WorkHistoryListItem(item *WorkHistoryItem) {
 	</li>
 }
 
-templ EducationListItem(item *EducationItem) {
-	<li>
-		<h3>
+templ EducationListItem(item *data.EducationItem) {
+	<li class="p-3">
+		<h3 class=" font-semibold text-lg">
 			{ item.School }
 		</h3>
 		<p>
-			{ item.Degree }
+			{ "Degree: "+item.Degree }
 		</p>
 		<p>
-			{ item.Year }
+			{ "Graduated: "+item.Year }
 		</p>
 		<p>
-			{ item.Minor }
+			{ "Major: "+item.Minor }
 		</p>
 		if len(item.Classes) > 0 {
 			@ClassListComponent(item)
@@ -161,30 +164,36 @@ templ EducationListItem(item *EducationItem) {
 	</li>
 }
 
-templ ClassListComponent(item *EducationItem) {
-	@CollapsibleList("Classes taken at " + item.School) {
+templ ClassListComponent(item *data.EducationItem) {
+	@CollapsibleListComponent("Classes taken at "+item.School, false) {
 		for _, class := range item.Classes {
 			@ClassListItem(class)
 		}
 	}
 }
 
-templ ClassListItem(class *ClassItem) {
-	<li>
-		<p>
+templ ClassListItem(class *data.ClassItem) {
+	<li class="p-3">
+		<h3 class="font-semibold text-lg">
 			{ class.Number + " " + class.Title }
-		</p>
+		</h3>
 		<p>
 			{ class.Description }
 		</p>
 	</li>
 }
 
-templ CollapsibleList(title string) {
-	<div class="divide-y p-2">
-		<h3 class="collapsible">{ title }</h3>
-		<ul class="overflow-hidden transition-all max-h-0">
-			{ children... }
-		</ul>
+templ CollapsibleListComponent(title string, expanded bool) {
+	<div class="divide-y p-2 max-w-4xl">
+		<h3 class="collapsible cursor-pointer hover:bg-slate-700 text-xl">{ title }</h3>
+		if expanded {
+			<ul class="overflow-hidden transition-all max-h-fit">
+				{ children... }
+			</ul>
+		} else {
+			<ul class="overflow-hidden transition-all max-h-0">
+				{ children... }
+			</ul>
+		}
 	</div>
 }

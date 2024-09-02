@@ -26,7 +26,7 @@ func Layout() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Will Lapinel's Portfolio</title><link rel=\"stylesheet\" href=\"/styles/styles.css\"><script src=\"/js/htmx.js\" defer></script></head><body class=\"bg-slate-800\" hx-boost=\"true\"><header><a href=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Will Lapinel's Portfolio</title><link rel=\"stylesheet\" href=\"/styles/styles.css\"><script src=\"/js/htmx.js\" defer></script></head><body class=\"bg-slate-800 text-white\" hx-boost=\"true\"><header><a href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -67,7 +67,7 @@ func Layout() templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</nav></header><main id=\"page\" class=\"max-w-[80vw] flex flex-col items-center\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</nav></header><main id=\"page\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
