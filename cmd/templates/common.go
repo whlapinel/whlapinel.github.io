@@ -2,6 +2,7 @@ package templates
 
 import (
 	"context"
+	"gh_static_portfolio/cmd/data"
 	"log"
 	"os"
 	"strings"
@@ -39,7 +40,7 @@ func RenderPages() error {
 		},
 		{
 			Title:     "Blog",
-			TemplFunc: BlogComponent,
+			TemplFunc: BlogsListComponent,
 		},
 	}
 	AboutSections = []*AboutSection{
@@ -70,6 +71,10 @@ func RenderPages() error {
 	}
 	for _, section := range AboutSections {
 		RenderAboutSection(section)
+	}
+	err := RenderBlogs()
+	if err != nil {
+		log.Fatalf("failed to render blogs: %v", err)
 	}
 	return nil
 }
@@ -114,6 +119,20 @@ func RenderPage(page Page) error {
 	err = page.TemplFunc().Render(context.Background(), f)
 	if err != nil {
 		log.Fatalf("failed to write output file: %v", err)
+	}
+	return nil
+}
+
+func RenderBlogs() error {
+	for _, blog := range data.Blogs {
+		f, err := os.Create("./docs/blogs/" + strings.ReplaceAll(strings.ToLower(blog.Title), " ", "-") + ".html")
+		if err != nil {
+			log.Fatalf("failed to create output file: %v", err)
+		}
+		err = BlogComponent(&blog).Render(context.Background(), f)
+		if err != nil {
+			log.Fatalf("failed to write output file: %v", err)
+		}
 	}
 	return nil
 }

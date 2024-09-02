@@ -1,5 +1,16 @@
 package data
 
+import "strings"
+
+type Blog struct {
+	Title   string
+	Content string
+}
+
+func (b Blog) FileName() string {
+	return strings.ReplaceAll(strings.ToLower(b.Title), " ", "-") + ".html"
+}
+
 type EducationItem struct {
 	Image   string
 	Year    string
@@ -182,4 +193,12 @@ var SkillItems = []*SkillItem{
 	{
 		Title: "Version control including Git and GitHub",
 	},
+}
+
+var Blogs = []Blog{
+	{Title: "Blog 1", Content: "This is the first blog. It is a very long blog. It is so long that it will wrap around to the next line."},
+	{Title: "Blog 2", Content: "This is the second blog. It is a very long blog. It is so long that it will wrap around to the next line."},
+	{Title: "Blog 3", Content: "This is the third blog. It is a very long blog. It is so long that it will wrap around to the next line."},
+	{Title: "Blog 4", Content: "This is the fourth blog. It is a very long blog. It is so long that it will wrap around to the next line."},
+	{Title: "Blog 5", Content: "This is the fifth blog. It is a very long blog. It is so long that it will wrap around to the next line."},
 }
