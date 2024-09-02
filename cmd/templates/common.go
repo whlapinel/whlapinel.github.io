@@ -9,13 +9,9 @@ import (
 	"github.com/a-h/templ"
 )
 
-type PageData interface {
-}
-
 type Page struct {
 	Title     string
-	TemplFunc func(PageData) templ.Component
-	PageData  interface{}
+	TemplFunc func() templ.Component
 }
 
 func (p *Page) FileName() string {
@@ -36,7 +32,6 @@ func RenderPages() error {
 		{
 			Title:     "About",
 			TemplFunc: AboutComponent,
-			PageData:  EducationItems,
 		},
 		{
 			Title:     "Contact",
@@ -47,9 +42,35 @@ func RenderPages() error {
 			TemplFunc: BlogComponent,
 		},
 	}
+	AboutSections = []*AboutSection{
+		{
+			Title:     "Skills",
+			TemplFunc: SkillsListComponent,
+		},
+		{
+			Title:     "Work History",
+			TemplFunc: WorkHistoryComponent,
+		},
+		{
+			Title:     "Education",
+			TemplFunc: EducationListComponent,
+		},
+		{
+			Title:     "Projects",
+			TemplFunc: ProjectListComponent,
+		},
+		{
+			Title:     "Personal",
+			TemplFunc: PersonalComponent,
+		},
+	}
 	ClearHTMLFiles()
+	log.Println("len(AboutSections): ", len(AboutSections))
 	for _, page := range Pages {
 		RenderPage(page)
+	}
+	for _, section := range AboutSections {
+		RenderAboutSection(section)
 	}
 	return nil
 }
@@ -69,16 +90,29 @@ func ClearHTMLFiles() {
 	}
 }
 
+func RenderAboutSection(s *AboutSection) error {
+
+	f, err := os.Create("./docs/about/" + s.FileName())
+	if err != nil {
+		log.Fatalf("failed to create output file: %v", err)
+	}
+	err = s.TemplFunc().Render(context.Background(), f)
+	if err != nil {
+		log.Fatalf("failed to write output file: %v", err)
+	}
+	return nil
+}
+
 func RenderPage(page Page) error {
 	f, err := os.Create("./docs/" + page.FileName())
 	if err != nil {
 		log.Fatalf("failed to create output file: %v", err)
 	}
-	if page.PageData != nil {
-		err = page.TemplFunc(page.PageData).Render(context.Background(), f)
-	} else {
-		err = page.TemplFunc(nil).Render(context.Background(), f)
+	if page.Title == "About" {
+		log.Println("About page")
+		log.Println("len(AboutSections): ", len(AboutSections))
 	}
+	err = page.TemplFunc().Render(context.Background(), f)
 	if err != nil {
 		log.Fatalf("failed to write output file: %v", err)
 	}
@@ -109,6 +143,21 @@ type ClassItem struct {
 	Subtitle    string
 	Description string
 	Link        string
+}
+
+type WorkHistoryItem struct {
+	Image       string
+	Year        string
+	Company     string
+	Position    string
+	Description string
+}
+
+type SkillItem struct {
+	Image       string
+	Title       string
+	Subtitle    string
+	Description string
 }
 
 var EducationItems = []*EducationItem{
@@ -156,5 +205,41 @@ var EducationItems = []*EducationItem{
 		Year:   "2001",
 		School: "Northwest School of the Arts",
 		Degree: "High School Diploma",
+	},
+}
+
+var WorkHistoryItems = []*WorkHistoryItem{
+	{
+		Image:       "https://via.placeholder.com/150",
+		Year:        "2021 - Present",
+		Company:     "Company 1",
+		Position:    "Position 1",
+		Description: "This is a description of my work at Company 1.",
+	},
+	{
+		Image:       "https://via.placeholder.com/150",
+		Year:        "2019 - 2021",
+		Company:     "Company 2",
+		Position:    "Position 2",
+		Description: "This is a description of my work at Company 2.",
+	},
+}
+
+var ProjectItems = []*ProjectItem{
+	{
+		Image:       "https://via.placeholder.com/150",
+		Title:       "Project 1",
+		Subtitle:    "Subtitle 1",
+		Description: "This is a description of project 1.",
+		Link:        "",
+	},
+}
+
+var SkillItems = []*SkillItem{
+	{
+		Image:       "https://via.placeholder.com/150",
+		Title:       "Skill 1",
+		Subtitle:    "Subtitle 1",
+		Description: "This is a description of skill 1.",
 	},
 }

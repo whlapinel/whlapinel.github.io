@@ -1,44 +1,144 @@
 package templates
 
-templ AboutComponent(educationItems PageData) {
+import "strings"
+
+type AboutSection struct {
+	Title     string
+	TemplFunc func() templ.Component
+}
+
+var AboutSections []*AboutSection
+
+func (s *AboutSection) FileName() string {
+	if strings.Contains(s.Title, " ") {
+		return strings.ToLower(strings.ReplaceAll(s.Title, " ", "-")) + ".html"
+	}
+	return strings.ToLower(s.Title) + ".html"
+}
+
+templ AboutComponent() {
 	@Layout() {
-		<script src="./js/collapsible.js" defer></script>
-		<div class=" grid grid-cols-[1fr_4fr] p-2 gap-3">
-			<div class=" aspect-auto">
-				<img src="./images/profile.jpg" alt="Will Lapinel" class="rounded-full"/>
-			</div>
-			<div>
-				<p class="text-white">
-					Hello! I'm Will Lapinel. I teach Python at Phillip O. Berry Academy of Technology. I'm a software engineer with a passion for web development. I have experience with a wide range of technologies. I'm always looking for new opportunities to learn and grow as a developer.
-				</p>
-			</div>
-		</div>
-		<div class="text-white">
-			<div class="flex flex-col gap-2 max-w-[80vw]">
-				@CollapsibleList("Skills") {
-					<li>Go</li>
-					<li>Python</li>
-					<li>Java / Kotlin</li>
-					<li>Android</li>
-					<li>HTML, CSS, TypeScript/JavaScript</li>
-					<li>NextJS and React</li>
-					<li>SQL</li>
-					<li>Git</li>
-					<li>GitHub</li>
-					<li>Linux</li>
-					<li>Windows</li>
-				}
-				@CollapsibleList("Projects") {
-					<li>Coming soon!</li>
-				}
-				@CollapsibleList("Education") {
-					for _, item := range EducationItems {
-						@EducationListItem(item)
+		<script src="/js/collapsible.js" defer></script>
+		<div class="grid grid-cols-[1fr_5fr]">
+			<nav class="flex flex-col gap-2">
+				<ul>
+					for _, section := range AboutSections {
+						<li>
+							<a href={ "/about/" + templ.SafeURL(section.FileName()) }>{ section.Title }</a>
+						</li>
 					}
-				}
+				</ul>
+			</nav>
+			<div class="text-white flex flex-col gap-2 max-w-[80vw]" id="section">
+				<div class=" grid grid-cols-[1fr_4fr] p-2 gap-3">
+					<div class=" aspect-auto">
+						<img src="/images/profile.jpg" alt="Will Lapinel" class="rounded-full"/>
+					</div>
+					<div>
+						<p class="text-white">
+							Hello! I'm Will Lapinel. I teach Python at Phillip O. Berry Academy of Technology. I'm a software engineer with a passion for web development. I have experience with a wide range of technologies. I'm always looking for new opportunities to learn and grow as a developer.
+						</p>
+					</div>
+				</div>
+				{ children... }
 			</div>
 		</div>
 	}
+}
+
+templ PersonalComponent() {
+	@AboutComponent() {
+		@CollapsibleList("Personal") {
+			<p>
+				{ "I'm a software engineer with a passion for web development. I have experience with a wide range of technologies. I'm always looking for new opportunities to learn and grow as a developer." }
+			</p>
+		}
+	}
+}
+
+templ SkillsListComponent() {
+	@AboutComponent() {
+		@CollapsibleList("Skills") {
+			for _, item := range SkillItems {
+				@SkillsListItem(item)
+			}
+		}
+	}
+}
+
+templ EducationListComponent() {
+	@AboutComponent() {
+		@CollapsibleList("Education") {
+			for _, item := range EducationItems {
+				@EducationListItem(item)
+			}
+		}
+	}
+}
+
+templ WorkHistoryComponent() {
+	@AboutComponent() {
+		@CollapsibleList("Work History") {
+			for _, item := range WorkHistoryItems {
+				@WorkHistoryListItem(item)
+			}
+		}
+	}
+}
+
+templ ProjectListComponent() {
+	@AboutComponent() {
+		@CollapsibleList("Projects") {
+			for _, item := range ProjectItems {
+				@ProjectListItem(item)
+			}
+		}
+	}
+}
+
+templ SkillsListItem(item *SkillItem) {
+	<li>
+		<h3>
+			{ item.Title }
+		</h3>
+		<p>
+			{ item.Description }
+		</p>
+	</li>
+}
+
+templ ProjectListItem(item *ProjectItem) {
+	<li>
+		<h3>
+			{ item.Title }
+		</h3>
+		<p>
+			{ item.Subtitle }
+		</p>
+		<p>
+			{ item.Description }
+		</p>
+		<p>
+			{ item.Link }
+		</p>
+	</li>
+}
+
+templ WorkHistoryListItem(item *WorkHistoryItem) {
+	<li>
+		<h3>
+			{ item.Company }
+		</h3>
+		<p>
+			{ item.Position }
+		</p>
+		<p>
+			{ item.Year }
+		</p>
+		<p>
+			{ item.Description }
+		</p>
+	</li>
 }
 
 templ EducationListItem(item *EducationItem) {
@@ -56,13 +156,17 @@ templ EducationListItem(item *EducationItem) {
 			{ item.Minor }
 		</p>
 		if len(item.Classes) > 0 {
-			@CollapsibleList("Classes taken at " + item.School) {
-				for _, class := range item.Classes {
-					@ClassListItem(class)
-				}
-			}
+			@ClassListComponent(item)
 		}
 	</li>
+}
+
+templ ClassListComponent(item *EducationItem) {
+	@CollapsibleList("Classes taken at " + item.School) {
+		for _, class := range item.Classes {
+			@ClassListItem(class)
+		}
+	}
 }
 
 templ ClassListItem(class *ClassItem) {
