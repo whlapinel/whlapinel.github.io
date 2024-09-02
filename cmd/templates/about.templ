@@ -24,6 +24,7 @@ templ AboutComponent() {
 		<script src="/js/about.js" defer></script>
 		<div class="grid grid-cols-[1fr_4fr] items-start">
 			<nav class="flex flex-col gap-2 static px-2 py-4 border-teal-900 bg-slate-700 rounded-r-md max-w-fit h-fit" id="side-nav">
+				<h2 class="text-xl">About</h2>
 				<ul>
 					for _, section := range AboutSections {
 						<li>
@@ -36,11 +37,6 @@ templ AboutComponent() {
 				<div class=" grid grid-cols-[1fr_4fr] p-2 gap-3" id="welcome-div">
 					<div class=" aspect-auto">
 						<img src="/images/profile.jpg" alt="Will Lapinel" class="rounded-full" height="128" width="128"/>
-					</div>
-					<div>
-						<p class="text-white">
-							Hello! I'm Will Lapinel. Please select an item from the left in order to learn more about me.
-						</p>
 					</div>
 				</div>
 				{ children... }
