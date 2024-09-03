@@ -27,3 +27,25 @@ func (p *blogsPage) Title() string {
 func (p *blogsPage) Directory() string {
 	return rootDir
 }
+
+type blogPage struct {
+	blog *domain.Blog
+}
+
+func NewBlogPage(blog *domain.Blog) Templifier {
+	return &blogPage{
+		blog: blog,
+	}
+}
+
+func (p *blogPage) Templify() templ.Component {
+	return BlogComponent(p.blog)
+}
+
+func (p *blogPage) Title() string {
+	return p.blog.Title()
+}
+
+func (p *blogPage) Directory() string {
+	return blogsDir
+}

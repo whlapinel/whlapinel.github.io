@@ -47,6 +47,28 @@ func (p *educationPage) Directory() string {
 	return string(aboutDir)
 }
 
+type classesPage struct {
+	Item *domain.EducationItem
+}
+
+func NewClassesPage(item *domain.EducationItem) Templifier {
+	return &classesPage{
+		Item: item,
+	}
+}
+
+func (p *classesPage) Templify() templ.Component {
+	return ClassListComponent(p.Item)
+}
+
+func (p *classesPage) Title() string {
+	return p.Item.School
+}
+
+func (p *classesPage) Directory() string {
+	return educationDir
+}
+
 type workHistoryPage struct {
 	Items []*domain.WorkHistoryItem
 }

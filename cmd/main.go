@@ -84,12 +84,28 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to render pages: %v", err)
 	}
+	for _, item := range educationItems {
+		if len(item.Classes) > 0 {
+			educationItemPage := templates.NewClassesPage(item)
+			err = RenderPage(educationItemPage)
+			if err != nil {
+				log.Fatalf("failed to render pages: %v", err)
+			}
+		}
+	}
+	for _, blog := range blogItems {
+		blogPage := templates.NewBlogPage(blog)
+		err = RenderPage(blogPage)
+		if err != nil {
+			log.Fatalf("failed to render pages: %v", err)
+		}
+	}
 }
 
 func ClearHTMLFiles(directory string) {
 	files, err := os.ReadDir(directory)
 	if err != nil {
-		log.Fatalf("failed to read directory: %v", err)
+		return
 	}
 	for _, file := range files {
 		if strings.HasSuffix(file.Name(), ".html") {

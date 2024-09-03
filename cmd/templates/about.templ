@@ -12,75 +12,91 @@ var aboutPages = []Templifier{
 
 templ AboutComponent() {
 	@Layout() {
-		<script src="/js/about.js" defer></script>
-		<div class="grid grid-cols-[1fr_4fr] items-start">
-			<nav class="flex flex-col gap-2 static px-2 py-4 border-teal-900 bg-slate-700 rounded-r-md max-w-fit h-fit" id="side-nav">
-				<h2 class="text-xl">About</h2>
-				<ul>
-					for _, section := range aboutPages {
-						<li>
-							<a href={ "/about/" + templ.SafeURL(FileName(section)) } class="hover:bg-slate-600 rounded p-1">{ section.Title() }</a>
-						</li>
-					}
-				</ul>
-			</nav>
-			<div class="text-white flex flex-col gap-2 max-w-[80vw]" id="section">
-				<div class=" grid grid-cols-[1fr_4fr] p-2 gap-3" id="welcome-div">
-					<div class=" aspect-auto">
-						<img src="/images/profile.jpg" alt="Will Lapinel" class="rounded-full" height="128" width="128"/>
-					</div>
+		@AboutLayout() {
+			<div class=" grid grid-cols-[1fr_4fr] p-2 gap-3" id="welcome-div">
+				<div class=" aspect-auto">
+					<img src="/images/profile.jpg" alt="Will Lapinel" class="rounded-full" height="128" width="128"/>
 				</div>
-				{ children... }
+				<p>Hi!  I'm Will Lapinel. Find more information about me by using the navigation bar to the left!</p>
 			</div>
-		</div>
+		}
 	}
 }
 
+templ AboutLayout() {
+	<script src="/js/about.js" defer></script>
+	<div class="grid grid-cols-[1fr_4fr] items-start">
+		<nav class="flex flex-col gap-2 static px-2 py-4 border-teal-900 bg-slate-700 rounded-r-md max-w-fit h-fit" id="side-nav">
+			<h2 class="text-xl">About</h2>
+			<ul>
+				for _, section := range aboutPages {
+					<li>
+						<a href={ "/about/" + templ.SafeURL(FileName(section)) } class="hover:bg-slate-600 rounded p-1">{ section.Title() }</a>
+					</li>
+				}
+			</ul>
+		</nav>
+		<div class="text-white flex flex-col gap-2 max-w-[80vw]" id="section">
+			{ children... }
+		</div>
+	</div>
+}
+
 templ PersonalComponent() {
-	@AboutComponent() {
-		@CollapsibleListComponent("Personal", true) {
-			<p>
-				{ "I'm a software engineer with a passion for web development. I have experience with a wide range of technologies. I'm always looking for new opportunities to learn and grow as a developer." }
-			</p>
+	@Layout() {
+		@AboutLayout() {
+			@CollapsibleListComponent("Personal", true) {
+				<p>
+					{ "I'm a software engineer with a passion for web development. I have experience with a wide range of technologies. I'm always looking for new opportunities to learn and grow as a developer." }
+				</p>
+			}
 		}
 	}
 }
 
 templ SkillsListComponent(items []*domain.SkillItem) {
-	@AboutComponent() {
-		@CollapsibleListComponent("Skills", true) {
-			for _, item := range items {
-				@SkillsListItem(item)
+	@Layout() {
+		@AboutLayout() {
+			@CollapsibleListComponent("Skills", true) {
+				for _, item := range items {
+					@SkillsListItem(item)
+				}
 			}
 		}
 	}
 }
 
 templ EducationListComponent(items []*domain.EducationItem) {
-	@AboutComponent() {
-		@CollapsibleListComponent("Education", true) {
-			for _, item := range items {
-				@EducationListItem(item)
+	@Layout() {
+		@AboutLayout() {
+			@CollapsibleListComponent("Education", true) {
+				for _, item := range items {
+					@EducationListItem(item)
+				}
 			}
 		}
 	}
 }
 
 templ WorkHistoryComponent(items []*domain.WorkHistoryItem) {
-	@AboutComponent() {
-		@CollapsibleListComponent("Work History", true) {
-			for _, item := range items {
-				@WorkHistoryListItem(item)
+	@Layout() {
+		@AboutLayout() {
+			@CollapsibleListComponent("Work History", true) {
+				for _, item := range items {
+					@WorkHistoryListItem(item)
+				}
 			}
 		}
 	}
 }
 
 templ ProjectListComponent(items []*domain.ProjectItem) {
-	@AboutComponent() {
-		@CollapsibleListComponent("Projects", true) {
-			for _, item := range items {
-				@ProjectListItem(item)
+	@Layout() {
+		@AboutLayout() {
+			@CollapsibleListComponent("Projects", true) {
+				for _, item := range items {
+					@ProjectListItem(item)
+				}
 			}
 		}
 	}
@@ -165,24 +181,28 @@ templ EducationListItem(item *domain.EducationItem) {
 	</li>
 }
 
-templ ClassListComponent(item *domain.EducationItem, pages []Templifier) {
-	@AboutComponent() {
-		@CollapsibleListComponent("Classes taken at "+item.School, true) {
-			<a
-				href={ "/about/education.html" }
-				hx-target="#section"
-				hx-select="#section"
-				class="flex items-center gap-x-2 p-2 hover:bg-slate-600 rounded-md"
-			>
-				<span>
-					<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-						<path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"></path>
-					</svg>
-				</span>
-				<span>Back to Education</span>
-			</a>
-			for _, class := range item.Classes {
-				@ClassListItem(class)
+templ ClassListComponent(item *domain.EducationItem) {
+	@Layout() {
+		@AboutLayout() {
+			@CollapsibleListComponent("Classes taken at "+item.School, true) {
+				<a
+					href={ "/about/education.html" }
+					hx-target="#section"
+					hx-select="#section"
+					class="flex items-center gap-x-2 p-2 hover:bg-slate-600 rounded-md"
+				>
+					<span>
+						<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+							<path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"></path>
+						</svg>
+					</span>
+					<span>Back to Education</span>
+				</a>
+				<ul>
+					for _, class := range item.Classes {
+						@ClassListItem(class)
+					}
+				</ul>
 			}
 		}
 	}
