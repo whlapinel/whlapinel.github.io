@@ -1,23 +1,6 @@
 package templates
 
-import (
-	"gh_static_portfolio/cmd/data"
-	"strings"
-)
-
-type AboutSection struct {
-	Title     string
-	TemplFunc func() templ.Component
-}
-
-var AboutSections []*AboutSection
-
-func (s *AboutSection) FileName() string {
-	if strings.Contains(s.Title, " ") {
-		return strings.ToLower(strings.ReplaceAll(s.Title, " ", "-")) + ".html"
-	}
-	return strings.ToLower(s.Title) + ".html"
-}
+import "gh_static_portfolio/cmd/data"
 
 templ AboutComponent() {
 	@Layout() {
@@ -26,9 +9,9 @@ templ AboutComponent() {
 			<nav class="flex flex-col gap-2 static px-2 py-4 border-teal-900 bg-slate-700 rounded-r-md max-w-fit h-fit" id="side-nav">
 				<h2 class="text-xl">About</h2>
 				<ul>
-					for _, section := range AboutSections {
+					for _, section := range AboutPages() {
 						<li>
-							<a href={ "/about/" + templ.SafeURL(section.FileName()) } class="hover:bg-slate-600 rounded p-1">{ section.Title }</a>
+							<a href={ "/about/" + templ.SafeURL(FileName(section)) } class="hover:bg-slate-600 rounded p-1">{ section.Title() }</a>
 						</li>
 					}
 				</ul>
@@ -55,40 +38,40 @@ templ PersonalComponent() {
 	}
 }
 
-templ SkillsListComponent() {
+templ SkillsListComponent(items []*data.SkillItem) {
 	@AboutComponent() {
 		@CollapsibleListComponent("Skills", true) {
-			for _, item := range data.SkillItems {
+			for _, item := range items {
 				@SkillsListItem(item)
 			}
 		}
 	}
 }
 
-templ EducationListComponent() {
+templ EducationListComponent(items []*data.EducationItem) {
 	@AboutComponent() {
 		@CollapsibleListComponent("Education", true) {
-			for _, item := range data.EducationItems {
+			for _, item := range items {
 				@EducationListItem(item)
 			}
 		}
 	}
 }
 
-templ WorkHistoryComponent() {
+templ WorkHistoryComponent(items []*data.WorkHistoryItem) {
 	@AboutComponent() {
 		@CollapsibleListComponent("Work History", true) {
-			for _, item := range data.WorkHistoryItems {
+			for _, item := range items {
 				@WorkHistoryListItem(item)
 			}
 		}
 	}
 }
 
-templ ProjectListComponent() {
+templ ProjectListComponent(items []*data.ProjectItem) {
 	@AboutComponent() {
 		@CollapsibleListComponent("Projects", true) {
-			for _, item := range data.ProjectItems {
+			for _, item := range items {
 				@ProjectListItem(item)
 			}
 		}
@@ -141,29 +124,75 @@ templ WorkHistoryListItem(item *data.WorkHistoryItem) {
 }
 
 templ EducationListItem(item *data.EducationItem) {
-	<li class="p-3">
-		<h3 class=" font-semibold text-lg">
-			{ item.School }
-		</h3>
-		<p>
-			{ "Degree: "+item.Degree }
-		</p>
-		<p>
-			{ "Graduated: "+item.Year }
-		</p>
-		<p>
-			{ "Major: "+item.Minor }
-		</p>
+	<li class="relative flex items-center space-x-4 py-4">
+		<div class="min-w-0 flex-auto">
+			<div class="flex items-center gap-x-3">
+				<h2 class="min-w-0 text-lg font-semibold leading-6 text-white">
+					<span class="truncate">{ item.School }</span>
+				</h2>
+			</div>
+			<div class="flex items-center gap-x-3">
+				<h2 class="min-w-0 text-md font-semibold leading-6 text-white">
+					<span class="truncate">{ item.Degree }</span>
+				</h2>
+			</div>
+			<div class="mt-3 flex items-center gap-x-2.5 text-md leading-5 text-gray-400">
+				<p class="truncate">{ item.Year }</p>
+				<svg viewBox="0 0 2 2" class="h-0.5 w-0.5 flex-none fill-gray-300">
+					<circle cx="1" cy="1" r="1"></circle>
+				</svg>
+				<p class="whitespace-nowrap">{ item.Minor }</p>
+			</div>
+		</div>
 		if len(item.Classes) > 0 {
-			@ClassListComponent(item)
+			<a href={ "/about/education/" + templ.SafeURL(item.ClassesFileName()) } hx-target="#section" hx-select="#section" class="flex gap-x-2">
+				<div class="flex-none rounded-full bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20">
+					Classes
+				</div>
+			</a>
+			<svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+				<path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>
+			</svg>
 		}
 	</li>
+	// <li class="p-3">
+	// 	<h3 class=" font-semibold text-lg">
+	// 		{ item.School }
+	// 	</h3>
+	// 	<p>
+	// 		{ "Degree: "+item.Degree }
+	// 	</p>
+	// 	<p>
+	// 		{ "Graduated: "+item.Year }
+	// 	</p>
+	// 	<p>
+	// 		{ "Major: "+item.Minor }
+	// 	</p>
+	// 	if len(item.Classes) > 0 {
+	// 		@ClassListComponent(item)
+	// 	}
+	// </li>
 }
 
 templ ClassListComponent(item *data.EducationItem) {
-	@CollapsibleListComponent("Classes taken at "+item.School, false) {
-		for _, class := range item.Classes {
-			@ClassListItem(class)
+	@AboutComponent() {
+		@CollapsibleListComponent("Classes taken at "+item.School, true) {
+			<a
+				href={ "/about/education.html" }
+				hx-target="#section"
+				hx-select="#section"
+				class="flex items-center gap-x-2 p-2 hover:bg-slate-600 rounded-md"
+			>
+				<span>
+					<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+						<path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"></path>
+					</svg>
+				</span>
+				<span>Back to Education</span>
+			</a>
+			for _, class := range item.Classes {
+				@ClassListItem(class)
+			}
 		}
 	}
 }
@@ -183,11 +212,11 @@ templ CollapsibleListComponent(title string, expanded bool) {
 	<div class="divide-y p-2 max-w-4xl">
 		<h3 class="collapsible cursor-pointer hover:bg-slate-700 text-xl">{ title }</h3>
 		if expanded {
-			<ul class="overflow-hidden transition-all max-h-fit">
+			<ul class="overflow-hidden transition-all max-h-fit divide-y divide-white/5" role="list">
 				{ children... }
 			</ul>
 		} else {
-			<ul class="overflow-hidden transition-all max-h-0">
+			<ul class="overflow-hidden transition-all max-h-0 divide-y divide-white/5" role="list">
 				{ children... }
 			</ul>
 		}

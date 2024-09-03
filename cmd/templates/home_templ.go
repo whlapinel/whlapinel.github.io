@@ -38,7 +38,7 @@ func HomeComponent() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1>Hello Home!</h1><p>Please note this site is under construction.  Come back soon!</p><a hx-select=\"#page\" hx-target=\"#page\" href=\"/about.html\">About</a>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"bg-gray-900 py-24 sm:py-32\"><div class=\"mx-auto max-w-7xl px-6 lg:px-8\"><div class=\"mx-auto max-w-2xl lg:mx-0\"><h2 class=\"text-4xl font-bold tracking-tight text-white sm:text-6xl\">Support center</h2><p class=\"mt-6 text-lg leading-8 text-gray-300\">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p></div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

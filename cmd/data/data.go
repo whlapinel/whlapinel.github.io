@@ -20,6 +20,10 @@ type EducationItem struct {
 	Classes []*ClassItem
 }
 
+func (i *EducationItem) ClassesFileName() string {
+	return strings.ReplaceAll(strings.ToLower(i.School), " ", "-") + "-classes.html"
+}
+
 type ProjectItem struct {
 	Image       string
 	Title       string
@@ -137,6 +141,7 @@ var EducationItems = []*EducationItem{
 		Year:   "2001",
 		School: "Northwest School of the Arts",
 		Degree: "High School Diploma",
+		Minor:  "Piano",
 	},
 }
 
