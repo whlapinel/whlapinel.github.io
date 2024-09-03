@@ -1,68 +1,25 @@
 package data
 
-import "strings"
+import (
+	"gh_static_portfolio/cmd/domain"
+)
 
-type Blog struct {
-	Title   string
-	Content string
+var blogs = []*domain.Blog{
+	domain.NewBlog("Blog 1", "This is the first blog. It is a very long blog. It is so long that it will wrap around to the next line."),
+	domain.NewBlog("Blog 1", "This is the first blog. It is a very long blog. It is so long that it will wrap around to the next line."),
+	domain.NewBlog("Blog 2", "This is the second blog. It is a very long blog. It is so long that it will wrap around to the next line."),
+	domain.NewBlog("Blog 3", "This is the third blog. It is a very long blog. It is so long that it will wrap around to the next line."),
+	domain.NewBlog("Blog 4", "This is the fourth blog. It is a very long blog. It is so long that it will wrap around to the next line."),
+	domain.NewBlog("Blog 5", "This is the fifth blog. It is a very long blog. It is so long that it will wrap around to the next line."),
 }
 
-func (b Blog) FileName() string {
-	return strings.ReplaceAll(strings.ToLower(b.Title), " ", "-") + ".html"
-}
-
-type EducationItem struct {
-	Image   string
-	Year    string
-	School  string
-	Degree  string
-	Minor   string
-	Classes []*ClassItem
-}
-
-func (i *EducationItem) ClassesFileName() string {
-	return strings.ReplaceAll(strings.ToLower(i.School), " ", "-") + "-classes.html"
-}
-
-type ProjectItem struct {
-	Image       string
-	Title       string
-	Subtitle    string
-	Description string
-	Link        string
-}
-
-type ClassItem struct {
-	Image       string
-	Number      string
-	Title       string
-	Subtitle    string
-	Description string
-	Link        string
-}
-
-type WorkHistoryItem struct {
-	Image       string
-	Year        string
-	Company     string
-	Position    string
-	Description string
-}
-
-type SkillItem struct {
-	Image       string
-	Title       string
-	Subtitle    string
-	Description string
-}
-
-var EducationItems = []*EducationItem{
+var educationItems = []*domain.EducationItem{
 	{
 		Year:   "2024",
 		School: "University of North Carolina at Charlotte",
 		Degree: "Master of Science in Information Technology",
 		Minor:  "Software Systems Design and Engineering",
-		Classes: []*ClassItem{
+		Classes: []*domain.ClassItem{
 			{
 				Number:      "ITIS 5154",
 				Title:       "Applied Machine Learning",
@@ -145,7 +102,7 @@ var EducationItems = []*EducationItem{
 	},
 }
 
-var WorkHistoryItems = []*WorkHistoryItem{
+var workHistoryItems = []*domain.WorkHistoryItem{
 	{
 		Year:        "Aug 2024 - Present",
 		Company:     "Phillip O. Berry Academy of Technology",
@@ -172,7 +129,7 @@ var WorkHistoryItems = []*WorkHistoryItem{
 	},
 }
 
-var ProjectItems = []*ProjectItem{
+var projectItems = []*domain.ProjectItem{
 	{
 		Image:       "https://via.placeholder.com/150",
 		Title:       "Project 1",
@@ -182,7 +139,7 @@ var ProjectItems = []*ProjectItem{
 	},
 }
 
-var SkillItems = []*SkillItem{
+var skillItems = []*domain.SkillItem{
 	{
 		Title: "Backend Development using Go, Python, and Java",
 	},
@@ -200,10 +157,57 @@ var SkillItems = []*SkillItem{
 	},
 }
 
-var Blogs = []Blog{
-	{Title: "Blog 1", Content: "This is the first blog. It is a very long blog. It is so long that it will wrap around to the next line."},
-	{Title: "Blog 2", Content: "This is the second blog. It is a very long blog. It is so long that it will wrap around to the next line."},
-	{Title: "Blog 3", Content: "This is the third blog. It is a very long blog. It is so long that it will wrap around to the next line."},
-	{Title: "Blog 4", Content: "This is the fourth blog. It is a very long blog. It is so long that it will wrap around to the next line."},
-	{Title: "Blog 5", Content: "This is the fifth blog. It is a very long blog. It is so long that it will wrap around to the next line."},
+type blogRepo struct {
+}
+
+func NewBlogRepo() domain.BlogRepository {
+	return &blogRepo{}
+}
+
+func (r *blogRepo) GetAll() ([]*domain.Blog, error) {
+	return blogs, nil
+}
+
+type educationRepo struct {
+}
+
+func NewEducationRepo() domain.EducationRepository {
+	return &educationRepo{}
+}
+
+func (r *educationRepo) GetAll() ([]*domain.EducationItem, error) {
+	return educationItems, nil
+}
+
+type projectRepo struct {
+}
+
+func NewProjectRepo() domain.ProjectRepository {
+	return &projectRepo{}
+}
+
+func (r *projectRepo) GetAll() ([]*domain.ProjectItem, error) {
+	return projectItems, nil
+}
+
+type workHistoryRepo struct {
+}
+
+func NewWorkHistoryRepo() domain.WorkHistoryRepository {
+	return &workHistoryRepo{}
+}
+
+func (r *workHistoryRepo) GetAll() ([]*domain.WorkHistoryItem, error) {
+	return workHistoryItems, nil
+}
+
+type skillRepo struct {
+}
+
+func NewSkillRepo() domain.SkillRepository {
+	return &skillRepo{}
+}
+
+func (r *skillRepo) GetAll() ([]*domain.SkillItem, error) {
+	return skillItems, nil
 }

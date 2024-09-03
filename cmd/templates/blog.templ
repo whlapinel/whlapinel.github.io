@@ -1,31 +1,31 @@
 package templates
 
 import (
-	"gh_static_portfolio/cmd/data"
+	"gh_static_portfolio/cmd/domain"
 	"strconv"
 )
 
-templ BlogsListComponent() {
+templ BlogsListComponent(blogs []*domain.Blog) {
 	@Layout() {
 		<h1>Blog</h1>
-		<p>There are { strconv.Itoa(len(data.Blogs)) } blogs.</p>
-        <ul>
-            for _, blog := range data.Blogs {
-                <li>
-                    <a
-                        href={ "/blogs/" + templ.SafeURL(blog.FileName()) }
-                        hx-target="#page"
-                        hx-select="#page"
-                    >{ blog.Title }</a>
-                </li>
-            }
-        </ul>
+		<p>There are { strconv.Itoa(len(blogs)) } blogs.</p>
+		<ul>
+			for _, blog := range blogs {
+				<li>
+					<a
+						href={ "/blogs/" + templ.SafeURL(FileName(blog)) }
+						hx-target="#page"
+						hx-select="#page"
+					>{ blog.Title() }</a>
+				</li>
+			}
+		</ul>
 	}
 }
 
-templ BlogComponent(item *data.Blog) {
+templ BlogComponent(blog *domain.Blog) {
 	@Layout() {
-		<h1>{ item.Title }</h1>
-		<p>{ item.Content }</p>
+		<h1>{ blog.Title() }</h1>
+		<p>{ blog.Content() }</p>
 	}
 }

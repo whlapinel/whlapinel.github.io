@@ -1,6 +1,14 @@
 package templates
 
-import "gh_static_portfolio/cmd/data"
+import "gh_static_portfolio/cmd/domain"
+
+var aboutPages = []Templifier{
+	&educationPage{},
+	&skillsPage{},
+	&workHistoryPage{},
+	&projectsPage{},
+	&personalPage{},
+}
 
 templ AboutComponent() {
 	@Layout() {
@@ -9,7 +17,7 @@ templ AboutComponent() {
 			<nav class="flex flex-col gap-2 static px-2 py-4 border-teal-900 bg-slate-700 rounded-r-md max-w-fit h-fit" id="side-nav">
 				<h2 class="text-xl">About</h2>
 				<ul>
-					for _, section := range AboutPages() {
+					for _, section := range aboutPages {
 						<li>
 							<a href={ "/about/" + templ.SafeURL(FileName(section)) } class="hover:bg-slate-600 rounded p-1">{ section.Title() }</a>
 						</li>
@@ -38,7 +46,7 @@ templ PersonalComponent() {
 	}
 }
 
-templ SkillsListComponent(items []*data.SkillItem) {
+templ SkillsListComponent(items []*domain.SkillItem) {
 	@AboutComponent() {
 		@CollapsibleListComponent("Skills", true) {
 			for _, item := range items {
@@ -48,7 +56,7 @@ templ SkillsListComponent(items []*data.SkillItem) {
 	}
 }
 
-templ EducationListComponent(items []*data.EducationItem) {
+templ EducationListComponent(items []*domain.EducationItem) {
 	@AboutComponent() {
 		@CollapsibleListComponent("Education", true) {
 			for _, item := range items {
@@ -58,7 +66,7 @@ templ EducationListComponent(items []*data.EducationItem) {
 	}
 }
 
-templ WorkHistoryComponent(items []*data.WorkHistoryItem) {
+templ WorkHistoryComponent(items []*domain.WorkHistoryItem) {
 	@AboutComponent() {
 		@CollapsibleListComponent("Work History", true) {
 			for _, item := range items {
@@ -68,7 +76,7 @@ templ WorkHistoryComponent(items []*data.WorkHistoryItem) {
 	}
 }
 
-templ ProjectListComponent(items []*data.ProjectItem) {
+templ ProjectListComponent(items []*domain.ProjectItem) {
 	@AboutComponent() {
 		@CollapsibleListComponent("Projects", true) {
 			for _, item := range items {
@@ -78,7 +86,7 @@ templ ProjectListComponent(items []*data.ProjectItem) {
 	}
 }
 
-templ SkillsListItem(item *data.SkillItem) {
+templ SkillsListItem(item *domain.SkillItem) {
 	<li>
 		<h3>
 			{ item.Title }
@@ -89,7 +97,7 @@ templ SkillsListItem(item *data.SkillItem) {
 	</li>
 }
 
-templ ProjectListItem(item *data.ProjectItem) {
+templ ProjectListItem(item *domain.ProjectItem) {
 	<li class="p-3">
 		<h3 class="font-bold text-lg">
 			{ item.Title }
@@ -106,7 +114,7 @@ templ ProjectListItem(item *data.ProjectItem) {
 	</li>
 }
 
-templ WorkHistoryListItem(item *data.WorkHistoryItem) {
+templ WorkHistoryListItem(item *domain.WorkHistoryItem) {
 	<li class="p-3">
 		<h3 class="font-semibold text-lg">
 			{ item.Company }
@@ -123,7 +131,7 @@ templ WorkHistoryListItem(item *data.WorkHistoryItem) {
 	</li>
 }
 
-templ EducationListItem(item *data.EducationItem) {
+templ EducationListItem(item *domain.EducationItem) {
 	<li class="relative flex items-center space-x-4 py-4">
 		<div class="min-w-0 flex-auto">
 			<div class="flex items-center gap-x-3">
@@ -145,7 +153,7 @@ templ EducationListItem(item *data.EducationItem) {
 			</div>
 		</div>
 		if len(item.Classes) > 0 {
-			<a href={ "/about/education/" + templ.SafeURL(item.ClassesFileName()) } hx-target="#section" hx-select="#section" class="flex gap-x-2">
+			<a href={ templ.SafeURL(RoutePath(educationDir) + FileName(item)) } hx-target="#section" hx-select="#section" class="flex gap-x-2">
 				<div class="flex-none rounded-full bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20">
 					Classes
 				</div>
@@ -155,26 +163,9 @@ templ EducationListItem(item *data.EducationItem) {
 			</svg>
 		}
 	</li>
-	// <li class="p-3">
-	// 	<h3 class=" font-semibold text-lg">
-	// 		{ item.School }
-	// 	</h3>
-	// 	<p>
-	// 		{ "Degree: "+item.Degree }
-	// 	</p>
-	// 	<p>
-	// 		{ "Graduated: "+item.Year }
-	// 	</p>
-	// 	<p>
-	// 		{ "Major: "+item.Minor }
-	// 	</p>
-	// 	if len(item.Classes) > 0 {
-	// 		@ClassListComponent(item)
-	// 	}
-	// </li>
 }
 
-templ ClassListComponent(item *data.EducationItem) {
+templ ClassListComponent(item *domain.EducationItem, pages []Templifier) {
 	@AboutComponent() {
 		@CollapsibleListComponent("Classes taken at "+item.School, true) {
 			<a
@@ -197,7 +188,7 @@ templ ClassListComponent(item *data.EducationItem) {
 	}
 }
 
-templ ClassListItem(class *data.ClassItem) {
+templ ClassListItem(class *domain.ClassItem) {
 	<li class="p-3">
 		<h3 class="font-semibold text-lg">
 			{ class.Number + " " + class.Title }
