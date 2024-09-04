@@ -11,7 +11,6 @@ func logThings(page Templifier, selectedPage Templifier) bool {
 }
 
 templ Layout(selectedPage Templifier) {
-	<!DOCTYPE html>
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8"/>
@@ -40,8 +39,16 @@ templ Layout(selectedPage Templifier) {
 							<line x1="10" y1="70" x2="190" y2="70" stroke="#3b82f6" stroke-width="2"></line>
 						</svg>
 					</a>
-					<div class="sm:hidden">
-						Hamburger Menu
+					<div class="sm:hidden" id="hamburger">
+						<svg width="64" height="64" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#a3a3a3">
+							<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+							<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+							<g id="SVGRepo_iconCarrier">
+								<path d="M4 18L20 18" stroke="#ffffff" stroke-width="1.968" stroke-linecap="round"></path>
+								<path d="M4 12L20 12" stroke="#ffffff" stroke-width="1.968" stroke-linecap="round"></path>
+								<path d="M4 6L20 6" stroke="#ffffff" stroke-width="1.968" stroke-linecap="round"></path>
+							</g>
+						</svg>
 					</div>
 				</div>
 				<nav class="flex gap-2 text-white font-bold p-1">
@@ -51,7 +58,11 @@ templ Layout(selectedPage Templifier) {
 							hx-target="#page"
 							hx-select="#page"
 							class="hover:bg-green-700 rounded-md p-2"
-							id={ "nav-" + strings.ToLower(page.Title()) }
+							if page.Title() == "Home" {
+								id={ "nav-index" }
+							} else {
+								id={ "nav-" + strings.ToLower(page.Title()) }
+							}
 						>
 							{ page.Title() }
 						</a>
