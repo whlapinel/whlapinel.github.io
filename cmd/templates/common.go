@@ -139,7 +139,6 @@ func NewPersonalPage() Templifier {
 	}
 }
 
-
 func FileName(t Titler) string {
 	if t.Title() == "Home" {
 		return "index.html"
@@ -151,7 +150,7 @@ func RoutePath(directory string) string {
 	return strings.ReplaceAll(directory, "./docs", "")
 }
 
-func pages() []Templifier {
+func rootPages() []Templifier {
 	return []Templifier{
 		NewHomePage(),
 		NewAboutPage(),

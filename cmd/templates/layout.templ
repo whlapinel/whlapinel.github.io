@@ -6,7 +6,7 @@ templ Layout() {
 		<head>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-			<title>Will Lapinel's Portfolio</title>
+			<title>Will Lapinel</title>
 			<link rel="stylesheet" href="/styles/styles.css"/>
 			<script src="/js/htmx.js" defer></script>
 		</head>
@@ -29,7 +29,7 @@ templ Layout() {
 					</svg>
 				</a>
 				<nav class="flex gap-2 text-white font-bold p-1">
-					for _, page := range pages() {
+					for _, page := range rootPages() {
 						<a
 							href={ templ.SafeURL("/" + FileName(page)) }
 							hx-target="#page"
