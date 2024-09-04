@@ -6,7 +6,7 @@ import (
 )
 
 templ BlogsListComponent(blogs []*domain.Blog) {
-	@Layout() {
+	@Layout(NewBlogsListPage(nil)) {
 		<h1>Blog</h1>
 		<p>There are { strconv.Itoa(len(blogs)) } blogs.</p>
 		<ul>
@@ -24,7 +24,7 @@ templ BlogsListComponent(blogs []*domain.Blog) {
 }
 
 templ BlogComponent(blog *domain.Blog) {
-	@Layout() {
+	@Layout(&page{title: "Blog"}) {
 		<h1>{ blog.Title() }</h1>
 		<p>{ blog.Content() }</p>
 	}

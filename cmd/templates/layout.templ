@@ -1,6 +1,16 @@
 package templates
 
-templ Layout() {
+import (
+	"log"
+	"strings"
+)
+
+func logThings(page Templifier, selectedPage Templifier) bool {
+	log.Printf("page: %v, selectedPage: %v", page.Title(), selectedPage.Title())
+	return true
+}
+
+templ Layout(selectedPage Templifier) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -9,32 +19,42 @@ templ Layout() {
 			<title>Will Lapinel</title>
 			<link rel="stylesheet" href="/styles/styles.css"/>
 			<script src="/js/htmx.js" defer></script>
+			<script src="/js/index.js" defer></script>
 		</head>
 		<body class="bg-slate-800 text-white" hx-boost="true">
 			<header>
-				<a
-					href={ templ.SafeURL("/index.html") }
-					hx-target="#page"
-					hx-select="#page"
-				>
-					<svg width="200" height="80" xmlns="http://www.w3.org/2000/svg">
-						<!-- Background -->
-						<rect width="200" height="100" fill="#1e293b"></rect>
-						<!-- Text: Initials -->
-						<text x="10" y="60" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="#4ade80">
-							WHL
-						</text>
-						<!-- Decorative Line -->
-						<line x1="10" y1="70" x2="190" y2="70" stroke="#3b82f6" stroke-width="2"></line>
-					</svg>
-				</a>
+				<div class="flex justify-between">
+					<a
+						href={ templ.SafeURL("/index.html") }
+						hx-target="#page"
+						hx-select="#page"
+					>
+						<svg width="200" height="80" xmlns="http://www.w3.org/2000/svg">
+							<!-- Background -->
+							<rect width="200" height="100" fill="#1e293b"></rect>
+							<!-- Text: Initials -->
+							<text x="10" y="60" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="#4ade80">
+								WHL
+							</text>
+							<!-- Decorative Line -->
+							<line x1="10" y1="70" x2="190" y2="70" stroke="#3b82f6" stroke-width="2"></line>
+						</svg>
+					</a>
+					<div class="sm:hidden">
+						Hamburger Menu
+					</div>
+				</div>
 				<nav class="flex gap-2 text-white font-bold p-1">
 					for _, page := range rootPages() {
 						<a
 							href={ templ.SafeURL("/" + FileName(page)) }
 							hx-target="#page"
 							hx-select="#page"
-						>{ page.Title() }</a>
+							class="hover:bg-green-700 rounded-md p-2"
+							id={ "nav-" + strings.ToLower(page.Title()) }
+						>
+							{ page.Title() }
+						</a>
 					}
 				</nav>
 			</header>

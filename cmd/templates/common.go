@@ -124,6 +124,12 @@ func NewBlogsListPage(items []*domain.Blog) Templifier {
 }
 
 func NewBlogPage(item *domain.Blog) Templifier {
+	if item == nil {
+		return &page{
+			directory: blogDir,
+			component: BlogComponent(nil),
+		}
+	}
 	return &page{
 		title:     item.Title(),
 		directory: blogDir,
