@@ -65,7 +65,7 @@ func BlogsListComponent(blogs []*domain.Blog) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var4 templ.SafeURL = "/blogs/" + templ.SafeURL(FileName(blog))
+				var templ_7745c5c3_Var4 templ.SafeURL = templ.SafeURL(RoutePath(blogDir) + FileName(blog))
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var4)))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err

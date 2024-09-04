@@ -2,13 +2,6 @@ package templates
 
 import "gh_static_portfolio/cmd/domain"
 
-var aboutPages = []Templifier{
-	&educationPage{},
-	&skillsPage{},
-	&workHistoryPage{},
-	&projectsPage{},
-	&personalPage{},
-}
 
 templ AboutComponent() {
 	@Layout() {
@@ -17,11 +10,23 @@ templ AboutComponent() {
 				<div class=" aspect-auto">
 					<img src="/images/profile.jpg" alt="Will Lapinel" class="rounded-full" height="128" width="128"/>
 				</div>
-				<p>Hi!  I'm Will Lapinel. Find more information about me by using the navigation bar to the left!</p>
+				<p>Hi!  I'm Will Lapinel.</p>
 			</div>
 		}
 	}
 }
+
+
+func aboutSections() []Templifier {
+	return []Templifier{
+		NewEducationPage(nil),
+		NewWorkHistoryPage(nil),
+		NewProjectsPage(nil),
+		NewSkillsPage(nil),
+		NewPersonalPage(),
+	}
+}
+
 
 templ AboutLayout() {
 	<script src="/js/about.js" defer></script>
@@ -29,7 +34,7 @@ templ AboutLayout() {
 		<nav class="flex flex-col gap-2 static px-2 py-4 border-teal-900 bg-slate-700 rounded-r-md max-w-fit h-fit" id="side-nav">
 			<h2 class="text-xl">About</h2>
 			<ul>
-				for _, section := range aboutPages {
+				for _, section := range aboutSections() {
 					<li>
 						<a href={ "/about/" + templ.SafeURL(FileName(section)) } class="hover:bg-slate-600 rounded p-1">{ section.Title() }</a>
 					</li>

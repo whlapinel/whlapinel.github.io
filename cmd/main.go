@@ -59,7 +59,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to get blog items: %v", err)
 	}
-	blogsPage := templates.NewBlogsPage(blogItems)
+	blogsPage := templates.NewBlogsListPage(blogItems)
 	err = RenderPage(blogsPage)
 	if err != nil {
 		log.Fatalf("failed to render pages: %v", err)

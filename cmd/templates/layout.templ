@@ -1,12 +1,5 @@
 package templates
 
-var pages = []Templifier{
-	&homePage{},
-	&aboutPage{},
-	&contactPage{},
-	&blogsPage{},
-}
-
 templ Layout() {
 	<!DOCTYPE html>
 	<html lang="en">
@@ -36,7 +29,7 @@ templ Layout() {
 					</svg>
 				</a>
 				<nav class="flex gap-2 text-white font-bold p-1">
-					for _, page := range pages {
+					for _, page := range pages() {
 						<a
 							href={ templ.SafeURL("/" + FileName(page)) }
 							hx-target="#page"
