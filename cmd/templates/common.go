@@ -155,5 +155,6 @@ func rootPages() []Templifier {
 		NewHomePage(),
 		NewAboutPage(),
 		NewBlogsListPage(nil),
+		NewContactPage(),
 	}
 }
