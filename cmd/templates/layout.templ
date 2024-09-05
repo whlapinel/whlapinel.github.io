@@ -25,8 +25,9 @@ templ Layout(selectedPage Templifier) {
 				<div class="flex justify-between">
 					<a
 						href={ templ.SafeURL("/index.html") }
-						hx-target="#page"
 						hx-select="#page"
+						hx-target="#page"
+						hx-swap="outerHTML"
 					>
 						<svg width="200" height="80" xmlns="http://www.w3.org/2000/svg">
 							<!-- Background -->
@@ -53,19 +54,28 @@ templ Layout(selectedPage Templifier) {
 				</div>
 				<nav class="flex gap-2 text-white font-bold p-1">
 					for _, page := range rootPages() {
-						<a
-							href={ templ.SafeURL("/" + FileName(page)) }
-							hx-target="#page"
-							hx-select="#page"
-							class="hover:bg-green-700 rounded-md p-2"
-							if page.Title() == "Home" {
-								id={ "nav-index" }
-							} else {
-								id={ "nav-" + strings.ToLower(page.Title()) }
-							}
+						<div
+							class="relative"
 						>
-							{ page.Title() }
-						</a>
+							<a
+								if page.Title() != "About" {
+									href={ templ.SafeURL("/" + FileName(page)) }
+									hx-target="#page"
+									hx-select="#page"
+								}
+								class="hover:bg-green-700 p-2 rounded-md cursor-pointer"
+								if page.Title() == "Home" {
+									id={ "nav-index" }
+								} else {
+									id={ "nav-" + strings.ToLower(page.Title()) }
+								}
+							>
+								{ page.Title() }
+							</a>
+							if page.Title() == "About" {
+								@AboutSideNav()
+							}
+						</div>
 					}
 				</nav>
 			</header>

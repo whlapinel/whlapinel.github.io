@@ -1,6 +1,19 @@
 "use strict";
 (() => {
     console.log("Hello World");
+    const navAbout = document.querySelector("#nav-about");
+    const aboutMenu = document.querySelector("#about-menu");
+    navAbout === null || navAbout === void 0 ? void 0 : navAbout.addEventListener("click", (e) => {
+        console.log(e.target);
+        aboutMenu === null || aboutMenu === void 0 ? void 0 : aboutMenu.classList.toggle("hidden");
+        aboutMenu === null || aboutMenu === void 0 ? void 0 : aboutMenu.classList.toggle("flex");
+    });
+    document.addEventListener("click", (e) => {
+        if (e.target !== navAbout && e.target !== aboutMenu) {
+            aboutMenu === null || aboutMenu === void 0 ? void 0 : aboutMenu.classList.add("hidden");
+            aboutMenu === null || aboutMenu === void 0 ? void 0 : aboutMenu.classList.remove("flex");
+        }
+    });
     document.addEventListener("htmx:afterSettle", () => {
         console.log("event triggered");
         const pageTitles = ["Index", "About", "Contact", "Blog"];
