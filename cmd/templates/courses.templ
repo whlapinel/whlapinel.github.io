@@ -12,7 +12,7 @@ templ CoursesListComponent(courses []domain.Course) {
 			for _, course := range courses {
 				<li>
 					<a
-						href={ templ.SafeURL(RoutePath(blogDir) + FileName(course)) }
+						href={ templ.SafeURL(RoutePath(coursesDir) + FileName(course)) }
 						hx-target="#page"
 						hx-select="#page"
 					>{ course.Title() }</a>
