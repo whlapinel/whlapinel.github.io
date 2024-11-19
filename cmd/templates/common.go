@@ -142,7 +142,7 @@ func NewBlogPage(item *domain.Blog) Templifier {
 func NewCoursesListPage(courses []domain.Course) Templifier {
 	return &page{
 		title:     "Courses",
-		directory: coursesDir,
+		directory: rootDir,
 		component: CoursesListComponent(courses),
 	}
 
