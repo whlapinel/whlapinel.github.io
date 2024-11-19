@@ -12,6 +12,7 @@ const (
 	aboutDir     = "./docs/about/"
 	educationDir = "./docs/about/education/"
 	blogDir      = "./docs/blog/"
+	coursesDir   = "./docs/courses/"
 )
 
 func DirectoryList() []string {
@@ -20,6 +21,7 @@ func DirectoryList() []string {
 		aboutDir,
 		educationDir,
 		blogDir,
+		coursesDir,
 	}
 }
 
@@ -137,6 +139,23 @@ func NewBlogPage(item *domain.Blog) Templifier {
 	}
 }
 
+func NewCoursesListPage(courses []domain.Course) Templifier {
+	return &page{
+		title:     "Courses",
+		directory: coursesDir,
+		component: CoursesListComponent(courses),
+	}
+
+}
+
+func NewCoursePage(course domain.Course) Templifier {
+	return &page{
+		title:     course.Title(),
+		directory: coursesDir,
+		component: CourseComponent(course),
+	}
+}
+
 func NewPersonalPage() Templifier {
 	return &page{
 		title:     "Personal",
@@ -162,5 +181,6 @@ func rootPages() []Templifier {
 		NewAboutPage(),
 		NewBlogsListPage(nil),
 		NewContactPage(),
+		NewCoursesListPage(nil),
 	}
 }

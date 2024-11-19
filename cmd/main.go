@@ -93,9 +93,31 @@ func main() {
 			}
 		}
 	}
+	courseRepo := data.NewCoursesRepo()
+	courses, err := courseRepo.GetAll()
+	if err != nil {
+		log.Fatal()
+	}
+	coursesPage := templates.NewCoursesListPage(courses)
+	err = RenderPage(coursesPage)
+	if err != nil {
+		log.Fatalf("failed to render pages: %v", err)
+	}
+	err = RenderPage(blogsPage)
+	if err != nil {
+		log.Fatalf("failed to render pages: %v", err)
+	}
+
 	for _, blog := range blogItems {
 		blogPage := templates.NewBlogPage(blog)
 		err = RenderPage(blogPage)
+		if err != nil {
+			log.Fatalf("failed to render pages: %v", err)
+		}
+	}
+	for _, course := range courses {
+		coursePage := templates.NewCoursePage(course)
+		err = RenderPage(coursePage)
 		if err != nil {
 			log.Fatalf("failed to render pages: %v", err)
 		}

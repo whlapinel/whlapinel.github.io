@@ -1,0 +1,30 @@
+package templates
+
+import (
+	"gh_static_portfolio/cmd/domain"
+	"strconv"
+)
+
+templ CoursesListComponent(courses []domain.Course) {
+	@Layout(NewCoursesListPage(nil)) {
+		<p>I teach { strconv.Itoa(len(courses)) } courses.</p>
+		<ul>
+			for _, course := range courses {
+				<li>
+					<a
+						href={ templ.SafeURL(RoutePath(blogDir) + FileName(course)) }
+						hx-target="#page"
+						hx-select="#page"
+					>{ course.Title() }</a>
+				</li>
+			}
+		</ul>
+	}
+}
+
+templ CourseComponent(course domain.Course) {
+	@Layout(&page{title: "Course"}) {
+		<h1>{ course.Title() }</h1>
+		<p>{ course.Description }</p>
+	}
+}

@@ -88,3 +88,34 @@ type SkillItem struct {
 	Subtitle    string
 	Description string
 }
+
+func NewCourse(title string, descr string, units []Unit) Course {
+	return Course{title, descr, units}
+
+}
+
+type CourseRepository interface {
+	GetAll() ([]Course, error)
+}
+
+// Courses I teach
+type Course struct {
+	title       string
+	Description string
+	Units       []Unit
+}
+
+func (c Course) Title() string {
+	return c.title
+}
+
+func NewUnit(num int, title string, descr string) Unit {
+	return Unit{num, title, descr}
+
+}
+
+type Unit struct {
+	Number      int
+	title       string
+	Description string
+}

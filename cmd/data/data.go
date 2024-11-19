@@ -157,3 +157,23 @@ var skillItems = []*domain.SkillItem{
 	},
 }
 
+var courses = []domain.Course{
+	domain.NewCourse(
+		"Python Programming I",
+		"placeholder",
+		[]domain.Unit{
+			domain.NewUnit(1, "Unit 1", "placeholder"),
+			domain.NewUnit(2, "Unit 2", "placeholder"),
+			domain.NewUnit(3, "Unit 3", "placeholder"),
+		},
+	),
+	domain.NewCourse(
+		"Python Programming II",
+		"placeholder",
+		[]domain.Unit{
+			domain.NewUnit(1, "Unit 1", "placeholder"),
+			domain.NewUnit(2, "Unit 2", "placeholder"),
+			domain.NewUnit(3, "Unit 3", "placeholder"),
+		},
+	),
+}

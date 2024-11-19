@@ -56,3 +56,14 @@ func NewSkillRepo() domain.SkillRepository {
 func (r *skillRepo) GetAll() ([]*domain.SkillItem, error) {
 	return skillItems, nil
 }
+
+type courseRepo struct {
+}
+
+func NewCoursesRepo() domain.CourseRepository {
+	return &courseRepo{}
+}
+
+func (c *courseRepo) GetAll() ([]domain.Course, error) {
+	return courses, nil
+}
