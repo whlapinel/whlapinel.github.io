@@ -15,7 +15,7 @@
     });
     document.addEventListener("htmx:afterSettle", () => {
         console.log("event triggered")
-        const pageTitles = ["Index", "About", "Contact", "Blog"];
+        const pageTitles = ["Index", "About", "Contact", "Blog", "Courses"];
         const currLocation = window.location.pathname;
         console.log(currLocation);
         for (const title of pageTitles) {

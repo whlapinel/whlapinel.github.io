@@ -160,20 +160,30 @@ var skillItems = []*domain.SkillItem{
 var courses = []domain.Course{
 	domain.NewCourse(
 		"Python Programming I",
-		"placeholder",
+		"This course introduces students to the fundamentals of Python programming, focusing on basic concepts like variables, data types, loops, conditionals, and functions. Students will learn to write simple scripts, solve problems programmatically, and develop computational thinking skills. No prior programming experience is required.",
 		[]domain.Unit{
-			domain.NewUnit(1, "Unit 1", "placeholder"),
-			domain.NewUnit(2, "Unit 2", "placeholder"),
-			domain.NewUnit(3, "Unit 3", "placeholder"),
+			domain.NewUnit(1, "Unit 1", "Understand ethics, security and history of computer programming."),
+			domain.NewUnit(2, "Unit 2", "Apply problem solving tools to design programming solutions."),
+			domain.NewUnit(3, "Unit 3", "Apply basic data types and operators,"),
+			domain.NewUnit(4, "Unit 4", "Apply input and output operations."),
+			domain.NewUnit(5, "Unit 5", "Analyze code segment functionality by performing troubleshooting and handling errors."),
+			domain.NewUnit(6, "Unit 6", "Apply user-defined functions."),
+			domain.NewUnit(7, "Unit 7", "Apply decision making and loop statements."),
+			domain.NewUnit(8, "Unit 8", "Apply advanced data types to store and manipulate data."),
+			domain.NewUnit(9, "Unit 9", "Apply operations using modules and tools."),
 		},
 	),
 	domain.NewCourse(
 		"Python Programming II",
-		"placeholder",
+		"Building on Python 1, this course dives deeper into Python's intermediate features, including file handling, modular programming, and debugging. Students will explore more complex problem-solving techniques and apply their knowledge through small projects and hands-on exercises. Prerequisite: Python 1 or equivalent experience.",
 		[]domain.Unit{
-			domain.NewUnit(1, "Unit 1", "placeholder"),
-			domain.NewUnit(2, "Unit 2", "placeholder"),
-			domain.NewUnit(3, "Unit 3", "placeholder"),
+			domain.NewUnit(1, "Unit 1", "Apply advanced Python concepts."),
+			domain.NewUnit(3, "Unit 3", "Apply command line interface and operation."),
+			domain.NewUnit(4, "Unit 4", "Apply input/ouput operations with files and databases."),
+			domain.NewUnit(5, "Unit 5", "Apply object oriented programming in Python."),
+			domain.NewUnit(6, "Unit 6", "Apply data visualizations."),
+			domain.NewUnit(7, "Unit 7", "Apply Internet of Things (IoT) programs."),
+			domain.NewUnit(8, "Unit 8", "Create web applications using Python web frameworks."),
 		},
 	),
 }
