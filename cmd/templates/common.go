@@ -37,7 +37,7 @@ func filesRoutePath(lesson domain.Lesson, unit domain.Unit, course domain.Course
 func hasImage(path string) bool {
 	files, err := os.ReadDir(path)
 	if err != nil {
-		log.Fatalf("error reading directory:", err)
+		log.Fatalf("error reading directory:%s", err)
 	}
 	for _, file := range files {
 		if file.Name() == "image.png" {

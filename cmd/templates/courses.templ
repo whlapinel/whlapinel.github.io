@@ -22,6 +22,9 @@ templ CoursesListComponent(courses []domain.Course) {
 			<p class="max-w-prose">
 				I teach <code>Python</code> I and II at Phillip O. Berry Academy of Technology, a technology magnet school where programming courses are required as an integral part of a rigorous software development pathway. Along with AP courses in Computer Science, these courses establish a foundation in programming, data manipulation, and problem-solving, skills that are essential for success in higher-level computer science.
 			</p>
+			if hasImage(coursesDir) {
+				<img src={ "./image.png" } class="rounded-full size-32"/>
+			}
 		</div>
 	}
 }
@@ -38,9 +41,12 @@ templ CourseComponent(course domain.Course) {
 					</a>
 				}
 			</ul>
-			<div class="flex flex-col">
-				<h1 class=" text-xl">{ course.Title() }</h1>
+			<div class="flex flex-col gap-2">
+				<h1 class=" text-4xl">{ course.Title() }</h1>
 				<p>{ course.Description }</p>
+				if hasImage(courseRoutePath(course)) {
+					<img src={ "./image.png" } class="border-solid border-white rounded-lg h-64"/>
+				}
 			</div>
 		</div>
 	}
