@@ -75,9 +75,11 @@ templ LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cour
 						Slides
 					</li>
 				</a>
-				<li class="bg-purple-600 rounded p-1 m-1">
-					Assignment
-				</li>
+				<a href={ templ.SafeURL(filesRoutePath(lesson, unit, course)) }>
+					<li class="bg-purple-600 rounded p-1 m-1">
+						Other Files
+					</li>
+				</a>
 			</ul>
 			<div class="flex flex-col">
 				<h1 class=" text-xl">{ lesson.Title() }</h1>

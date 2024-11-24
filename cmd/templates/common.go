@@ -28,6 +28,10 @@ func lessonRoutePath(lesson domain.Lesson, unit domain.Unit, course domain.Cours
 	return fmt.Sprintf("%s%s%s%s", coursesDir, DirName(course), DirName(unit), DirName(lesson))
 }
 
+func filesRoutePath(lesson domain.Lesson, unit domain.Unit, course domain.Course) string {
+	return fmt.Sprintf("https://github.com/whlapinel/whlapinel.github.io/tree/main/docs/courses/%s%s%sfiles", DirName(course), DirName(unit), DirName(lesson))
+}
+
 func DirectoriesClearList() []string {
 	return []string{
 		rootDir,
