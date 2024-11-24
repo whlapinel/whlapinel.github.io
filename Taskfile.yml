@@ -6,9 +6,21 @@ tasks:
       - echo 'Hello World from Task!'
     silent: true
 
+  sync:
+    cmds:
+      - git add .
+      - git commit -m "auto-sync"
+      - git push
+      - git switch main
+      - git merge dev
+      - git push
+      - git switch dev
+
   build:
     cmds:
       - echo 'Building...'
+      - echo 'running marp .'
+      - marp .
       - echo 'running templ generate...'
       - templ generate
       - echo 'running go run...'

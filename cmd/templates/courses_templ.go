@@ -367,7 +367,7 @@ func LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cours
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><li class=\"bg-purple-600 rounded p-1 m-1\">Other Files</li></a></ul><div class=\"flex flex-col\"><h1 class=\" text-xl\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" target=\"_blank\"><li class=\"bg-purple-600 rounded p-1 m-1\">Other Files</li></a></ul><div class=\"flex flex-col\"><h1 class=\" text-xl\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

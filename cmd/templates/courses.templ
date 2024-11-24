@@ -75,7 +75,7 @@ templ LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cour
 						Slides
 					</li>
 				</a>
-				<a href={ templ.SafeURL(filesRoutePath(lesson, unit, course)) }>
+				<a href={ templ.SafeURL(filesRoutePath(lesson, unit, course)) } target="_blank">
 					<li class="bg-purple-600 rounded p-1 m-1">
 						Other Files
 					</li>
