@@ -75,7 +75,7 @@ func CoursesListComponent(courses []domain.Course) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul><p class=\"max-w-prose\">I teach <code>Python</code> I and II at Phillip O. Berry Academy of Technology. This is a technology magnet school a high school where programming courses are an integral part of a rigorous software development pathway. Unlike at other schools where such courses are offered as electives, Python 1 and Python 2 are required courses for all students in the pathway. These courses establish a foundation in programming, data manipulation, and problem-solving, skills that are essential for success in higher-level computer science. Students must also complete AP Computer Science Principles and AP Computer Science A (Java Programming) to remain in the program, ensuring they graduate with a comprehensive understanding of both foundational and advanced concepts in computer science.</p></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul><p class=\"max-w-prose\">I teach <code>Python</code> I and II at Phillip O. Berry Academy of Technology, a technology magnet school where programming courses are required as an integral part of a rigorous software development pathway. Along with AP courses in Computer Science, these courses establish a foundation in programming, data manipulation, and problem-solving, skills that are essential for success in higher-level computer science.</p></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -358,16 +358,25 @@ func LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cours
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" target=\"_blank\"><li class=\"bg-purple-600 rounded p-1 m-1\">Slides</li></a><li class=\"bg-purple-600 rounded p-1 m-1\">Assignment</li></ul><div class=\"flex flex-col\"><h1 class=\" text-xl\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" target=\"_blank\"><li class=\"bg-purple-600 rounded p-1 m-1\">Slides</li></a> <a href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var22 string
-			templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(lesson.Title())
+			var templ_7745c5c3_Var22 templ.SafeURL = templ.SafeURL(filesRoutePath(lesson, unit, course))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var22)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/courses.templ`, Line: 83, Col: 41}
+				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><li class=\"bg-purple-600 rounded p-1 m-1\">Other Files</li></a></ul><div class=\"flex flex-col\"><h1 class=\" text-xl\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var23 string
+			templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(lesson.Title())
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/courses.templ`, Line: 85, Col: 41}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -375,12 +384,12 @@ func LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cours
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var23 string
-			templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(lesson.Description)
+			var templ_7745c5c3_Var24 string
+			templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(lesson.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/courses.templ`, Line: 84, Col: 27}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/courses.templ`, Line: 86, Col: 27}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
