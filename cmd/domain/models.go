@@ -109,13 +109,32 @@ func (c Course) Title() string {
 	return c.title
 }
 
-func NewUnit(num int, title string, descr string) Unit {
-	return Unit{num, title, descr}
+func NewUnit(num int, title string, descr string, lessons []Lesson) Unit {
+	return Unit{num, title, descr, lessons}
 
+}
+
+func (u Unit) Title() string {
+	return u.title
 }
 
 type Unit struct {
 	Number      int
 	title       string
 	Description string
+	Lessons     []Lesson
+}
+
+func NewLesson(number int, title string, descr string) Lesson {
+	return Lesson{number, title, descr}
+}
+
+type Lesson struct {
+	Number      int
+	title       string
+	Description string
+}
+
+func (l Lesson) Title() string {
+	return l.title
 }

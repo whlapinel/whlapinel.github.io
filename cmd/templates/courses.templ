@@ -12,7 +12,7 @@ templ CoursesListComponent(courses []domain.Course) {
 				for _, course := range courses {
 					<li class="bg-blue-500 rounded p-1 m-1 hover:bg-blue-400">
 						<a
-							href={ templ.SafeURL(RoutePath(coursesDir) + FileName(course)) }
+							href={ templ.SafeURL(RemoveDocsFromPath(courseRoutePath(course)) + FileName(course)) }
 							hx-target="#page"
 							hx-select="#page"
 						>{ course.Title() }</a>
@@ -20,7 +20,7 @@ templ CoursesListComponent(courses []domain.Course) {
 				}
 			</ul>
 			<p class="max-w-prose">
-				I teach <code>Python</code> I and II at Phillip O. Berry Academy of Technology. This is a technology magnet school a high school where programming courses are an integral part of a rigorous software development pathway. Unlike at other schools where such courses are offered as electives, Python 1 and Python 2 are required courses for all students in the pathway. These courses establish a foundation in programming, data manipulation, and problem-solving, skills that are essential for success in higher-level computer science. Students must also complete AP Computer Science Principles and AP Computer Science A (Java Programming) to remain in the program, ensuring they graduate with a comprehensive understanding of both foundational and advanced concepts in computer science.
+				I teach <code>Python</code> I and II at Phillip O. Berry Academy of Technology, a technology magnet school where programming courses are required as an integral part of a rigorous software development pathway. Along with AP courses in Computer Science, these courses establish a foundation in programming, data manipulation, and problem-solving, skills that are essential for success in higher-level computer science.
 			</p>
 		</div>
 	}
@@ -31,14 +31,57 @@ templ CourseComponent(course domain.Course) {
 		<div class="p-4 flex gap-2">
 			<ul class="min-w-96">
 				for _, unit := range course.Units {
-					<li class="bg-purple-600 rounded p-1 m-1">
-						<strong>Unit { strconv.Itoa(unit.Number) }:</strong> { unit.Description }
-					</li>
+					<a href={ templ.SafeURL(RemoveDocsFromPath(unitRoutePath(unit, course) + FileName(unit))) }>
+						<li class="bg-purple-600 rounded p-1 m-1">
+							<strong>Unit { strconv.Itoa(unit.Number) }:</strong> { unit.Description }
+						</li>
+					</a>
 				}
 			</ul>
 			<div class="flex flex-col">
 				<h1 class=" text-xl">{ course.Title() }</h1>
 				<p>{ course.Description }</p>
+			</div>
+		</div>
+	}
+}
+
+templ UnitComponent(unit domain.Unit, course domain.Course) {
+	@Layout(&page{title: course.Title()}) {
+		<div class="p-4 flex gap-2">
+			<ul class="min-w-96">
+				for _, lesson := range unit.Lessons {
+					<a href={ templ.SafeURL(RemoveDocsFromPath(lessonRoutePath(lesson, unit, course) + FileName(lesson))) }>
+						<li class="bg-purple-600 rounded p-1 m-1">
+							<strong>Lesson { strconv.Itoa(lesson.Number) }:</strong> { lesson.Description }
+						</li>
+					</a>
+				}
+			</ul>
+			<div class="flex flex-col">
+				<h1 class=" text-xl">{ unit.Title() }</h1>
+				<p>{ unit.Description }</p>
+			</div>
+		</div>
+	}
+}
+
+templ LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Course) {
+	@Layout(&page{title: course.Title()}) {
+		<div class="p-4 flex gap-2">
+			<ul class="min-w-96">
+				<a href={ templ.SafeURL(RemoveDocsFromPath(lessonRoutePath(lesson, unit, course) + "slides.html")) } target="_blank">
+					<li class="bg-purple-600 rounded p-1 m-1">
+						Slides
+					</li>
+				</a>
+				<li class="bg-purple-600 rounded p-1 m-1">
+					Assignment
+				</li>
+			</ul>
+			<div class="flex flex-col">
+				<h1 class=" text-xl">{ lesson.Title() }</h1>
+				<p>{ lesson.Description }</p>
 			</div>
 		</div>
 	}

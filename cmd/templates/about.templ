@@ -178,7 +178,7 @@ templ EducationListItem(item *domain.EducationItem) {
 			if len(item.Classes) > 0 {
 				<div class="flex items-center gap-x-3">
 					<h2 class="min-w-0 text-md font-semibold leading-6 text-white">
-						<a href={ templ.SafeURL(RoutePath(educationDir) + FileName(item)) } hx-target="#section" hx-select="#section" class="flex gap-x-2">
+						<a href={ templ.SafeURL(RemoveDocsFromPath(educationDir) + FileName(item)) } hx-target="#section" hx-select="#section" class="flex gap-x-2">
 							<div class="flex rounded-full bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-400 ring-1 ring-inset ring-gray-400/20">
 								<span>Classes</span>
 								<svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

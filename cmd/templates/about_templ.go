@@ -869,7 +869,7 @@ func EducationListItem(item *domain.EducationItem) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var46 templ.SafeURL = templ.SafeURL(RoutePath(educationDir) + FileName(item))
+			var templ_7745c5c3_Var46 templ.SafeURL = templ.SafeURL(RemoveDocsFromPath(educationDir) + FileName(item))
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var46)))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err

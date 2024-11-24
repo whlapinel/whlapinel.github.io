@@ -13,7 +13,7 @@ templ BlogsListComponent(blogs []*domain.Blog) {
 			for _, blog := range blogs {
 				<li>
 					<a
-						href={ templ.SafeURL(RoutePath(blogDir) + FileName(blog)) }
+						href={ templ.SafeURL(RemoveDocsFromPath(blogDir) + FileName(blog)) }
 						hx-target="#page"
 						hx-select="#page"
 					>{ blog.Title() }</a>

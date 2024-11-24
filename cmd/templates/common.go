@@ -1,6 +1,7 @@
 package templates
 
 import (
+	"fmt"
 	"gh_static_portfolio/cmd/domain"
 	"strings"
 
@@ -15,7 +16,19 @@ const (
 	coursesDir   = "./docs/courses/"
 )
 
-func DirectoryList() []string {
+func courseRoutePath(course domain.Course) string {
+	return fmt.Sprintf("%s%s", coursesDir, DirName(course))
+}
+
+func unitRoutePath(unit domain.Unit, course domain.Course) string {
+	return fmt.Sprintf("%s%s%s", coursesDir, DirName(course), DirName(unit))
+}
+
+func lessonRoutePath(lesson domain.Lesson, unit domain.Unit, course domain.Course) string {
+	return fmt.Sprintf("%s%s%s%s", coursesDir, DirName(course), DirName(unit), DirName(lesson))
+}
+
+func DirectoriesClearList() []string {
 	return []string{
 		rootDir,
 		aboutDir,
@@ -139,6 +152,14 @@ func NewBlogPage(item *domain.Blog) Templifier {
 	}
 }
 
+func NewPersonalPage() Templifier {
+	return &page{
+		title:     "Personal",
+		directory: aboutDir,
+		component: PersonalComponent(),
+	}
+}
+
 func NewCoursesListPage(courses []domain.Course) Templifier {
 	return &page{
 		title:     "Courses",
@@ -151,19 +172,33 @@ func NewCoursesListPage(courses []domain.Course) Templifier {
 func NewCoursePage(course domain.Course) Templifier {
 	return &page{
 		title:     course.Title(),
-		directory: coursesDir,
+		directory: courseRoutePath(course),
 		component: CourseComponent(course),
 	}
 }
 
-func NewPersonalPage() Templifier {
+func NewUnitPage(unit domain.Unit, course domain.Course) Templifier {
 	return &page{
-		title:     "Personal",
-		directory: aboutDir,
-		component: PersonalComponent(),
+		title:     unit.Title(),
+		directory: unitRoutePath(unit, course),
+		component: UnitComponent(unit, course),
 	}
 }
 
+func NewLessonPage(lesson domain.Lesson, unit domain.Unit, course domain.Course) Templifier {
+	return &page{
+		title:     lesson.Title(),
+		directory: lessonRoutePath(lesson, unit, course),
+		component: LessonComponent(lesson, unit, course),
+	}
+}
+
+// same as FileName() but with "/" at the end instead of the .html extension
+func DirName(t Titler) string {
+	return strings.ReplaceAll(strings.ToLower(t.Title()), " ", "-") + "/"
+}
+
+// replaces spaces with dashes, makes lowercase, and adds .html file extension
 func FileName(t Titler) string {
 	if t.Title() == "Home" {
 		return "index.html"
@@ -171,7 +206,7 @@ func FileName(t Titler) string {
 	return strings.ReplaceAll(strings.ToLower(t.Title()), " ", "-") + ".html"
 }
 
-func RoutePath(directory string) string {
+func RemoveDocsFromPath(directory string) string {
 	return strings.ReplaceAll(directory, "./docs", "")
 }
 
