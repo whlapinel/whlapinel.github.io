@@ -3,6 +3,8 @@ package templates
 import (
 	"fmt"
 	"gh_static_portfolio/cmd/domain"
+	"log"
+	"os"
 	"strings"
 
 	"github.com/a-h/templ"
@@ -30,6 +32,20 @@ func lessonRoutePath(lesson domain.Lesson, unit domain.Unit, course domain.Cours
 
 func filesRoutePath(lesson domain.Lesson, unit domain.Unit, course domain.Course) string {
 	return fmt.Sprintf("https://github.com/whlapinel/whlapinel.github.io/tree/main/docs/courses/%s%s%sfiles", DirName(course), DirName(unit), DirName(lesson))
+}
+
+func hasImage(path string) bool {
+	files, err := os.ReadDir(path)
+	if err != nil {
+		log.Fatalf("error reading directory:", err)
+	}
+	for _, file := range files {
+		if file.Name() == "image.png" {
+			return true
+		}
+	}
+	return false
+
 }
 
 func DirectoriesClearList() []string {

@@ -61,6 +61,9 @@ templ UnitComponent(unit domain.Unit, course domain.Course) {
 			<div class="flex flex-col">
 				<h1 class=" text-xl">{ unit.Title() }</h1>
 				<p>{ unit.Description }</p>
+				if hasImage(unitRoutePath(unit, course)) {
+					<img src={ "./image.png" }/>
+				}
 			</div>
 		</div>
 	}
