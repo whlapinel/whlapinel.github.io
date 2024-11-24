@@ -38,7 +38,7 @@ func ContactComponent() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1>Contact Me</h1><p>You can reach me at <a class=\"text-white\" href=\"mailto:whlapinel@gmail.com\">whlapinel@gmail.com</a></p>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1>Contact Me</h1><p>You can reach me at <a class=\"text-white\" href=\"mailto:williamh.lapinel@cms.k12.nc.us\">williamh.lapinel@cms.k12.nc.us</a></p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
