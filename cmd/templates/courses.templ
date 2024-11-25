@@ -84,11 +84,13 @@ templ LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cour
 						Slides
 					</li>
 				</a>
-				<a href={ templ.SafeURL(filesRoutePath(lesson, unit, course)) } target="_blank">
-					<li class="bg-purple-600 rounded p-1 m-1">
-						Other Files
-					</li>
-				</a>
+				if hasFilesDir(filesRoutePath(lesson, unit, course)) {
+					<a href={ templ.SafeURL(filesRoutePath(lesson, unit, course)) } target="_blank">
+						<li class="bg-purple-600 rounded p-1 m-1">
+							Other Files
+						</li>
+					</a>
+				}
 			</ul>
 			<div class="flex flex-col">
 				<h1 class=" text-xl">{ lesson.Title() }</h1>

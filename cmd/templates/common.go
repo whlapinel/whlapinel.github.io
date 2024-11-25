@@ -48,6 +48,11 @@ func hasImage(path string) bool {
 
 }
 
+func hasFilesDir(path string) bool {
+	_, err := os.ReadDir(path + "/files")
+	return err == nil
+}
+
 func DirectoriesClearList() []string {
 	return []string{
 		rootDir,
