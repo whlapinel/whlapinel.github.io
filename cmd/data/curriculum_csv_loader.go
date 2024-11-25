@@ -10,17 +10,13 @@ import (
 )
 
 type Curriculum struct {
-	Course         domain.Course
-	Day            []int // day of instruction number e.g. 1, 2, ...87
-	UnitNum        []int // unit number e.g. 1, 2, 3
-	UnitDescr      []string
-	LessonNum      []int // lesson number e.g. 1, 2, 3
-	LessonDescr    []string
-	LessonUrl      []string
-	AssignmentName []string
-	AssignmentCat  []string
-	AssignmentPath []string
-	Standard       []int
+	Course      domain.Course
+	Day         []int // day of instruction number e.g. 1, 2, ...87
+	UnitNum     []int // unit number e.g. 1, 2, 3
+	UnitDescr   []string
+	LessonNum   []int // lesson number e.g. 1, 2, 3
+	LessonDescr []string
+	Standard    []int
 }
 
 const (
@@ -30,9 +26,6 @@ const (
 	unitDescrCol
 	lessonNumCol
 	lessonDescrCol
-	lessonPathCol
-	assignmentNameCol
-	assignmentCatCol
 	stdNumCol
 	stdDescrCol
 )
@@ -97,13 +90,6 @@ func ImportCurriculumFromCSV(courseName string) (*Curriculum, error) {
 			}
 			curric.LessonNum = append(curric.LessonNum, lessonNum)
 			curric.LessonDescr = append(curric.LessonDescr, record[lessonDescrCol])
-			lessonUrlVal := record[lessonPathCol]
-			if lessonUrlVal == "" {
-				lessonUrlVal = lessonUrl(courseName, unitNum, lessonNum)
-			}
-			curric.LessonUrl = append(curric.LessonUrl, lessonUrlVal)
-			curric.AssignmentName = append(curric.AssignmentName, record[assignmentNameCol])
-			curric.AssignmentCat = append(curric.AssignmentCat, record[assignmentCatCol])
 			stdNum := 0
 			if record[stdNumCol] != "" {
 				stdNum, err = strconv.Atoi(record[stdNumCol])

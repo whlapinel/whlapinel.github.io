@@ -171,7 +171,7 @@ func BackButton(path, text string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><li class=\"flex gap-2 text-2xl mb-10 items-center bg-green-600 p-3 rounded hover:bg-green-500\"><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\" width=\"24px\" fill=\"#e8eaed\"><path d=\"m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z\"></path></svg><p>Back to ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><li class=\"flex gap-2 text-lg mb-10 items-center bg-green-600 p-3 rounded hover:bg-green-500\"><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\" width=\"24px\" fill=\"#e8eaed\"><path d=\"m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z\"></path></svg><p>Back to ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

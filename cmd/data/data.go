@@ -162,11 +162,11 @@ var lessons = []domain.Lesson{
 }
 
 func courses() ([]domain.Course, error) {
-	curric1, err := ImportCurriculumFromCSV("Python II Programming Honors")
+	curric1, err := ImportCurriculumFromCSV("Python I Programming Honors")
 	if err != nil {
 		return nil, err
 	}
-	curric2, err := ImportCurriculumFromCSV("Python I Programming Honors")
+	curric2, err := ImportCurriculumFromCSV("Python II Programming Honors")
 	if err != nil {
 		return nil, err
 	}
@@ -177,35 +177,4 @@ func courses() ([]domain.Course, error) {
 		course2,
 	}, nil
 
-}
-
-var coursesOld = []domain.Course{
-	domain.NewCourse(
-		"Python Programming I",
-		"This course introduces students to the fundamentals of Python programming, focusing on basic concepts like variables, data types, loops, conditionals, and functions. Students will learn to write simple scripts, solve problems programmatically, and develop computational thinking skills. No prior programming experience is required.",
-		[]domain.Unit{
-			domain.NewUnit(1, "Unit 1", "Understand ethics, security and history of computer programming.", lessons),
-			domain.NewUnit(2, "Unit 2", "Apply problem solving tools to design programming solutions.", lessons),
-			domain.NewUnit(3, "Unit 3", "Apply basic data types and operators,", lessons),
-			domain.NewUnit(4, "Unit 4", "Apply input and output operations.", lessons),
-			domain.NewUnit(5, "Unit 5", "Analyze code segment functionality by performing troubleshooting and handling errors.", lessons),
-			domain.NewUnit(6, "Unit 6", "Apply user-defined functions.", lessons),
-			domain.NewUnit(7, "Unit 7", "Apply decision making and loop statements.", lessons),
-			domain.NewUnit(8, "Unit 8", "Apply advanced data types to store and manipulate data.", lessons),
-			domain.NewUnit(9, "Unit 9", "Apply operations using modules and tools.", lessons),
-		},
-	),
-	domain.NewCourse(
-		"Python Programming II",
-		"Building on Python 1, this course dives deeper into Python's intermediate features, including file handling, modular programming, and debugging. Students will explore more complex problem-solving techniques and apply their knowledge through small projects and hands-on exercises. Prerequisite: Python 1 or equivalent experience.",
-		[]domain.Unit{
-			domain.NewUnit(1, "Unit 1", "Apply advanced Python concepts.", lessons),
-			domain.NewUnit(3, "Unit 3", "Apply command line interface and operation.", lessons),
-			domain.NewUnit(4, "Unit 4", "Apply input/ouput operations with files and databases.", lessons),
-			domain.NewUnit(5, "Unit 5", "Apply object oriented programming in Python.", lessons),
-			domain.NewUnit(6, "Unit 6", "Apply data visualizations.", lessons),
-			domain.NewUnit(7, "Unit 7", "Apply Internet of Things (IoT) programs.", lessons),
-			domain.NewUnit(8, "Unit 8", "Create web applications using Python web frameworks.", lessons),
-		},
-	),
 }
