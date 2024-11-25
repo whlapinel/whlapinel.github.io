@@ -5,101 +5,116 @@ import (
 	"strconv"
 )
 
+templ CourseDivContainer() {
+	<div class="p-4 flex gap-3 flex-col md:flex-row">
+		{ children... }
+	</div>
+}
+
+templ CourseUnorderedList() {
+	<ul class="max-w-fit min-w-fit">
+		{ children... }
+	</ul>
+}
+
+func targetAttrVal(newTab bool) string {
+	if newTab {
+		return "_blank"
+	}
+	return "_self"
+}
+
+templ ListedLinkItem(path string, newTab bool) {
+	<a href={ templ.SafeURL(path) } target={ targetAttrVal(newTab) }>
+		<li class="bg-purple-600 rounded p-2 m-1 text-lg hover:bg-purple-500">
+			{ children... }
+		</li>
+	</a>
+}
+
+templ BackButton(path, text string) {
+	<a href={ templ.SafeURL(path) }>
+		<li class="flex gap-2 text-2xl mb-10 items-center bg-green-600 p-3 rounded hover:bg-green-500">
+			<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"></path></svg>
+			<p>Back to { text }</p>
+		</li>
+	</a>
+}
+
+templ TitleDiv(title, description, path string) {
+	<div class="flex flex-col gap-6 max-w-3xl">
+		<h1 class=" text-4xl">{ title }</h1>
+		<p class="text-2xl">{ description }</p>
+		if hasImage(path) {
+			<img src={ "./image.png" } class="max-w-full h-auto rounded border border-solid border-purple-400"/>
+		}
+	</div>
+}
+
 templ CoursesListComponent(courses []domain.Course) {
 	@Layout(NewCoursesListPage(nil)) {
-		<div class="p-4 flex gap-2 w-svw">
-			<ul class="min-w-fit">
+		@CourseDivContainer() {
+			@CourseUnorderedList() {
 				for _, course := range courses {
-					<li class="bg-blue-500 rounded p-1 m-1 hover:bg-blue-400">
-						<a
-							href={ templ.SafeURL(RemoveDocsFromPath(courseRoutePath(course)) + FileName(course)) }
-							hx-target="#page"
-							hx-select="#page"
-						>{ course.Title() }</a>
-					</li>
+					@ListedLinkItem(RemoveDocsFromPath(courseRoutePath(course))+FileName(course), false) {
+						<p>{ course.Title() }</p>
+					}
 				}
-			</ul>
-			<p class="max-w-prose">
-				I teach <code>Python</code> I and II at Phillip O. Berry Academy of Technology, a technology magnet school where programming courses are required as an integral part of a rigorous software development pathway. Along with AP courses in Computer Science, these courses establish a foundation in programming, data manipulation, and problem-solving, skills that are essential for success in higher-level computer science.
-			</p>
-			if hasImage(coursesDir) {
-				<img src={ "./image.png" } class="rounded-full size-32"/>
 			}
-		</div>
+			@TitleDiv("Python Courses at Phillip O. Berry Academy of Technology", "This section is for students of Python I and II at Phillip O. Berry Academy of Technology. Included are links to all course slides, files and other resources. All assignments must be submitted via Canvas.", rootDir)
+		}
 	}
 }
 
 templ CourseComponent(course domain.Course) {
 	@Layout(&page{title: "Course"}) {
-		<div class="p-4 flex gap-2">
-			<ul class="min-w-96">
+		@CourseDivContainer() {
+			@CourseUnorderedList() {
+				@BackButton("/courses.html", "Course List")
 				for _, unit := range course.Units {
-					<a href={ templ.SafeURL(RemoveDocsFromPath(unitRoutePath(unit, course) + FileName(unit))) }>
-						<li class="bg-purple-600 rounded p-1 m-1">
-							<strong>Unit { strconv.Itoa(unit.Number) }:</strong> { unit.Description }
-						</li>
-					</a>
+					@ListedLinkItem(RemoveDocsFromPath(unitRoutePath(unit, course)+FileName(unit)), false) {
+						<strong>Unit { strconv.Itoa(unit.Number) }:</strong> { unit.Description }
+					}
 				}
-			</ul>
-			<div class="flex flex-col gap-2">
-				<h1 class=" text-4xl">{ course.Title() }</h1>
-				<p>{ course.Description }</p>
-				if hasImage(courseRoutePath(course)) {
-					<img src={ "./image.png" } class="border-solid border-white rounded-lg h-64"/>
-				}
-			</div>
-		</div>
+			}
+			@TitleDiv(course.Title(), course.Description, courseRoutePath(course))
+		}
 	}
 }
 
 templ UnitComponent(unit domain.Unit, course domain.Course) {
 	@Layout(&page{title: course.Title()}) {
-		<div class="p-4 flex gap-2">
-			<ul class="min-w-96">
+		@CourseDivContainer() {
+			@CourseUnorderedList() {
+				@BackButton(RemoveDocsFromPath(courseRoutePath(course))+FileName(course), course.Title())
 				for _, lesson := range unit.Lessons {
-					<a href={ templ.SafeURL(RemoveDocsFromPath(lessonRoutePath(lesson, unit, course) + FileName(lesson))) }>
-						<li class="bg-purple-600 rounded p-1 m-1">
-							<strong>Lesson { strconv.Itoa(lesson.Number) }:</strong> { lesson.Description }
-						</li>
-					</a>
+					@ListedLinkItem(RemoveDocsFromPath(lessonRoutePath(lesson, unit, course)+FileName(lesson)), false) {
+						<strong>Lesson { strconv.Itoa(lesson.Number) }:</strong> { lesson.Description }
+					}
 				}
-			</ul>
-			<div class="flex flex-col">
-				<h1 class=" text-xl">{ unit.Title() }</h1>
-				<p>{ unit.Description }</p>
-				if hasImage(unitRoutePath(unit, course)) {
-					<img src={ "./image.png" }/>
-				}
-			</div>
-		</div>
+			}
+			@TitleDiv(unit.Title(), unit.Description, unitRoutePath(unit, course))
+		}
 	}
 }
 
 templ LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Course) {
 	@Layout(&page{title: course.Title()}) {
-		<div class="p-4 flex gap-2">
-			<ul class="min-w-96">
+		@CourseDivContainer() {
+			@CourseUnorderedList() {
+				@BackButton(RemoveDocsFromPath(unitRoutePath(unit, course))+FileName(unit), unit.Title())
 				if hasSlides(lessonRoutePath(lesson, unit, course)) {
-					<a href={ templ.SafeURL(RemoveDocsFromPath(lessonRoutePath(lesson, unit, course) + "slides.html")) } target="_blank">
-						<li class="bg-purple-600 rounded p-1 m-1">
-							Slides
-						</li>
-					</a>
+					@ListedLinkItem(RemoveDocsFromPath(lessonRoutePath(lesson, unit, course)+"slides.html"), true) {
+						Slides
+					}
 				} else {
 					<p>No content for this lesson yet!</p>
 				}
 				if hasFilesDir(filesRoutePath(lesson, unit, course)) {
-					<a href={ templ.SafeURL(filesRoutePath(lesson, unit, course)) } target="_blank">
-						<li class="bg-purple-600 rounded p-1 m-1">
-							Other Files
-						</li>
-					</a>
+					@ListedLinkItem(filesRoutePath(lesson, unit, course), true)
 				}
-			</ul>
-			<div class="flex flex-col">
-				<h1 class=" text-xl">{ lesson.Title() }</h1>
-				<p>{ lesson.Description }</p>
-			</div>
-		</div>
+			}
+			@TitleDiv(lesson.Title(), lesson.Description, lessonRoutePath(lesson, unit, course))
+		}
 	}
 }
