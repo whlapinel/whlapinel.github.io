@@ -418,18 +418,29 @@ func LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cours
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"p-4 flex gap-2\"><ul class=\"min-w-96\"><a href=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"p-4 flex gap-2\"><ul class=\"min-w-96\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var24 templ.SafeURL = templ.SafeURL(RemoveDocsFromPath(lessonRoutePath(lesson, unit, course) + "slides.html"))
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var24)))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" target=\"_blank\"><li class=\"bg-purple-600 rounded p-1 m-1\">Slides</li></a> ")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
+			if hasSlides(lessonRoutePath(lesson, unit, course)) {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var24 templ.SafeURL = templ.SafeURL(RemoveDocsFromPath(lessonRoutePath(lesson, unit, course) + "slides.html"))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var24)))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" target=\"_blank\"><li class=\"bg-purple-600 rounded p-1 m-1\">Slides</li></a> ")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			} else {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>No content for this lesson yet!</p>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
 			}
 			if hasFilesDir(filesRoutePath(lesson, unit, course)) {
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"")
@@ -453,7 +464,7 @@ func LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cours
 			var templ_7745c5c3_Var26 string
 			templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs(lesson.Title())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/courses.templ`, Line: 96, Col: 41}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/courses.templ`, Line: 100, Col: 41}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
 			if templ_7745c5c3_Err != nil {
@@ -466,7 +477,7 @@ func LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cours
 			var templ_7745c5c3_Var27 string
 			templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(lesson.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/courses.templ`, Line: 97, Col: 27}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/courses.templ`, Line: 101, Col: 27}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
 			if templ_7745c5c3_Err != nil {

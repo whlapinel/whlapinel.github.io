@@ -53,6 +53,19 @@ func hasFilesDir(path string) bool {
 	return err == nil
 }
 
+func hasSlides(path string) bool {
+	files, err := os.ReadDir(path)
+	if err != nil {
+		log.Fatalf("error reading directory: %s", err)
+	}
+	for _, file := range files {
+		if file.Name() == "slides.html" {
+			return true
+		}
+	}
+	return false
+}
+
 func DirectoriesClearList() []string {
 	return []string{
 		rootDir,

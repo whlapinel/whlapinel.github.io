@@ -79,11 +79,15 @@ templ LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cour
 	@Layout(&page{title: course.Title()}) {
 		<div class="p-4 flex gap-2">
 			<ul class="min-w-96">
-				<a href={ templ.SafeURL(RemoveDocsFromPath(lessonRoutePath(lesson, unit, course) + "slides.html")) } target="_blank">
-					<li class="bg-purple-600 rounded p-1 m-1">
-						Slides
-					</li>
-				</a>
+				if hasSlides(lessonRoutePath(lesson, unit, course)) {
+					<a href={ templ.SafeURL(RemoveDocsFromPath(lessonRoutePath(lesson, unit, course) + "slides.html")) } target="_blank">
+						<li class="bg-purple-600 rounded p-1 m-1">
+							Slides
+						</li>
+					</a>
+				} else {
+					<p>No content for this lesson yet!</p>
+				}
 				if hasFilesDir(filesRoutePath(lesson, unit, course)) {
 					<a href={ templ.SafeURL(filesRoutePath(lesson, unit, course)) } target="_blank">
 						<li class="bg-purple-600 rounded p-1 m-1">
