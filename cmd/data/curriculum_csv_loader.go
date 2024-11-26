@@ -116,8 +116,12 @@ func curricSoaToOop(curric Curriculum) domain.Course {
 				curric.Course.Units = append(curric.Course.Units, currUnit) // if we've hit a new unit we should append the previous unit since it's complete (crucial assumption is that everything is in order)
 			}
 			unitLessonCounter[unitNum] = 1
+			lessonTitle := fmt.Sprintf("Lesson %d.%d", unitNum, curric.LessonNum[i])
+			if curric.UnitNum[i] < 0 {
+				lessonTitle = fmt.Sprintf("%s Day %d", curric.UnitDescr[i], curric.LessonNum[i])
+			}
 			lessons := []domain.Lesson{
-				domain.NewLesson(curric.LessonNum[i], fmt.Sprintf("Lesson %d.%d", unitNum, curric.LessonNum[i]), curric.LessonDescr[i]),
+				domain.NewLesson(curric.LessonNum[i], lessonTitle, curric.LessonDescr[i]),
 			}
 			unitTitle := fmt.Sprintf("Unit %d", unitNum)
 			if unitNum < 0 {
@@ -127,7 +131,11 @@ func curricSoaToOop(curric Curriculum) domain.Course {
 		} else {
 			// if it's the same as current unit, create a new lesson and increment the count
 			unitLessonCounter[unitNum]++
-			lesson := domain.NewLesson(curric.LessonNum[i], fmt.Sprintf("Lesson %d.%d", unitNum, curric.LessonNum[i]), curric.LessonDescr[i])
+			lessonTitle := fmt.Sprintf("Lesson %d.%d", unitNum, curric.LessonNum[i])
+			if curric.UnitNum[i] < 0 {
+				lessonTitle = fmt.Sprintf("%s Day %d", curric.UnitDescr[i], curric.LessonNum[i])
+			}
+			lesson := domain.NewLesson(curric.LessonNum[i], lessonTitle, curric.LessonDescr[i])
 			currUnit.Lessons = append(currUnit.Lessons, lesson)
 		}
 	}
