@@ -173,6 +173,7 @@ func RenderPage(t templates.Templifier) error {
 	if err != nil {
 		log.Fatalf("failed to create directory: %v", err)
 	}
+	// ClearHTMLFiles(t.Directory())
 	f, err := os.Create(t.Directory() + templates.FileName(t))
 	if err != nil {
 		log.Fatalf("failed to create output file: %v", err)

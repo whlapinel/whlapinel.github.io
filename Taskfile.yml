@@ -16,11 +16,14 @@ tasks:
       - git push
       - git switch dev
 
-  build:
+  marp:
     cmds:
       - echo 'Building...'
       - echo 'running marp .'
       - marp .
+
+  build:
+    cmds:
       - echo 'running templ generate...'
       - templ generate
       - echo 'running go run...'
@@ -29,4 +32,3 @@ tasks:
       - tsc --build
       - echo 'running npx tailwindcss...'
       - npx tailwindcss -i ./input.css -o ./docs/styles/styles.css
-    silent: true

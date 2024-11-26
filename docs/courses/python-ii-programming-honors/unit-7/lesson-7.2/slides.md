@@ -25,5 +25,6 @@ thanksgiving_dishes = {
 # Agenda
 
 - Continue [Lesson 1](https://learn.birdbraintechnologies.com/finch/python/program/lesson-1-moving-and-turning)
-- We have poster paper and masking tape now!
+- [Browser IDE](https://brython.birdbraintechnologies.com/)
 - [Programming Reference](https://learn.birdbraintechnologies.com/finch/python/?robot=finch&software=python&moduleslide=&pg=library&r=&&moduleslide2=)
+- We have poster paper and masking tape now!
