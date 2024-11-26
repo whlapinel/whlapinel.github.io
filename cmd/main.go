@@ -135,6 +135,7 @@ func main() {
 			log.Fatalf("failed to render pages: %v", err)
 		}
 		for _, unit := range course.Units {
+			log.Println("looping through units in main():", unit.Title())
 			unitPage := templates.NewUnitPage(unit, course)
 			err = RenderPage(unitPage)
 			if err != nil {
@@ -167,6 +168,7 @@ func ClearHTMLFiles(directory string) {
 }
 
 func RenderPage(t templates.Templifier) error {
+	log.Println("RenderPage: ", t.Title())
 	err := os.MkdirAll(t.Directory(), os.ModePerm)
 	if err != nil {
 		log.Fatalf("failed to create directory: %v", err)

@@ -157,10 +157,6 @@ var skillItems = []*domain.SkillItem{
 	},
 }
 
-var lessons = []domain.Lesson{
-	domain.NewLesson(0, "placeholder lesson", "placeholder lesson description"),
-}
-
 func courses() ([]domain.Course, error) {
 	curric1, err := ImportCurriculumFromCSV("Python I Programming Honors")
 	if err != nil {

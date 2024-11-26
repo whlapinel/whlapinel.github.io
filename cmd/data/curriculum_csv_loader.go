@@ -106,24 +106,32 @@ func ImportCurriculumFromCSV(courseName string) (*Curriculum, error) {
 
 // convert curriculum SOA to nested objects since that's how I wrote it originally
 func curricSoaToOop(curric Curriculum) domain.Course {
-	unitsAdded := make(map[int]int) // unit number and lesson count
+	unitLessonCounter := make(map[int]int) // unit number and lesson count
 	var currUnit domain.Unit
+
 	for i, unitNum := range curric.UnitNum {
 		log.Println("curricSoaToOop: i=", i, "unitNum=", unitNum, "currUnit=", currUnit)
-		if _, exists := unitsAdded[unitNum]; !exists {
-			curric.Course.Units = append(curric.Course.Units, currUnit) // if we've hit a new unit we should append the previous unit since it's complete (crucial assumption is that everything is in order)
-			unitsAdded[unitNum] = 1
-			lessons := []domain.Lesson{
-				domain.NewLesson(1, fmt.Sprintf("Lesson %d.1", unitNum), curric.LessonDescr[i]),
+		if _, exists := unitLessonCounter[unitNum]; !exists {
+			if currUnit.Title() != "" {
+				curric.Course.Units = append(curric.Course.Units, currUnit) // if we've hit a new unit we should append the previous unit since it's complete (crucial assumption is that everything is in order)
 			}
-			currUnit = domain.NewUnit(unitNum, fmt.Sprintf("Unit %d", unitNum), curric.UnitDescr[i], lessons)
+			unitLessonCounter[unitNum] = 1
+			lessons := []domain.Lesson{
+				domain.NewLesson(curric.LessonNum[i], fmt.Sprintf("Lesson %d.%d", unitNum, curric.LessonNum[i]), curric.LessonDescr[i]),
+			}
+			unitTitle := fmt.Sprintf("Unit %d", unitNum)
+			if unitNum < 0 {
+				unitTitle = curric.UnitDescr[i]
+			}
+			currUnit = domain.NewUnit(unitNum, unitTitle, curric.UnitDescr[i], lessons)
 		} else {
 			// if it's the same as current unit, create a new lesson and increment the count
-			unitsAdded[unitNum]++
+			unitLessonCounter[unitNum]++
 			lesson := domain.NewLesson(curric.LessonNum[i], fmt.Sprintf("Lesson %d.%d", unitNum, curric.LessonNum[i]), curric.LessonDescr[i])
 			currUnit.Lessons = append(currUnit.Lessons, lesson)
 		}
 	}
+	curric.Course.Units = append(curric.Course.Units, currUnit) // append the final unit
 	return curric.Course
 
 }

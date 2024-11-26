@@ -73,7 +73,11 @@ templ CourseComponent(course domain.Course) {
 				@BackButton("/courses.html", "Course List")
 				for _, unit := range course.Units {
 					@ListedLinkItem(RemoveDocsFromPath(unitRoutePath(unit, course)+FileName(unit)), false) {
-						<strong>Unit { strconv.Itoa(unit.Number) }:</strong> { unit.Description }
+						if unit.Number < 0 {
+							{ unit.Description }
+						} else {
+							Unit { strconv.Itoa(unit.Number) }: { unit.Description }
+						}
 					}
 				}
 			}
