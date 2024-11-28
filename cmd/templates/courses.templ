@@ -130,7 +130,9 @@ templ LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cour
 					<p>No content for this lesson yet!</p>
 				}
 				if hasFilesDir(filesRoutePath(lesson, unit, course)) {
-					@ListedLinkItem(filesRoutePath(lesson, unit, course), true)
+					@ListedLinkItem(filesRoutePath(lesson, unit, course), true) {
+						Other Files
+					}
 				}
 			}
 			@TitleDiv(lesson.Title(), lesson.Description, lessonRoutePath(lesson, unit, course))
