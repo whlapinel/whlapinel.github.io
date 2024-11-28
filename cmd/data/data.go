@@ -157,20 +157,24 @@ var skillItems = []*domain.SkillItem{
 	},
 }
 
-func courses() ([]domain.Course, error) {
-	curric1, err := ImportCurriculumFromCSV("Python I Programming Honors")
+func Courses() ([]domain.Course, error) {
+	py1Schedule, err := ImportScheduleFromCSV("Python I Programming Honors")
 	if err != nil {
 		return nil, err
 	}
-	curric2, err := ImportCurriculumFromCSV("Python II Programming Honors")
+	py2Schedule, err := ImportScheduleFromCSV("Python II Programming Honors")
 	if err != nil {
 		return nil, err
 	}
-	course1 := curricSoaToOop(*curric1)
-	course2 := curricSoaToOop(*curric2)
+	// course1 := curricSoaToOop(*py1curric)
+	// course2 := curricSoaToOop(*py2curric)
+	py1course := courseScheduleSoaToOop(*py1Schedule)
+	py2course := courseScheduleSoaToOop(*py2Schedule)
 	return []domain.Course{
-		course1,
-		course2,
+		py1course,
+		py2course,
+		// course1,
+		// course2,
 	}, nil
 
 }

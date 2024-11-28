@@ -120,7 +120,7 @@ func main() {
 	courseRepo := data.NewCoursesRepo()
 	courses, err := courseRepo.GetAll()
 	if err != nil {
-		log.Fatal()
+		log.Fatalf("Error getting courses: %v", err)
 	}
 	coursesPage := templates.NewCoursesListPage(courses)
 	err = RenderPage(coursesPage)
@@ -134,6 +134,13 @@ func main() {
 		if err != nil {
 			log.Fatalf("failed to render pages: %v", err)
 		}
+		// Generate calendar page for each course
+		calendarPage := templates.NewCourseCalendarPage(course)
+		err = RenderPage(calendarPage)
+		if err != nil {
+			log.Fatalf("failed to render pages: %v", err)
+		}
+		// Generate page for each unit
 		for _, unit := range course.Units {
 			log.Println("looping through units in main():", unit.Title())
 			unitPage := templates.NewUnitPage(unit, course)
@@ -141,6 +148,7 @@ func main() {
 			if err != nil {
 				log.Fatalf("failed to render pages: %v", err)
 			}
+			// Generate page for each lesson
 			for _, lesson := range unit.Lessons {
 				lessonPage := templates.NewLessonPage(lesson, unit, course)
 				err = RenderPage(lessonPage)

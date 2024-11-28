@@ -65,7 +65,7 @@ func NewCoursesRepo() domain.CourseRepository {
 }
 
 func (c *courseRepo) GetAll() ([]domain.Course, error) {
-	courses, err := courses()
+	courses, err := Courses()
 	if err != nil {
 		return nil, err
 	}

@@ -22,12 +22,17 @@ tasks:
       - echo 'running marp .'
       - marp .
 
+  gen-schedule:
+    cmds:
+      - echo 'Generating schedule'
+      - go run ./cmd/gen_schedule/main.go
+
   build:
     cmds:
       - echo 'running templ generate...'
       - templ generate
       - echo 'running go run...'
-      - go run ./cmd/main.go
+      - go run ./cmd/gen_site/main.go
       - echo 'running tsc build...'
       - tsc --build
       - echo 'running npx tailwindcss...'

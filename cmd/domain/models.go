@@ -1,5 +1,10 @@
 package domain
 
+import (
+	"fmt"
+	"time"
+)
+
 type BlogRepository interface {
 	GetAll() ([]*Blog, error)
 }
@@ -89,8 +94,8 @@ type SkillItem struct {
 	Description string
 }
 
-func NewCourse(title string, descr string, units []Unit) Course {
-	return Course{title, descr, units}
+func NewCourse(title string, descr string, units []Unit, termName string) Course {
+	return Course{title, descr, units, termName}
 
 }
 
@@ -103,8 +108,37 @@ type Course struct {
 	title       string
 	Description string
 	Units       []Unit
+	TermName    string
 }
 
+// combine a term and a curriculum and you get a schedule
+type CourseSchedule struct {
+	*Curriculum
+	Date     []time.Time
+	TermID   int
+	TermName string
+}
+
+type Curriculum struct {
+	Course      Course
+	Day         []int // day of instruction number e.g. 1, 2, ...87
+	UnitNum     []int // unit number e.g. 1, 2, 3
+	UnitDescr   []string
+	LessonNum   []int // lesson number e.g. 1, 2, 3
+	LessonDescr []string
+	StandardNum []int
+	StdDescr    []string
+}
+
+func (curric Curriculum) Truncate(end int) Curriculum {
+	curric.Day = curric.Day[:end]
+	curric.UnitNum = curric.UnitNum[:end]
+	curric.UnitDescr = curric.UnitDescr[:end]
+	curric.LessonNum = curric.LessonNum[:end]
+	curric.LessonDescr = curric.LessonDescr[:end]
+	curric.StandardNum = curric.StandardNum[:end]
+	return curric
+}
 func (c Course) Title() string {
 	return c.title
 }
@@ -125,16 +159,101 @@ type Unit struct {
 	Lessons     []Lesson
 }
 
-func NewLesson(number int, title string, descr string) Lesson {
-	return Lesson{number, title, descr}
+func NewLesson(number int, title string, descr string, date time.Time) Lesson {
+	return Lesson{Number: number, title: title, Description: descr, Date: date}
 }
 
 type Lesson struct {
 	Number      int
 	title       string
 	Description string
+	Date        time.Time
 }
 
 func (l Lesson) Title() string {
 	return l.title
+}
+func NewTerm(start, end time.Time, nonInstructionalDays []time.Time, termType TermType, termID int, name string) (*Term, error) {
+	if start.After(end) {
+		return nil, fmt.Errorf("start must come before end: %s is after %s", start.String(), end.String())
+	}
+	term := Term{Start: start, End: end, NonInstructionalDays: nonInstructionalDays, TermType: termType, ID: termID, Name: name}
+	return &term, nil
+}
+
+type TermType string
+
+type Term struct {
+	Start                time.Time
+	End                  time.Time
+	NonInstructionalDays []time.Time
+	TermType             TermType
+	ID                   int
+	Name                 string
+}
+
+const (
+	Semester = "semester"
+	YearLong = "year_long"
+)
+
+type NonInstructionalDays struct {
+	TermID []int
+	Dates  []time.Time
+}
+
+// Create schedule from term and curriculum. If term is shorter than curriculum days, curriculum will be truncated
+func NewCourseSchedule(term Term, curric Curriculum) (*CourseSchedule, error) {
+	dates := InstructionDays(term)
+	var cs CourseSchedule
+	if len(curric.Day) > len(dates) {
+		curric = curric.Truncate(len(dates))
+	}
+	cs = CourseSchedule{
+		Curriculum: &curric,
+		Date:       dates,
+		TermID:     term.ID,
+		TermName:   term.Name,
+	}
+	return &cs, nil
+}
+
+func NonInstructionDayRange(start time.Time, end time.Time) []time.Time {
+	dateRange := []time.Time{}
+	currDate := start
+	for !currDate.After(end) {
+		dateRange = append(dateRange, currDate)
+		currDate = currDate.Add(24 * time.Hour)
+	}
+	return dateRange
+}
+
+func InstructionDays(term Term) []time.Time {
+	currDate := term.Start
+	instructionDays := []time.Time{}
+	for !currDate.After(term.End) {
+		isInstructionDay := true
+		if currDate.Weekday() == 0 || currDate.Weekday() == 6 {
+			isInstructionDay = false
+		}
+		for _, day := range term.NonInstructionalDays {
+			if IsSameDate(currDate, day) {
+				isInstructionDay = false
+			}
+		}
+		if isInstructionDay {
+			instructionDays = append(instructionDays, currDate)
+		}
+		currDate = currDate.Add(24 * time.Hour)
+	}
+	return instructionDays
+}
+
+func IsSameDate(t1 time.Time, t2 time.Time) bool {
+	y1, m1, d1 := t1.Date()
+	y2, m2, d2 := t2.Date()
+	if y1 == y2 && m1 == m2 && d1 == d2 {
+		return true
+	}
+	return false
 }

@@ -52,14 +52,14 @@ templ Layout(selectedPage Templifier) {
 						</svg>
 					</div>
 				</div>
-				<nav class="flex gap-2 text-white font-bold p-1">
+				<nav class="flex gap-2 text-white font-bold p-1 mb-5">
 					for _, page := range rootPages() {
 						<div
 							class="relative"
 						>
 							<a
 								if page.Title() != "About" {
-									href={ templ.SafeURL("/" + FileName(page)) }
+									href={ templ.SafeURL(RemoveDocsFromPath(page.Directory() + FileName(page))) }
 									hx-target="#page"
 									hx-select="#page"
 								}

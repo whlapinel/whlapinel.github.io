@@ -171,7 +171,7 @@ func NewSkillsPage(items []*domain.SkillItem) Templifier {
 func NewBlogsListPage(items []*domain.Blog) Templifier {
 	return &page{
 		title:     "Blog",
-		directory: rootDir,
+		directory: blogDir,
 		component: BlogsListComponent(items),
 	}
 }
@@ -201,7 +201,7 @@ func NewPersonalPage() Templifier {
 func NewCoursesListPage(courses []domain.Course) Templifier {
 	return &page{
 		title:     "Courses",
-		directory: rootDir,
+		directory: coursesDir,
 		component: CoursesListComponent(courses),
 	}
 
@@ -212,6 +212,14 @@ func NewCoursePage(course domain.Course) Templifier {
 		title:     course.Title(),
 		directory: courseRoutePath(course),
 		component: CourseComponent(course),
+	}
+}
+
+func NewCourseCalendarPage(course domain.Course) Templifier {
+	return &page{
+		title:     course.Title() + " Calendar",
+		directory: courseRoutePath(course),
+		component: CourseCalendarComponent(course),
 	}
 }
 
