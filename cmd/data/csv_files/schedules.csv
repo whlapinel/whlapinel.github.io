@@ -4,72 +4,90 @@ Python I Programming Honors,2,0,Setup and intros,2,,0,,2024-08-27,20240826,Fall 
 Python I Programming Honors,3,0,Setup and intros,3,,0,,2024-08-28,20240826,Fall 2024
 Python I Programming Honors,4,1,"Ethics, Security and History of Computer Programming",1,,0,,2024-08-29,20240826,Fall 2024
 Python I Programming Honors,5,1,"Ethics, Security and History of Computer Programming",2,,0,,2024-08-30,20240826,Fall 2024
-Python I Programming Honors,6,1,"Ethics, Security and History of Computer Programming",3,,0,,2024-09-03,20240826,Fall 2024
-Python I Programming Honors,7,1,"Ethics, Security and History of Computer Programming",4,,0,,2024-09-04,20240826,Fall 2024
-Python I Programming Honors,5,2,Problem Solving With Computers,1,,0,,2024-09-05,20240826,Fall 2024
-Python I Programming Honors,6,2,Problem Solving With Computers,2,,0,,2024-09-06,20240826,Fall 2024
-Python I Programming Honors,7,2,Problem Solving With Computers,3,,0,,2024-09-09,20240826,Fall 2024
-Python I Programming Honors,8,2,Problem Solving With Computers,4,,0,,2024-09-10,20240826,Fall 2024
-Python I Programming Honors,9,2,Problem Solving With Computers,5,,0,,2024-09-11,20240826,Fall 2024
-Python I Programming Honors,10,3,Basic Python and Console Interaction,1,,0,,2024-09-12,20240826,Fall 2024
-Python I Programming Honors,11,3,Basic Python and Console Interaction,2,,0,,2024-09-13,20240826,Fall 2024
-Python I Programming Honors,12,3,Basic Python and Console Interaction,3,,0,,2024-09-16,20240826,Fall 2024
-Python I Programming Honors,13,3,Basic Python and Console Interaction,4,,0,,2024-09-17,20240826,Fall 2024
-Python I Programming Honors,14,3,Basic Python and Console Interaction,5,,0,,2024-09-18,20240826,Fall 2024
-Python I Programming Honors,15,3,Basic Python and Console Interaction,6,,0,,2024-09-19,20240826,Fall 2024
-Python I Programming Honors,16,3,Basic Python and Console Interaction,7,,0,,2024-09-20,20240826,Fall 2024
-Python I Programming Honors,17,3,Basic Python and Console Interaction,8,,0,,2024-09-23,20240826,Fall 2024
-Python I Programming Honors,18,3,Basic Python and Console Interaction,9,,0,,2024-09-24,20240826,Fall 2024
-Python I Programming Honors,19,4,Conditionals,1,,0,,2024-09-25,20240826,Fall 2024
-Python I Programming Honors,20,4,Conditionals,2,,0,,2024-09-26,20240826,Fall 2024
-Python I Programming Honors,21,4,Conditionals,3,,0,,2024-09-27,20240826,Fall 2024
-Python I Programming Honors,22,4,Conditionals,4,,0,,2024-09-30,20240826,Fall 2024
-Python I Programming Honors,23,4,Conditionals,5,,0,,2024-10-01,20240826,Fall 2024
-Python I Programming Honors,24,4,Conditionals,6,,0,,2024-10-02,20240826,Fall 2024
-Python I Programming Honors,25,4,Conditionals,7,,0,,2024-10-07,20240826,Fall 2024
-Python I Programming Honors,26,4,Conditionals,8,,0,,2024-10-08,20240826,Fall 2024
-Python I Programming Honors,27,5,Looping,1,,0,,2024-10-09,20240826,Fall 2024
-Python I Programming Honors,28,5,Looping,2,,0,,2024-10-10,20240826,Fall 2024
-Python I Programming Honors,29,5,Looping,3,,0,,2024-10-11,20240826,Fall 2024
-Python I Programming Honors,30,5,Looping,4,,0,,2024-10-14,20240826,Fall 2024
-Python I Programming Honors,31,5,Looping,5,,0,,2024-10-15,20240826,Fall 2024
-Python I Programming Honors,32,5,Looping,6,,0,,2024-10-16,20240826,Fall 2024
-Python I Programming Honors,33,5,Looping,7,,0,,2024-10-17,20240826,Fall 2024
-Python I Programming Honors,34,6,Functions and Exceptions,1,,0,,2024-10-18,20240826,Fall 2024
-Python I Programming Honors,35,6,Functions and Exceptions,2,,0,,2024-10-21,20240826,Fall 2024
-Python I Programming Honors,36,6,Functions and Exceptions,3,,0,,2024-10-22,20240826,Fall 2024
-Python I Programming Honors,37,6,Functions and Exceptions,4,,0,,2024-10-23,20240826,Fall 2024
-Python I Programming Honors,38,6,Functions and Exceptions,5,,0,,2024-10-24,20240826,Fall 2024
-Python I Programming Honors,39,6,Functions and Exceptions,6,,0,,2024-10-25,20240826,Fall 2024
-Python I Programming Honors,40,6,Functions and Exceptions,7,,0,,2024-10-28,20240826,Fall 2024
-Python I Programming Honors,41,7,Strings,1,,0,,2024-10-29,20240826,Fall 2024
-Python I Programming Honors,42,7,Strings,2,,0,,2024-10-30,20240826,Fall 2024
-Python I Programming Honors,43,7,Strings,3,,0,,2024-10-31,20240826,Fall 2024
-Python I Programming Honors,44,7,Strings,4,,0,,2024-11-01,20240826,Fall 2024
-Python I Programming Honors,45,7,Strings,5,,0,,2024-11-06,20240826,Fall 2024
-Python I Programming Honors,46,7,Strings,6,,0,,2024-11-07,20240826,Fall 2024
-Python I Programming Honors,47,7,Strings,7,,0,,2024-11-08,20240826,Fall 2024
-Python I Programming Honors,48,8,Data Structures,1,,0,,2024-11-12,20240826,Fall 2024
-Python I Programming Honors,49,8,Data Structures,2,,0,,2024-11-13,20240826,Fall 2024
-Python I Programming Honors,50,8,Data Structures,3,,0,,2024-11-14,20240826,Fall 2024
-Python I Programming Honors,51,8,Data Structures,4,,0,,2024-11-15,20240826,Fall 2024
-Python I Programming Honors,52,8,Data Structures,5,,0,,2024-11-18,20240826,Fall 2024
-Python I Programming Honors,53,8,Data Structures,6,,0,,2024-11-19,20240826,Fall 2024
-Python I Programming Honors,54,8,Data Structures,7,,0,,2024-11-20,20240826,Fall 2024
-Python I Programming Honors,55,9,Text Files,1,,0,,2024-11-21,20240826,Fall 2024
-Python I Programming Honors,56,9,Text Files,2,,0,,2024-11-22,20240826,Fall 2024
-Python I Programming Honors,57,9,Text Files,3,,0,,2024-11-25,20240826,Fall 2024
-Python I Programming Honors,58,9,Text Files,4,,0,,2024-11-26,20240826,Fall 2024
-Python I Programming Honors,59,9,Text Files,5,,0,,2024-12-02,20240826,Fall 2024
-Python I Programming Honors,60,9,Text Files,6,,0,,2024-12-03,20240826,Fall 2024
-Python I Programming Honors,61,9,Text Files,7,,0,,2024-12-04,20240826,Fall 2024
-Python I Programming Honors,62,10,PCEP Preparation and Exam,1,,0,,2024-12-05,20240826,Fall 2024
-Python I Programming Honors,63,10,PCEP Preparation and Exam,2,,0,,2024-12-06,20240826,Fall 2024
-Python I Programming Honors,64,10,PCEP Preparation and Exam,3,,0,,2024-12-09,20240826,Fall 2024
-Python I Programming Honors,65,10,PCEP Preparation and Exam,4,,0,,2024-12-10,20240826,Fall 2024
-Python I Programming Honors,66,10,PCEP Preparation and Exam,5,,0,,2024-12-11,20240826,Fall 2024
-Python I Programming Honors,67,10,PCEP Preparation and Exam,6,,0,,2024-12-12,20240826,Fall 2024
-Python I Programming Honors,68,10,PCEP Preparation and Exam,7,,0,,2024-12-13,20240826,Fall 2024
+Python I Programming Honors,6,1,"Ethics, Security and History of Computer Programming",4,,0,,2024-09-03,20240826,Fall 2024
+Python I Programming Honors,7,2,Problem Solving With Computers,1,,0,,2024-09-04,20240826,Fall 2024
+Python I Programming Honors,8,2,Problem Solving With Computers,3,,0,,2024-09-05,20240826,Fall 2024
+Python I Programming Honors,9,2,Problem Solving With Computers,4,,0,,2024-09-06,20240826,Fall 2024
+Python I Programming Honors,10,3,Basic Python and Console Interaction,1,,0,,2024-09-09,20240826,Fall 2024
+Python I Programming Honors,11,3,Basic Python and Console Interaction,2,,0,,2024-09-10,20240826,Fall 2024
+Python I Programming Honors,12,3,Basic Python and Console Interaction,3,,0,,2024-09-11,20240826,Fall 2024
+Python I Programming Honors,13,3,Basic Python and Console Interaction,4,,0,,2024-09-12,20240826,Fall 2024
+Python I Programming Honors,14,3,Basic Python and Console Interaction,6,,0,,2024-09-13,20240826,Fall 2024
+Python I Programming Honors,15,3,Basic Python and Console Interaction,7,,0,,2024-09-16,20240826,Fall 2024
+Python I Programming Honors,16,3,Basic Python and Console Interaction,8,,0,,2024-09-17,20240826,Fall 2024
+Python I Programming Honors,17,3,Basic Python and Console Interaction,9,,0,,2024-09-18,20240826,Fall 2024
+Python I Programming Honors,18,4,Conditionals,2,,0,,2024-09-19,20240826,Fall 2024
+Python I Programming Honors,19,4,Conditionals,3,,0,,2024-09-20,20240826,Fall 2024
+Python I Programming Honors,20,4,Conditionals,4,,0,,2024-09-23,20240826,Fall 2024
+Python I Programming Honors,21,4,Conditionals,5,,0,,2024-09-24,20240826,Fall 2024
+Python I Programming Honors,22,4,Conditionals,6,,0,,2024-09-25,20240826,Fall 2024
+Python I Programming Honors,23,4,Conditionals,7,,0,,2024-09-26,20240826,Fall 2024
+Python I Programming Honors,24,4,Conditionals,8,,0,,2024-09-27,20240826,Fall 2024
+Python I Programming Honors,25,5,Looping,1,,0,,2024-09-30,20240826,Fall 2024
+Python I Programming Honors,26,5,Looping,2,,0,,2024-10-01,20240826,Fall 2024
+Python I Programming Honors,27,5,Looping,3,,0,,2024-10-02,20240826,Fall 2024
+Python I Programming Honors,28,5,Looping,4,,0,,2024-10-07,20240826,Fall 2024
+Python I Programming Honors,29,5,Looping,5,,0,,2024-10-08,20240826,Fall 2024
+Python I Programming Honors,30,5,Looping,6,,0,,2024-10-09,20240826,Fall 2024
+Python I Programming Honors,31,5,Looping,7,,0,,2024-10-10,20240826,Fall 2024
+Python I Programming Honors,32,6,Functions and Exceptions,1,,0,,2024-10-11,20240826,Fall 2024
+Python I Programming Honors,33,6,Functions and Exceptions,2,,0,,2024-10-14,20240826,Fall 2024
+Python I Programming Honors,34,6,Functions and Exceptions,3,,0,,2024-10-15,20240826,Fall 2024
+Python I Programming Honors,35,6,Functions and Exceptions,4,,0,,2024-10-16,20240826,Fall 2024
+Python I Programming Honors,36,6,Functions and Exceptions,5,,0,,2024-10-17,20240826,Fall 2024
+Python I Programming Honors,37,6,Functions and Exceptions,6,,0,,2024-10-18,20240826,Fall 2024
+Python I Programming Honors,38,6,Functions and Exceptions,7,,0,,2024-10-21,20240826,Fall 2024
+Python I Programming Honors,39,6,Functions and Exceptions,8,,0,,2024-10-22,20240826,Fall 2024
+Python I Programming Honors,40,-1,Midterm Review & Exam,1,,0,,2024-10-23,20240826,Fall 2024
+Python I Programming Honors,41,-1,Midterm Review & Exam,2,,0,,2024-10-24,20240826,Fall 2024
+Python I Programming Honors,42,-1,Midterm Review & Exam,3,,0,,2024-10-25,20240826,Fall 2024
+Python I Programming Honors,43,-1,Midterm Review & Exam,4,,0,,2024-10-28,20240826,Fall 2024
+Python I Programming Honors,44,-1,Midterm Review & Exam,5,,0,,2024-10-29,20240826,Fall 2024
+Python I Programming Honors,45,-1,Midterm Review & Exam,6,,0,,2024-10-30,20240826,Fall 2024
+Python I Programming Honors,46,-1,Midterm Review & Exam,7,,0,,2024-10-31,20240826,Fall 2024
+Python I Programming Honors,47,-1,Midterm Review & Exam,8,,0,,2024-11-01,20240826,Fall 2024
+Python I Programming Honors,48,7,Strings,1,,0,,2024-11-06,20240826,Fall 2024
+Python I Programming Honors,49,7,Strings,2,,0,,2024-11-07,20240826,Fall 2024
+Python I Programming Honors,50,7,Strings,3,,0,,2024-11-08,20240826,Fall 2024
+Python I Programming Honors,51,7,Strings,4,,0,,2024-11-12,20240826,Fall 2024
+Python I Programming Honors,52,7,Strings,5,,0,,2024-11-13,20240826,Fall 2024
+Python I Programming Honors,53,7,Strings,6,,0,,2024-11-14,20240826,Fall 2024
+Python I Programming Honors,54,7,Strings,7,,0,,2024-11-15,20240826,Fall 2024
+Python I Programming Honors,55,8,Data Structures,1,,0,,2024-11-18,20240826,Fall 2024
+Python I Programming Honors,56,8,Data Structures,2,,0,,2024-11-19,20240826,Fall 2024
+Python I Programming Honors,57,8,Data Structures,3,,0,,2024-11-20,20240826,Fall 2024
+Python I Programming Honors,58,8,Data Structures,4,,0,,2024-11-21,20240826,Fall 2024
+Python I Programming Honors,59,8,Data Structures,5,,0,,2024-11-22,20240826,Fall 2024
+Python I Programming Honors,60,8,Data Structures,6,,0,,2024-11-25,20240826,Fall 2024
+Python I Programming Honors,61,8,Data Structures,7,,0,,2024-11-26,20240826,Fall 2024
+Python I Programming Honors,62,8,Data Structures,8,,0,,2024-12-02,20240826,Fall 2024
+Python I Programming Honors,63,8,Data Structures,9,,0,,2024-12-03,20240826,Fall 2024
+Python I Programming Honors,64,9,Text Files,1,,0,,2024-12-04,20240826,Fall 2024
+Python I Programming Honors,65,9,Text Files,2,,0,,2024-12-05,20240826,Fall 2024
+Python I Programming Honors,66,9,Text Files,3,,0,,2024-12-06,20240826,Fall 2024
+Python I Programming Honors,67,9,Text Files,4,,0,,2024-12-09,20240826,Fall 2024
+Python I Programming Honors,68,9,Text Files,5,,0,,2024-12-10,20240826,Fall 2024
+Python I Programming Honors,69,9,Text Files,6,,0,,2024-12-11,20240826,Fall 2024
+Python I Programming Honors,70,9,Text Files,7,,0,,2024-12-12,20240826,Fall 2024
+Python I Programming Honors,71,10,PCEP Preparation and Exam,1,,0,,2024-12-13,20240826,Fall 2024
+Python I Programming Honors,72,10,PCEP Preparation and Exam,2,,0,,2024-12-16,20240826,Fall 2024
+Python I Programming Honors,73,10,PCEP Preparation and Exam,3,,0,,2024-12-17,20240826,Fall 2024
+Python I Programming Honors,74,10,PCEP Preparation and Exam,4,,0,,2024-12-18,20240826,Fall 2024
+Python I Programming Honors,75,10,PCEP Preparation and Exam,5,,0,,2024-12-19,20240826,Fall 2024
+Python I Programming Honors,76,10,PCEP Preparation and Exam,6,,0,,2024-12-20,20240826,Fall 2024
+Python I Programming Honors,77,10,PCEP Preparation and Exam,7,,0,,2025-01-06,20240826,Fall 2024
+Python I Programming Honors,78,10,PCEP Preparation and Exam,8,,0,,2025-01-07,20240826,Fall 2024
+Python I Programming Honors,79,10,PCEP Preparation and Exam,9,,0,,2025-01-08,20240826,Fall 2024
+Python I Programming Honors,80,10,PCEP Preparation and Exam,10,,0,,2025-01-09,20240826,Fall 2024
+Python I Programming Honors,81,10,PCEP Preparation and Exam,11,,0,,2025-01-10,20240826,Fall 2024
+Python I Programming Honors,82,10,PCEP Preparation and Exam,12,,0,,2025-01-13,20240826,Fall 2024
+Python I Programming Honors,83,10,PCEP Preparation and Exam,13,,0,,2025-01-14,20240826,Fall 2024
+Python I Programming Honors,84,10,PCEP Preparation and Exam,14,,0,,2025-01-15,20240826,Fall 2024
+Python I Programming Honors,85,10,PCEP Preparation and Exam,15,,0,,2025-01-16,20240826,Fall 2024
+Python I Programming Honors,86,10,PCEP Preparation and Exam,16,,0,,2025-01-17,20240826,Fall 2024
+Python I Programming Honors,87,10,PCEP Preparation and Exam,17,,0,,2025-01-21,20240826,Fall 2024
+Python I Programming Honors,88,10,PCEP Preparation and Exam,18,,0,,2025-01-22,20240826,Fall 2024
+Python I Programming Honors,89,10,PCEP Preparation and Exam,19,,0,,2025-01-23,20240826,Fall 2024
 Python II Programming Honors,1,0,Setup and intros,1,,0,,2024-08-26,20240826,Fall 2024
 Python II Programming Honors,2,0,Setup and intros,2,,0,,2024-08-27,20240826,Fall 2024
 Python II Programming Honors,3,0,Setup and intros,3,,0,,2024-08-28,20240826,Fall 2024
