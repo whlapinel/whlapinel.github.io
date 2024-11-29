@@ -48,11 +48,21 @@ func hasImage(path string) bool {
 
 }
 
+// if files are found in "files" subdirectory of lesson directory, this will return true, unless the name is prefixed with "secret"
 func hasFilesDir(path string) bool {
-	_, err := os.ReadDir(path + "/files")
-	return err == nil
+	files, err := os.ReadDir(path + "/files")
+	if err != nil {
+		return false
+	}
+	for _, file := range files {
+		if file.Name()[:6] != "secret" {
+			return true
+		}
+	}
+	return false
 }
 
+// this returns true if and only if a file is found with name "slides.html"
 func hasSlides(path string) bool {
 	files, err := os.ReadDir(path)
 	if err != nil {
@@ -66,6 +76,7 @@ func hasSlides(path string) bool {
 	return false
 }
 
+// list of directories to be cleared (used for clearing html files only)
 func DirectoriesClearList() []string {
 	return []string{
 		rootDir,
