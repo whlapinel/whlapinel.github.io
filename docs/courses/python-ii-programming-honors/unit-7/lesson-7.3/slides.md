@@ -9,7 +9,17 @@ paginate: true
 <!-- backgroundColor: black -->
 <!-- class: invert -->
 
-# Warmup
+# **Warmup**
+
+Write a Python program that asks the user to input an animal name and then prints the corresponding sound if the animal exists in the dictionary, or prints "Animal not found."
+
+```python
+animal_sounds = {
+    "cat": "meow",
+    "dog": "bark",
+    "cow": "moo"
+}
+```
 
 # Week Ahead
 

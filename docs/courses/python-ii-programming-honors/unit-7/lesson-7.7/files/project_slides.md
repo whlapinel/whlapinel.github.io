@@ -90,7 +90,6 @@ paginate: true
   3. A written explanation (or recorded presentation) of your approach.
 - **Submission Format**:
   - Upload files to Canvas Assignment
-- **Deadline**:
 
 # **Resources**
 
