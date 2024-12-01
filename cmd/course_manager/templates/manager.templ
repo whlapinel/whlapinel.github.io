@@ -1,0 +1,53 @@
+package templates
+
+import (
+	"gh_static_portfolio/cmd/domain"
+	"strconv"
+)
+
+templ ManagerMainMenu() {
+	@Layout() {
+		<div class="grid grid-cols-3 gap-2">
+			<button>Build Site</button>
+			<button>Manage Course Instance</button> // only should be able to change dates
+			<a hx-get="/courses" hx-swap="outerHtml" hx-target="#page" hx-push-url="true">
+				<button>Manage Course</button> // change anything
+			</a>
+			<button>Generate Course Instance</button> // must select term
+			<button>Create New Course</button>
+			<button>Load Course From CSV</button>
+			<button>Create New Term</button>
+		</div>
+	}
+}
+
+templ ManageCourseComponent(curricula []*domain.CourseSOA) {
+	for _, curric := range curricula {
+		<table>
+			<caption>{ curric.Course.Title() }</caption>
+			<thead>
+				<tr>
+					<th>Day</th>
+					<th>Unit #</th>
+					<th>Unit Name</th>
+					<th>Lesson #</th>
+					<th>Lesson Name</th>
+				</tr>
+			</thead>
+			for i, day := range curric.Day {
+				<tr>
+					<td>{ strconv.Itoa(day) }</td>
+					<td>{ strconv.Itoa(curric.UnitNum[i]) }</td>
+					<td>{ curric.UnitName[i] }</td>
+					<td>{ strconv.Itoa(curric.LessonNum[i]) }</td>
+					<td>{ curric.LessonName[i] }</td>
+					<td><button></button></td>
+				</tr>
+			}
+			<tfoot></tfoot>
+		</table>
+	}
+}
+
+templ CourseInstanceManager(course domain.CourseInstance) {
+}

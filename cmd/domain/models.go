@@ -95,7 +95,7 @@ type SkillItem struct {
 }
 
 func NewCourse(title string, descr string, units []Unit, termName string) Course {
-	return Course{title, descr, units, termName}
+	return Course{title: title, Description: descr, Units: units, TermName: termName}
 
 }
 
@@ -103,8 +103,9 @@ type CourseRepository interface {
 	GetAll() ([]Course, error)
 }
 
-// Courses I teach
+// Courses I teach. this is the OOP version of CourseInstance. Bad wording I know
 type Course struct {
+	ID          int
 	title       string
 	Description string
 	Units       []Unit
@@ -112,30 +113,29 @@ type Course struct {
 }
 
 // combine a term and a curriculum and you get a schedule
-type CourseSchedule struct {
-	*Curriculum
-	Date     []time.Time
-	TermID   int
-	TermName string
+type CourseInstance struct {
+	*CourseSOA
+	*Term
+	Date []time.Time
 }
 
-type Curriculum struct {
+type CourseSOA struct {
 	Course      Course
 	Day         []int // day of instruction number e.g. 1, 2, ...87
 	UnitNum     []int // unit number e.g. 1, 2, 3
-	UnitDescr   []string
+	UnitName    []string
 	LessonNum   []int // lesson number e.g. 1, 2, 3
-	LessonDescr []string
+	LessonName  []string
 	StandardNum []int
 	StdDescr    []string
 }
 
-func (curric Curriculum) Truncate(end int) Curriculum {
+func (curric CourseSOA) Truncate(end int) CourseSOA {
 	curric.Day = curric.Day[:end]
 	curric.UnitNum = curric.UnitNum[:end]
-	curric.UnitDescr = curric.UnitDescr[:end]
+	curric.UnitName = curric.UnitName[:end]
 	curric.LessonNum = curric.LessonNum[:end]
-	curric.LessonDescr = curric.LessonDescr[:end]
+	curric.LessonName = curric.LessonName[:end]
 	curric.StandardNum = curric.StandardNum[:end]
 	return curric
 }
@@ -203,17 +203,16 @@ type NonInstructionalDays struct {
 }
 
 // Create schedule from term and curriculum. If term is shorter than curriculum days, curriculum will be truncated
-func NewCourseSchedule(term Term, curric Curriculum) (*CourseSchedule, error) {
+func NewCourseSchedule(term Term, curric CourseSOA) (*CourseInstance, error) {
 	dates := InstructionDays(term)
-	var cs CourseSchedule
+	var cs CourseInstance
 	if len(curric.Day) > len(dates) {
 		curric = curric.Truncate(len(dates))
 	}
-	cs = CourseSchedule{
-		Curriculum: &curric,
-		Date:       dates,
-		TermID:     term.ID,
-		TermName:   term.Name,
+	cs = CourseInstance{
+		CourseSOA: &curric,
+		Date:      dates,
+		Term:      &Term{ID: term.ID, Name: term.Name},
 	}
 	return &cs, nil
 }

@@ -22,6 +22,12 @@ tasks:
       - echo 'running marp .'
       - marp .
 
+  run-manager:
+    - echo 'Starting Course Manager'
+    - templ generate
+    - npx tailwindcss -i ./cmd/course_manager/styles.css -o ./cmd/course_manager/assets/styles/styles.css
+    - go run ./cmd/course_manager/main.go
+
   gen-schedule:
     cmds:
       - echo 'Generating schedule'

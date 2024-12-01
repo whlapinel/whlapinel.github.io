@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/csv"
-	"fmt"
+	"gh_static_portfolio/cmd/data"
 	"gh_static_portfolio/cmd/domain"
 	"log"
 	"os"
@@ -30,11 +30,11 @@ func main() {
 }
 
 func WriteScheduleToCSV() error {
-	py1curric, err := ImportCurriculumFromCSV("Python I Programming Honors")
+	py1curric, err := data.ImportCurriculumFromCSV("Python I Programming Honors")
 	if err != nil {
 		return err
 	}
-	py2curric, err := ImportCurriculumFromCSV("Python II Programming Honors")
+	py2curric, err := data.ImportCurriculumFromCSV("Python II Programming Honors")
 	if err != nil {
 		return err
 	}
@@ -49,7 +49,7 @@ func WriteScheduleToCSV() error {
 			currentTerm = term
 		}
 	}
-	var schedules []domain.CourseSchedule
+	var schedules []domain.CourseInstance
 	py1currentSchedule, err := domain.NewCourseSchedule(currentTerm, *py1curric)
 	if err != nil {
 		return err
@@ -87,14 +87,14 @@ func WriteScheduleToCSV() error {
 			courseName := schedule.Course.Title()
 			day := strconv.Itoa(schedule.Day[i])
 			unitNum := strconv.Itoa(schedule.UnitNum[i])
-			unitDescr := schedule.UnitDescr[i]
+			unitDescr := schedule.UnitName[i]
 			lessonNum := strconv.Itoa(schedule.LessonNum[i])
-			lessonDescr := schedule.LessonDescr[i]
+			lessonDescr := schedule.LessonName[i]
 			std := strconv.Itoa(schedule.StandardNum[i])
 			stdDescr := schedule.StdDescr[i]
 			date := schedule.Date[i].String()[:10]
-			termID := strconv.Itoa(schedule.TermID)
-			termName := schedule.TermName
+			termID := strconv.Itoa(schedule.Term.ID)
+			termName := schedule.Term.Name
 			rows = append(rows, []string{
 				courseName,
 				day,
@@ -114,66 +114,6 @@ func WriteScheduleToCSV() error {
 	writer.WriteAll(rows)
 	return nil
 
-}
-
-const curricCsvDir = "/home/whlapinel/personal_projects/github_portfolio_site/whlapinel.github.io/cmd/data/csv_files/curricula.csv"
-
-// 11/24: copied and pasted this from teacher app, I wanted to do something more proper but couldn't immediately think of how
-func ImportCurriculumFromCSV(courseName string) (*domain.Curriculum, error) {
-	curric := domain.Curriculum{
-		Course: domain.NewCourse(courseName, "", []domain.Unit{}, ""),
-	}
-	file, err := os.Open(curricCsvDir)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	reader := csv.NewReader(file)
-	records, err := reader.ReadAll()
-	if err != nil {
-		return nil, err
-	}
-	for i, record := range records {
-		if curric.Course.Title() == record[courseNameCol] {
-			dayNum := i + 1
-			if record[dayNumCol] != "" {
-				dayNum, err = strconv.Atoi(record[dayNumCol])
-				if err != nil {
-					return nil, fmt.Errorf("error reading day number from csv")
-				}
-			}
-			curric.Day = append(curric.Day, dayNum)
-			unitNum := 0
-			if record[unitNumCol] != "" {
-				unitNum, err = strconv.Atoi(record[unitNumCol])
-				if err != nil {
-					return nil, fmt.Errorf("error reading unit number from csv")
-				}
-			}
-			curric.UnitNum = append(curric.UnitNum, unitNum)
-			curric.UnitDescr = append(curric.UnitDescr, record[unitDescrCol])
-			lessonNum := 0
-			if record[lessonNumCol] != "" {
-				lessonNum, err = strconv.Atoi(record[lessonNumCol])
-				if err != nil {
-					return nil, fmt.Errorf("error reading lesson number from csv")
-				}
-			}
-			curric.LessonNum = append(curric.LessonNum, lessonNum)
-			curric.LessonDescr = append(curric.LessonDescr, record[lessonDescrCol])
-			stdNum := 0
-			if record[stdNumCol] != "" {
-				stdNum, err = strconv.Atoi(record[stdNumCol])
-				if err != nil {
-					return nil, fmt.Errorf("error reading std number from csv: %s", err)
-				}
-			}
-			curric.StandardNum = append(curric.StandardNum, stdNum)
-			curric.StdDescr = append(curric.StdDescr, record[stdDescrCol])
-
-		}
-	}
-	return &curric, nil
 }
 
 const termsPath = "/home/whlapinel/personal_projects/github_portfolio_site/whlapinel.github.io/cmd/data/csv_files/terms.csv"

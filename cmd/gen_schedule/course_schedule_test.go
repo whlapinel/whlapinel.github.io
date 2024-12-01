@@ -1,12 +1,13 @@
 package main
 
 import (
+	"gh_static_portfolio/cmd/data"
 	"gh_static_portfolio/cmd/domain"
 	"testing"
 )
 
 func TestCourseSchedule(t *testing.T) {
-	curriculum, err := ImportCurriculumFromCSV("Python II Programming Honors")
+	curriculum, err := data.ImportCurriculumFromCSV("Python II Programming Honors")
 	if err != nil {
 		t.Error()
 	}
@@ -21,7 +22,7 @@ func TestCourseSchedule(t *testing.T) {
 	if err != nil {
 		t.Error()
 	}
-	if schedule.TermID == 0 {
+	if schedule.Term.ID == 0 {
 		t.Error()
 	}
 
