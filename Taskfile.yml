@@ -26,20 +26,20 @@ tasks:
     - echo 'Starting Course Manager'
     - templ generate
     - npx tailwindcss -i ./cmd/course_manager/styles.css -o ./cmd/course_manager/assets/styles/styles.css
-    - go run ./cmd/course_manager/main.go
+    - go run ./cmd/course_manager
 
   gen-schedule:
     cmds:
       - echo 'Generating schedule'
-      - go run ./cmd/gen_schedule/main.go
+      - go run ./cmd/gen_schedule
 
   build:
     cmds:
       - echo 'running templ generate...'
       - templ generate
-      - echo 'running go run...'
-      - go run ./cmd/gen_site/main.go
       - echo 'running tsc build...'
       - tsc --build
       - echo 'running npx tailwindcss...'
       - npx tailwindcss -i ./input.css -o ./docs/styles/styles.css
+      - echo 'running go run...'
+      - go run ./cmd/gen_site

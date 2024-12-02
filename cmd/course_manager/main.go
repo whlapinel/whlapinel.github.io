@@ -9,10 +9,9 @@ import (
 	"gh_static_portfolio/cmd/data"
 	"gh_static_portfolio/cmd/domain"
 	"log"
+	"time"
 
 	"github.com/a-h/templ"
-
-	_ "embed"
 
 	"github.com/labstack/echo/v4"
 	_ "github.com/mattn/go-sqlite3"
@@ -50,18 +49,17 @@ func main() {
 
 	log.Println("Foreign keys enabled:", foreignKeysEnabled)
 	queries = database.New(db)
-	curricula, err := loadCurriculaFromCSV()
+	curricula, err := LoadCoursesFromCSV()
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, curriculum := range curricula {
-		_, err := saveCurriculum(curriculum, ctx, queries)
+		_, err := SaveCourse(curriculum, ctx, queries)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 	}
-
 	e := echo.New()
 	fs := echo.MustSubFS(embeddedFiles, "assets")
 	e.StaticFS("/static", fs)
@@ -84,7 +82,7 @@ func main() {
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
-func loadCurriculaFromCSV() ([]*domain.CourseSOA, error) {
+func LoadCoursesFromCSV() ([]*domain.CourseSOA, error) {
 	curriculum1, err := data.ImportCurriculumFromCSV("Python I Programming Honors")
 	if err != nil {
 		return nil, err
@@ -99,10 +97,9 @@ func loadCurriculaFromCSV() ([]*domain.CourseSOA, error) {
 		curriculum1,
 		curriculum2,
 	}, nil
-
 }
 
-func saveCurriculum(curric *domain.CourseSOA, ctx context.Context, queries *database.Queries) (int64, error) {
+func SaveCourse(curric *domain.CourseSOA, ctx context.Context, queries *database.Queries) (int64, error) {
 	course, err := queries.SaveCourse(ctx, database.SaveCourseParams{Name: curric.Course.Title()})
 	if err != nil {
 		return 0, err
@@ -198,4 +195,26 @@ func CourseRowsToCourseSOA(rows []database.GetCoursesRow) ([]*domain.CourseSOA, 
 	}
 	return curricula, nil
 
+}
+
+func SaveTerm(ctx context.Context, term domain.Term, queries *database.Queries) (database.Term, error) {
+	params := database.SaveTermParams{}
+	params.Start = term.Start.Format(time.DateOnly)
+	params.End = term.End.Format(time.DateOnly)
+	dbTerm, err := queries.SaveTerm(ctx, params)
+	if err != nil {
+		return database.Term{}, err
+	}
+	return dbTerm, nil
+}
+
+func SaveCourseInstance(ctx context.Context, instance domain.CourseInstance, queries *database.Queries) (database.CourseInstance, error) {
+	params := database.SaveCourseInstanceParams{}
+	params.CourseID = int64(instance.Course.ID)
+	params.TermID = int64(instance.Term.ID)
+	dbInstance, err := queries.SaveCourseInstance(ctx, params)
+	if err != nil {
+		return database.CourseInstance{}, nil
+	}
+	return dbInstance, nil
 }

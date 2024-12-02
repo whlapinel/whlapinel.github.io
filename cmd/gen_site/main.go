@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+	SomeFunction()
 	directories := templates.DirectoriesClearList()
 	for _, directory := range directories {
 		ClearHTMLFiles(directory)

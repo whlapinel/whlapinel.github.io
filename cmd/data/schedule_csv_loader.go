@@ -90,6 +90,7 @@ func ImportScheduleFromCSV(courseName string) (*domain.CourseInstance, error) {
 			if err != nil {
 				return nil, err
 			}
+			instance.Term = &domain.Term{}
 			instance.Term.ID = termID
 			instance.Term.Name = record[termNameCol]
 
