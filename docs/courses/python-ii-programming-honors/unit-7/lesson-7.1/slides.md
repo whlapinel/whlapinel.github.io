@@ -100,5 +100,5 @@ except KeyboardInterrupt:
 - Set up your Finch: [Finch Setup](https://learn.birdbraintechnologies.com/finch/python/install/1-1)
 
 - Assignment 7.1: Complete Finch Programming Lesson 1 and submit your code: [Lesson 1](https://learn.birdbraintechnologies.com/finch/python/program/lesson-1-moving-and-turning)
-
-[Programming Reference](https://learn.birdbraintechnologies.com/finch/python/?robot=finch&software=python&moduleslide=&pg=library&r=&&moduleslide2=)
+- [Browser IDE](https://brython.birdbraintechnologies.com/)
+- [Programming Reference](https://learn.birdbraintechnologies.com/finch/python/?robot=finch&software=python&moduleslide=&pg=library&r=&&moduleslide2=)

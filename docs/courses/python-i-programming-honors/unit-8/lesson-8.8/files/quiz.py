@@ -33,8 +33,10 @@
 # assert create_number_list(1, 5) == [1, 2, 3, 4, 5]  # Expected: [1, 2, 3, 4, 5]
 # assert create_number_list(3, 3) == [3]  # Expected: [3]
 
+
 # # 13.1 2D Lists
 # # Q6: Write a function `row_sum` that takes a 2D list (list of lists) and an integer `row` and returns the sum of the elements in that row.
+
 
 # # Sample Test
 # assert row_sum([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 1) == 15  # Expected: 15
