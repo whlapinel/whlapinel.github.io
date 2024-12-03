@@ -18,7 +18,5 @@ paginate: true
 
 # Week Ahead
 
-- Tomorrow: Unit 8 Quiz
-- Tomorrow: Unit 8 Test
 - PE1 Module 4 Quiz due Thursday
 - PE1 Module 4 Test due Friday
