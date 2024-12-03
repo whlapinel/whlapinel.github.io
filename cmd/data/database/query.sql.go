@@ -83,13 +83,13 @@ func (q *Queries) DeleteLesson(ctx context.Context, id int64) (Lesson, error) {
 
 const deleteNonInstructDays = `-- name: DeleteNonInstructDays :one
 DELETE FROM non_instruct_days WHERE id = ?
-RETURNING id, date
+RETURNING id, term_id, date
 `
 
-func (q *Queries) DeleteNonInstructDays(ctx context.Context, id interface{}) (NonInstructDay, error) {
+func (q *Queries) DeleteNonInstructDays(ctx context.Context, id int64) (NonInstructDay, error) {
 	row := q.db.QueryRowContext(ctx, deleteNonInstructDays, id)
 	var i NonInstructDay
-	err := row.Scan(&i.ID, &i.Date)
+	err := row.Scan(&i.ID, &i.TermID, &i.Date)
 	return i, err
 }
 

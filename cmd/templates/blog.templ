@@ -16,7 +16,7 @@ templ BlogsListComponent(blogs []*domain.Blog) {
 						href={ templ.SafeURL(RemoveDocsFromPath(blogDir) + FileName(blog)) }
 						hx-target="#page"
 						hx-select="#page"
-					>{ blog.Title() }</a>
+					>{ blog.GetTitle() }</a>
 				</li>
 			}
 		</ul>
@@ -25,7 +25,7 @@ templ BlogsListComponent(blogs []*domain.Blog) {
 
 templ BlogComponent(blog *domain.Blog) {
 	@Layout(&page{title: "Blog"}) {
-		<h1>{ blog.Title() }</h1>
+		<h1>{ blog.GetTitle() }</h1>
 		<p>{ blog.Content() }</p>
 	}
 }

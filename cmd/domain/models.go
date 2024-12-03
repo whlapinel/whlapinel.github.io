@@ -5,6 +5,13 @@ import (
 	"time"
 )
 
+type Repository[T any] interface {
+	Save(*T) error
+	All() ([]*T, error)
+	WriteToCSV(*T) error
+	ReadFromCSV() ([]*T, error)
+}
+
 type BlogRepository interface {
 	GetAll() ([]*Blog, error)
 }
@@ -21,7 +28,7 @@ func NewBlog(title, content string) *Blog {
 	}
 }
 
-func (b *Blog) Title() string {
+func (b *Blog) GetTitle() string {
 	return b.title
 }
 
@@ -42,7 +49,7 @@ type EducationItem struct {
 	Classes []*ClassItem
 }
 
-func (e *EducationItem) Title() string {
+func (e *EducationItem) GetTitle() string {
 	return e.School
 }
 
@@ -95,7 +102,7 @@ type SkillItem struct {
 }
 
 func NewCourse(title string, descr string, units []Unit, termName string) Course {
-	return Course{title: title, Description: descr, Units: units, TermName: termName}
+	return Course{Title: title, Description: descr, Units: units, TermName: termName}
 
 }
 
@@ -103,13 +110,17 @@ type CourseRepository interface {
 	GetAll() ([]Course, error)
 }
 
-// Courses I teach. this is the OOP version of CourseInstance. Bad wording I know
+// Courses I teach. this is the OOP version of CourseInstance. Bad wording I know.
 type Course struct {
 	ID          int
-	title       string
+	Title       string
 	Description string
 	Units       []Unit
 	TermName    string
+}
+
+func (c Course) GetTitle() string {
+	return c.Title
 }
 
 // combine a term and a curriculum and you get a schedule
@@ -119,7 +130,18 @@ type CourseInstance struct {
 	Date []time.Time
 }
 
+func (c CourseInstance) GetTitle() string {
+	return c.CourseSOA.Name
+}
+
+type CourseSOARepository interface {
+	GetAll() ([]*CourseSOA, error)
+	Save(*CourseSOA) error
+}
+
 type CourseSOA struct {
+	ID          int
+	Name        string
 	Course      Course
 	Day         []int // day of instruction number e.g. 1, 2, ...87
 	UnitNum     []int // unit number e.g. 1, 2, 3
@@ -128,6 +150,10 @@ type CourseSOA struct {
 	LessonName  []string
 	StandardNum []int
 	StdDescr    []string
+}
+
+func (c CourseSOA) GetTitle() string {
+	return c.Name
 }
 
 func (curric CourseSOA) Truncate(end int) CourseSOA {
@@ -139,39 +165,36 @@ func (curric CourseSOA) Truncate(end int) CourseSOA {
 	curric.StandardNum = curric.StandardNum[:end]
 	return curric
 }
-func (c Course) Title() string {
-	return c.title
-}
 
 func NewUnit(num int, title string, descr string, lessons []Lesson) Unit {
 	return Unit{num, title, descr, lessons}
 
 }
 
-func (u Unit) Title() string {
-	return u.title
+func (u Unit) GetTitle() string {
+	return u.Title
 }
 
 type Unit struct {
 	Number      int
-	title       string
+	Title       string
 	Description string
 	Lessons     []Lesson
 }
 
 func NewLesson(number int, title string, descr string, date time.Time) Lesson {
-	return Lesson{Number: number, title: title, Description: descr, Date: date}
+	return Lesson{Number: number, Title: title, Description: descr, Date: date}
 }
 
 type Lesson struct {
 	Number      int
-	title       string
+	Title       string
 	Description string
 	Date        time.Time
 }
 
-func (l Lesson) Title() string {
-	return l.title
+func (l Lesson) GetTitle() string {
+	return l.Title
 }
 func NewTerm(start, end time.Time, nonInstructionalDays []time.Time, termType TermType, termID int, name string) (*Term, error) {
 	if start.After(end) {

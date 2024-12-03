@@ -24,7 +24,7 @@ templ ManagerMainMenu() {
 templ ManageCourseComponent(curricula []*domain.CourseSOA) {
 	for _, curric := range curricula {
 		<table>
-			<caption>{ curric.Course.Title() }</caption>
+			<caption>{ curric.Course.GetTitle() }</caption>
 			<thead>
 				<tr>
 					<th>Day</th>

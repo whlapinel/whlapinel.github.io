@@ -10,91 +10,90 @@ import (
 )
 
 func main() {
-	SomeFunction()
 	directories := templates.DirectoriesClearList()
 	for _, directory := range directories {
 		ClearHTMLFiles(directory)
 	}
 	// Generate education page using education data
-	educationRepo := data.NewEducationRepo()
-	educationItems, err := educationRepo.GetAll()
-	if err != nil {
-		log.Fatalf("failed to get education items: %v", err)
-	}
-	educationPage := templates.NewEducationPage(educationItems)
-	err = RenderPage(educationPage)
-	if err != nil {
-		log.Fatalf("failed to render pages: %v", err)
-	}
-	// Generate "classes attended" list for education
-	for _, item := range educationItems {
-		if len(item.Classes) > 0 {
-			educationItemPage := templates.NewClassesPage(item)
-			err = RenderPage(educationItemPage)
-			if err != nil {
-				log.Fatalf("failed to render pages: %v", err)
-			}
-		}
-	}
-	// Generate skills page using skills data
-	skillsRepo := data.NewSkillRepo()
-	skillItems, err := skillsRepo.GetAll()
-	if err != nil {
-		log.Fatalf("failed to get skill items: %v", err)
-	}
-	skillsPage := templates.NewSkillsPage(skillItems)
-	err = RenderPage(skillsPage)
-	if err != nil {
-		log.Fatalf("failed to render pages: %v", err)
-	}
-	// Generate work history page using work history data
-	workHistoryRepo := data.NewWorkHistoryRepo()
-	workHistoryItems, err := workHistoryRepo.GetAll()
-	if err != nil {
-		log.Fatalf("failed to get work history items: %v", err)
-	}
-	workHistoryPage := templates.NewWorkHistoryPage(workHistoryItems)
-	err = RenderPage(workHistoryPage)
-	if err != nil {
-		log.Fatalf("failed to render pages: %v", err)
-	}
-	// Generate projects page using projects data
-	projectsRepo := data.NewProjectRepo()
-	projectItems, err := projectsRepo.GetAll()
-	if err != nil {
-		log.Fatalf("failed to get project items: %v", err)
-	}
-	projectsPage := templates.NewProjectsPage(projectItems)
-	err = RenderPage(projectsPage)
-	if err != nil {
-		log.Fatalf("failed to render pages: %v", err)
-	}
-	// Generate blogs list using blogs data
-	blogRepo := data.NewBlogRepo()
-	blogItems, err := blogRepo.GetAll()
-	if err != nil {
-		log.Fatalf("failed to get blog items: %v", err)
-	}
-	blogsPage := templates.NewBlogsListPage(blogItems)
-	err = RenderPage(blogsPage)
-	if err != nil {
-		log.Fatalf("failed to render pages: %v", err)
-	}
-	err = RenderPage(blogsPage)
-	if err != nil {
-		log.Fatalf("failed to render pages: %v", err)
-	}
-	// Generate individual blogs pages
-	for _, blog := range blogItems {
-		blogPage := templates.NewBlogPage(blog)
-		err = RenderPage(blogPage)
-		if err != nil {
-			log.Fatalf("failed to render pages: %v", err)
-		}
-	}
+	// educationRepo := data.NewEducationRepo()
+	// educationItems, err := educationRepo.GetAll()
+	// if err != nil {
+	// 	log.Fatalf("failed to get education items: %v", err)
+	// }
+	// educationPage := templates.NewEducationPage(educationItems)
+	// err = RenderPage(educationPage)
+	// if err != nil {
+	// 	log.Fatalf("failed to render pages: %v", err)
+	// }
+	// // Generate "classes attended" list for education
+	// for _, item := range educationItems {
+	// 	if len(item.Classes) > 0 {
+	// 		educationItemPage := templates.NewClassesPage(item)
+	// 		err = RenderPage(educationItemPage)
+	// 		if err != nil {
+	// 			log.Fatalf("failed to render pages: %v", err)
+	// 		}
+	// 	}
+	// }
+	// // Generate skills page using skills data
+	// skillsRepo := data.NewSkillRepo()
+	// skillItems, err := skillsRepo.GetAll()
+	// if err != nil {
+	// 	log.Fatalf("failed to get skill items: %v", err)
+	// }
+	// skillsPage := templates.NewSkillsPage(skillItems)
+	// err = RenderPage(skillsPage)
+	// if err != nil {
+	// 	log.Fatalf("failed to render pages: %v", err)
+	// }
+	// // Generate work history page using work history data
+	// workHistoryRepo := data.NewWorkHistoryRepo()
+	// workHistoryItems, err := workHistoryRepo.GetAll()
+	// if err != nil {
+	// 	log.Fatalf("failed to get work history items: %v", err)
+	// }
+	// workHistoryPage := templates.NewWorkHistoryPage(workHistoryItems)
+	// err = RenderPage(workHistoryPage)
+	// if err != nil {
+	// 	log.Fatalf("failed to render pages: %v", err)
+	// }
+	// // Generate projects page using projects data
+	// projectsRepo := data.NewProjectRepo()
+	// projectItems, err := projectsRepo.GetAll()
+	// if err != nil {
+	// 	log.Fatalf("failed to get project items: %v", err)
+	// }
+	// projectsPage := templates.NewProjectsPage(projectItems)
+	// err = RenderPage(projectsPage)
+	// if err != nil {
+	// 	log.Fatalf("failed to render pages: %v", err)
+	// }
+	// // Generate blogs list using blogs data
+	// blogRepo := data.NewBlogRepo()
+	// blogItems, err := blogRepo.GetAll()
+	// if err != nil {
+	// 	log.Fatalf("failed to get blog items: %v", err)
+	// }
+	// blogsPage := templates.NewBlogsListPage(blogItems)
+	// err = RenderPage(blogsPage)
+	// if err != nil {
+	// 	log.Fatalf("failed to render pages: %v", err)
+	// }
+	// err = RenderPage(blogsPage)
+	// if err != nil {
+	// 	log.Fatalf("failed to render pages: %v", err)
+	// }
+	// // Generate individual blogs pages
+	// for _, blog := range blogItems {
+	// 	blogPage := templates.NewBlogPage(blog)
+	// 	err = RenderPage(blogPage)
+	// 	if err != nil {
+	// 		log.Fatalf("failed to render pages: %v", err)
+	// 	}
+	// }
 	// Generate home page
 	homePage := templates.NewHomePage()
-	err = RenderPage(homePage)
+	err := RenderPage(homePage)
 	if err != nil {
 		log.Fatalf("failed to render pages: %v", err)
 	}
@@ -110,16 +109,16 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to render pages: %v", err)
 	}
-	// Generate personal page
-	personalPage := templates.NewPersonalPage()
-	err = RenderPage(personalPage)
-	if err != nil {
-		log.Fatalf("failed to render pages: %v", err)
-	}
+	// // Generate personal page
+	// personalPage := templates.NewPersonalPage()
+	// err = RenderPage(personalPage)
+	// if err != nil {
+	// 	log.Fatalf("failed to render pages: %v", err)
+	// }
 
 	// Generate "courses I teach" list page
 	courseRepo := data.NewCoursesRepo()
-	courses, err := courseRepo.GetAll()
+	courses, err := courseRepo.All()
 	if err != nil {
 		log.Fatalf("Error getting courses: %v", err)
 	}
@@ -130,28 +129,29 @@ func main() {
 	}
 	// Generate page for each course
 	for _, course := range courses {
+		log.Println("Site generator main() course: Name: ", course.Title)
 		coursePage := templates.NewCoursePage(course)
 		err = RenderPage(coursePage)
 		if err != nil {
 			log.Fatalf("failed to render pages: %v", err)
 		}
 		// Generate calendar page for each course
-		calendarPage := templates.NewCourseCalendarPage(course)
+		calendarPage := templates.NewCourseCalendarPage(*course)
 		err = RenderPage(calendarPage)
 		if err != nil {
 			log.Fatalf("failed to render pages: %v", err)
 		}
 		// Generate page for each unit
 		for _, unit := range course.Units {
-			log.Println("looping through units in main():", unit.Title())
-			unitPage := templates.NewUnitPage(unit, course)
+			log.Println("looping through units in main():", unit.Title)
+			unitPage := templates.NewUnitPage(unit, *course)
 			err = RenderPage(unitPage)
 			if err != nil {
 				log.Fatalf("failed to render pages: %v", err)
 			}
 			// Generate page for each lesson
 			for _, lesson := range unit.Lessons {
-				lessonPage := templates.NewLessonPage(lesson, unit, course)
+				lessonPage := templates.NewLessonPage(lesson, unit, *course)
 				err = RenderPage(lessonPage)
 				if err != nil {
 					log.Fatalf("failed to render pages: %v", err)
@@ -177,7 +177,7 @@ func ClearHTMLFiles(directory string) {
 }
 
 func RenderPage(t templates.Templifier) error {
-	log.Println("RenderPage: ", t.Title())
+	log.Println("RenderPage: ", t.GetTitle())
 	err := os.MkdirAll(t.Directory(), os.ModePerm)
 	if err != nil {
 		log.Fatalf("failed to create directory: %v", err)

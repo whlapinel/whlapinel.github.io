@@ -47,8 +47,9 @@ type LessonObjective struct {
 }
 
 type NonInstructDay struct {
-	ID   interface{}
-	Date string
+	ID     int64
+	TermID int64
+	Date   string
 }
 
 type Objective struct {

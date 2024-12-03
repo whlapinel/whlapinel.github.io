@@ -14,7 +14,7 @@ import (
 )
 
 func logThings(page Templifier, selectedPage Templifier) bool {
-	log.Printf("page: %v, selectedPage: %v", page.Title(), selectedPage.Title())
+	log.Printf("page: %v, selectedPage: %v", page.GetTitle(), selectedPage.GetTitle())
 	return true
 }
 
@@ -54,7 +54,7 @@ func Layout(selectedPage Templifier) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			if page.Title() != "About" {
+			if page.GetTitle() != "About" {
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" href=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -73,7 +73,7 @@ func Layout(selectedPage Templifier) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			if page.Title() == "Home" {
+			if page.GetTitle() == "Home" {
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" id=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -97,9 +97,9 @@ func Layout(selectedPage Templifier) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var5 string
-				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs("nav-" + strings.ToLower(page.Title()))
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs("nav-" + strings.ToLower(page.GetTitle()))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/layout.templ`, Line: 70, Col: 52}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/layout.templ`, Line: 70, Col: 55}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -115,9 +115,9 @@ func Layout(selectedPage Templifier) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var6 string
-			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(page.Title())
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(page.GetTitle())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/layout.templ`, Line: 73, Col: 22}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/layout.templ`, Line: 73, Col: 25}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -127,7 +127,7 @@ func Layout(selectedPage Templifier) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			if page.Title() == "About" {
+			if page.GetTitle() == "About" {
 				templ_7745c5c3_Err = AboutSideNav().Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err

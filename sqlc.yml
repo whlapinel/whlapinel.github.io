@@ -1,9 +1,9 @@
 version: "2"
 sql:
   - engine: "sqlite"
-    queries: "cmd/course_manager/query.sql"
-    schema: "cmd/course_manager/schema.sql"
+    queries: "cmd/data/database/query.sql"
+    schema: "cmd/data/database/schema.sql"
     gen:
       go:
         package: "database"
-        out: "cmd/course_manager/database"
+        out: "cmd/data/database"

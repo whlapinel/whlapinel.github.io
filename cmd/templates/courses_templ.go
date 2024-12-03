@@ -306,7 +306,7 @@ func TitleDiv(title, description, path string) templ.Component {
 	})
 }
 
-func CoursesListComponent(courses []domain.Course) templ.Component {
+func CoursesListComponent(courses []*domain.Course) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -378,9 +378,9 @@ func CoursesListComponent(courses []domain.Course) templ.Component {
 								return templ_7745c5c3_Err
 							}
 							var templ_7745c5c3_Var20 string
-							templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(course.Title())
+							templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(course.GetTitle())
 							if templ_7745c5c3_Err != nil {
-								return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/courses.templ`, Line: 74, Col: 25}
+								return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/courses.templ`, Line: 74, Col: 28}
 							}
 							_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 							if templ_7745c5c3_Err != nil {
@@ -392,7 +392,7 @@ func CoursesListComponent(courses []domain.Course) templ.Component {
 							}
 							return templ_7745c5c3_Err
 						})
-						templ_7745c5c3_Err = ListedLinkItem(RemoveDocsFromPath(courseRoutePath(course))+FileName(course), false).Render(templ.WithChildren(ctx, templ_7745c5c3_Var19), templ_7745c5c3_Buffer)
+						templ_7745c5c3_Err = ListedLinkItem(RemoveDocsFromPath(courseRoutePath(*course))+FileName(course), false).Render(templ.WithChildren(ctx, templ_7745c5c3_Var19), templ_7745c5c3_Buffer)
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
@@ -549,7 +549,7 @@ func CourseComponent(course domain.Course) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = TitleDiv(course.Title(), course.Description, courseRoutePath(course)).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = TitleDiv(course.GetTitle(), course.Description, courseRoutePath(course)).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -708,19 +708,19 @@ func UnitComponent(unit domain.Unit, course domain.Course) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = TitleDiv(unit.Title(), unit.Description, unitRoutePath(unit, course)).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = TitleDiv(unit.GetTitle(), unit.Description, unitRoutePath(unit, course)).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				return templ_7745c5c3_Err
 			})
-			templ_7745c5c3_Err = CourseDivContainer(course, RemoveDocsFromPath(courseRoutePath(course))+FileName(course), course.Title()).Render(templ.WithChildren(ctx, templ_7745c5c3_Var31), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = CourseDivContainer(course, RemoveDocsFromPath(courseRoutePath(course))+FileName(course), course.GetTitle()).Render(templ.WithChildren(ctx, templ_7745c5c3_Var31), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = Layout(&page{title: course.Title()}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var30), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Layout(&page{title: course.GetTitle()}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var30), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -849,19 +849,19 @@ func LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Cours
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = TitleDiv(lesson.Title(), lesson.Description, lessonRoutePath(lesson, unit, course)).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = TitleDiv(lesson.GetTitle(), lesson.Description, lessonRoutePath(lesson, unit, course)).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				return templ_7745c5c3_Err
 			})
-			templ_7745c5c3_Err = CourseDivContainer(course, RemoveDocsFromPath(unitRoutePath(unit, course))+FileName(unit), unit.Title()).Render(templ.WithChildren(ctx, templ_7745c5c3_Var40), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = CourseDivContainer(course, RemoveDocsFromPath(unitRoutePath(unit, course))+FileName(unit), unit.GetTitle()).Render(templ.WithChildren(ctx, templ_7745c5c3_Var40), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = Layout(&page{title: course.Title()}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var39), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Layout(&page{title: course.GetTitle()}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var39), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

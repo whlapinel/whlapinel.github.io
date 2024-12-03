@@ -1,16 +1,17 @@
 package data
 
-import (
-	"gh_static_portfolio/cmd/domain"
-)
+import "gh_static_portfolio/cmd/domain"
 
-var blogs = []*domain.Blog{
-	domain.NewBlog("Blog 1", "This is the first blog. It is a very long blog. It is so long that it will wrap around to the next line."),
-	domain.NewBlog("Blog 1", "This is the first blog. It is a very long blog. It is so long that it will wrap around to the next line."),
-	domain.NewBlog("Blog 2", "This is the second blog. It is a very long blog. It is so long that it will wrap around to the next line."),
-	domain.NewBlog("Blog 3", "This is the third blog. It is a very long blog. It is so long that it will wrap around to the next line."),
-	domain.NewBlog("Blog 4", "This is the fourth blog. It is a very long blog. It is so long that it will wrap around to the next line."),
-	domain.NewBlog("Blog 5", "This is the fifth blog. It is a very long blog. It is so long that it will wrap around to the next line."),
+
+type educationRepo struct {
+}
+
+func NewEducationRepo() domain.EducationRepository {
+	return &educationRepo{}
+}
+
+func (r *educationRepo) GetAll() ([]*domain.EducationItem, error) {
+	return educationItems, nil
 }
 
 var educationItems = []*domain.EducationItem{
@@ -100,81 +101,4 @@ var educationItems = []*domain.EducationItem{
 		Degree: "High School Diploma",
 		Minor:  "Piano",
 	},
-}
-
-var workHistoryItems = []*domain.WorkHistoryItem{
-	{
-		Year:        "Aug 2024 - Present",
-		Company:     "Phillip O. Berry Academy of Technology",
-		Position:    "Teacher, Python Programming",
-		Description: "Developed the school's first Python 2 course.",
-	},
-	{
-		Year:        "Aug 2021 - Jun 2024",
-		Company:     "South Mecklenburg High School",
-		Position:    "Teacher, Earth & Environmental Science",
-		Description: "Led the EES Professional Learning Community during the 2022-2023 school year.",
-	},
-	{
-		Year:        "Jan 2020 - Jun 2021",
-		Company:     "Mallard Creek High School",
-		Position:    "Teacher, Earth & Environmental Science",
-		Description: "Taught Earth & Environmental Science during the virtual learning phase of the pandemic.",
-	},
-	{
-		Year:        "Aug 2001 - Oct 2015",
-		Company:     "US Navy",
-		Position:    "Various",
-		Description: "10 years of active duty with 4 deployments aboard various ships.",
-	},
-}
-
-var projectItems = []*domain.ProjectItem{
-	{
-		Image:       "https://via.placeholder.com/150",
-		Title:       "Project 1",
-		Subtitle:    "Subtitle 1",
-		Description: "This is a description of project 1.",
-		Link:        "",
-	},
-}
-
-var skillItems = []*domain.SkillItem{
-	{
-		Title: "Backend Development using Go, Python, and Java",
-	},
-	{
-		Title: "Frontend Development including React, Typescript/Javascript, HTML, and CSS",
-	},
-	{
-		Title: "Containers including Docker",
-	},
-	{
-		Title: "Operating systems including Windows and Linux",
-	},
-	{
-		Title: "Version control including Git and GitHub",
-	},
-}
-
-func Courses() ([]domain.Course, error) {
-	py1Schedule, err := ImportScheduleFromCSV("Python I Programming Honors")
-	if err != nil {
-		return nil, err
-	}
-	py2Schedule, err := ImportScheduleFromCSV("Python II Programming Honors")
-	if err != nil {
-		return nil, err
-	}
-	// course1 := curricSoaToOop(*py1curric)
-	// course2 := curricSoaToOop(*py2curric)
-	py1course := courseScheduleSoaToOop(*py1Schedule)
-	py2course := courseScheduleSoaToOop(*py2Schedule)
-	return []domain.Course{
-		py1course,
-		py2course,
-		// course1,
-		// course2,
-	}, nil
-
 }

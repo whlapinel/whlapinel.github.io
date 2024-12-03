@@ -22,6 +22,10 @@ func courseRoutePath(course domain.Course) string {
 	return fmt.Sprintf("%s%s", coursesDir, DirName(course))
 }
 
+func courseSoaRoutePath(course domain.CourseSOA) string {
+	return fmt.Sprintf("%s%s", coursesDir, DirName(course))
+}
+
 func unitRoutePath(unit domain.Unit, course domain.Course) string {
 	return fmt.Sprintf("%s%s%s", coursesDir, DirName(course), DirName(unit))
 }
@@ -89,12 +93,12 @@ func DirectoriesClearList() []string {
 
 type Templifier interface {
 	Templify() templ.Component
-	Title() string
+	GetTitle() string
 	Directory() string
 }
 
 type Titler interface {
-	Title() string
+	GetTitle() string
 }
 
 type page struct {
@@ -107,7 +111,7 @@ func (p *page) Templify() templ.Component {
 	return p.component
 }
 
-func (p *page) Title() string {
+func (p *page) GetTitle() string {
 	return p.title
 }
 
@@ -195,7 +199,7 @@ func NewBlogPage(item *domain.Blog) Templifier {
 		}
 	}
 	return &page{
-		title:     item.Title(),
+		title:     item.GetTitle(),
 		directory: blogDir,
 		component: BlogComponent(item),
 	}
@@ -209,7 +213,7 @@ func NewPersonalPage() Templifier {
 	}
 }
 
-func NewCoursesListPage(courses []domain.Course) Templifier {
+func NewCoursesListPage(courses []*domain.Course) Templifier {
 	return &page{
 		title:     "Courses",
 		directory: coursesDir,
@@ -218,17 +222,17 @@ func NewCoursesListPage(courses []domain.Course) Templifier {
 
 }
 
-func NewCoursePage(course domain.Course) Templifier {
+func NewCoursePage(course *domain.Course) Templifier {
 	return &page{
-		title:     course.Title(),
-		directory: courseRoutePath(course),
-		component: CourseComponent(course),
+		title:     course.GetTitle(),
+		directory: courseRoutePath(*course),
+		component: CourseComponent(*course),
 	}
 }
 
 func NewCourseCalendarPage(course domain.Course) Templifier {
 	return &page{
-		title:     course.Title() + " Calendar",
+		title:     course.GetTitle() + " Calendar",
 		directory: courseRoutePath(course),
 		component: CourseCalendarComponent(course),
 	}
@@ -236,7 +240,7 @@ func NewCourseCalendarPage(course domain.Course) Templifier {
 
 func NewUnitPage(unit domain.Unit, course domain.Course) Templifier {
 	return &page{
-		title:     unit.Title(),
+		title:     unit.GetTitle(),
 		directory: unitRoutePath(unit, course),
 		component: UnitComponent(unit, course),
 	}
@@ -244,7 +248,7 @@ func NewUnitPage(unit domain.Unit, course domain.Course) Templifier {
 
 func NewLessonPage(lesson domain.Lesson, unit domain.Unit, course domain.Course) Templifier {
 	return &page{
-		title:     lesson.Title(),
+		title:     lesson.GetTitle(),
 		directory: lessonRoutePath(lesson, unit, course),
 		component: LessonComponent(lesson, unit, course),
 	}
@@ -252,15 +256,15 @@ func NewLessonPage(lesson domain.Lesson, unit domain.Unit, course domain.Course)
 
 // same as FileName() but with "/" at the end instead of the .html extension
 func DirName(t Titler) string {
-	return strings.ReplaceAll(strings.ToLower(t.Title()), " ", "-") + "/"
+	return strings.ReplaceAll(strings.ToLower(t.GetTitle()), " ", "-") + "/"
 }
 
 // replaces spaces with dashes, makes lowercase, and adds .html file extension
 func FileName(t Titler) string {
-	if t.Title() == "Home" {
+	if t.GetTitle() == "Home" {
 		return "index.html"
 	}
-	return strings.ReplaceAll(strings.ToLower(t.Title()), " ", "-") + ".html"
+	return strings.ReplaceAll(strings.ToLower(t.GetTitle()), " ", "-") + ".html"
 }
 
 func RemoveDocsFromPath(directory string) string {
@@ -270,8 +274,8 @@ func RemoveDocsFromPath(directory string) string {
 func rootPages() []Templifier {
 	return []Templifier{
 		NewHomePage(),
-		NewAboutPage(),
-		NewBlogsListPage(nil),
+		// NewAboutPage(),
+		// NewBlogsListPage(nil),
 		NewContactPage(),
 		NewCoursesListPage(nil),
 	}

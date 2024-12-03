@@ -9,7 +9,13 @@ templ AboutComponent() {
 				<div class=" aspect-auto">
 					<img src="/images/profile.jpg" alt="Will Lapinel" class="rounded-full" height="128" width="128"/>
 				</div>
-				<p>Hi!  I'm Will Lapinel.</p>
+				<ul>
+					for _, section := range aboutSections() {
+						<li>
+							<a href={ "/about/" + templ.SafeURL(FileName(section)) } hx-select="#page" hx-target="#page" hx-swap="outerHTML" class="hover:bg-slate-600 rounded p-1">{ section.GetTitle() }</a>
+						</li>
+					}
+				</ul>
 			</div>
 		}
 	}
@@ -37,7 +43,7 @@ templ AboutSideNav() {
 		<ul>
 			for _, section := range aboutSections() {
 				<li>
-					<a href={ "/about/" + templ.SafeURL(FileName(section)) } hx-select="#page" hx-target="#page" hx-swap="outerHTML" class="hover:bg-slate-600 rounded p-1">{ section.Title() }</a>
+					<a href={ "/about/" + templ.SafeURL(FileName(section)) } hx-select="#page" hx-target="#page" hx-swap="outerHTML" class="hover:bg-slate-600 rounded p-1">{ section.GetTitle() }</a>
 				</li>
 			}
 		</ul>

@@ -75,9 +75,9 @@ func BlogsListComponent(blogs []*domain.Blog) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var5 string
-				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(blog.Title())
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(blog.GetTitle())
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/blog.templ`, Line: 19, Col: 20}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/blog.templ`, Line: 19, Col: 23}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -137,9 +137,9 @@ func BlogComponent(blog *domain.Blog) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var8 string
-			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(blog.Title())
+			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(blog.GetTitle())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/blog.templ`, Line: 28, Col: 20}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/blog.templ`, Line: 28, Col: 23}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {

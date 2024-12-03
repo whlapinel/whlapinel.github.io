@@ -6,7 +6,7 @@ import (
 )
 
 func logThings(page Templifier, selectedPage Templifier) bool {
-	log.Printf("page: %v, selectedPage: %v", page.Title(), selectedPage.Title())
+	log.Printf("page: %v, selectedPage: %v", page.GetTitle(), selectedPage.GetTitle())
 	return true
 }
 
@@ -58,21 +58,21 @@ templ Layout(selectedPage Templifier) {
 							class="relative"
 						>
 							<a
-								if page.Title() != "About" {
+								if page.GetTitle() != "About" {
 									href={ templ.SafeURL(RemoveDocsFromPath(page.Directory() + FileName(page))) }
 									hx-target="#page"
 									hx-select="#page"
 								}
 								class="hover:bg-green-700 p-2 rounded-md cursor-pointer"
-								if page.Title() == "Home" {
+								if page.GetTitle() == "Home" {
 									id={ "nav-index" }
 								} else {
-									id={ "nav-" + strings.ToLower(page.Title()) }
+									id={ "nav-" + strings.ToLower(page.GetTitle()) }
 								}
 							>
-								{ page.Title() }
+								{ page.GetTitle() }
 							</a>
-							if page.Title() == "About" {
+							if page.GetTitle() == "About" {
 								@AboutSideNav()
 							}
 						</div>
