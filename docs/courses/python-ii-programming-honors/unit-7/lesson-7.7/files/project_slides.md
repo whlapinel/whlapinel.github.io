@@ -19,7 +19,7 @@ paginate: true
   - Programming logic
   - Sensor usage
   - Debugging and testing
-- **Due Date**: *End of Class* Friday 11/29/24
+- **Due Date**: *End of Class* on day of Unit 7 Lesson 7
 
 # **Project Requirements**
 

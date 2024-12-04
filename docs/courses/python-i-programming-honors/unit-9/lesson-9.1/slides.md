@@ -145,8 +145,6 @@ with open('example.csv', mode='w', newline='') as file:
     csv_writer.writerows(data)  # Write all rows at once
 ```
 
-Run this code and take a look at the file created in your directory. It's literally just comma-separated values, you could make one yourself using a simple word processor like notepad!
-
 # Reading from CSV file
 
 ```python

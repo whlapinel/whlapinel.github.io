@@ -118,7 +118,7 @@ func main() {
 
 	// Generate "courses I teach" list page
 	courseRepo := data.NewCoursesRepo()
-	courses, err := courseRepo.All()
+	courses, err := courseRepo.ReadFromCSV()
 	if err != nil {
 		log.Fatalf("Error getting courses: %v", err)
 	}

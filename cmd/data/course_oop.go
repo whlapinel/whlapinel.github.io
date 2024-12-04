@@ -13,7 +13,7 @@ func NewCoursesRepo() domain.Repository[domain.Course] {
 }
 
 func (c *courseRepo) All() ([]*domain.Course, error) {
-	return c.ReadFromCSV()
+	return nil, fmt.Errorf("not implemented")
 }
 
 func (c *courseRepo) WriteToCSV(course *domain.Course) error {
