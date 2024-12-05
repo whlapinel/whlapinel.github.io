@@ -4,7 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"embed"
-	"gh_static_portfolio/cmd/course_manager/templates"
+	"gh_static_portfolio/cmd/course_manager/handlers"
+	"gh_static_portfolio/cmd/course_manager/services"
 	"gh_static_portfolio/cmd/data"
 	"gh_static_portfolio/cmd/data/database"
 	"log"
@@ -43,39 +44,33 @@ func main() {
 	}
 
 	log.Println("Foreign keys enabled:", foreignKeysEnabled)
-	queries = database.New(db)
-	coursesRepo := data.NewCourseSOARepo(queries)
-	courses, err := coursesRepo.ReadFromCSV()
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, course := range courses {
-		log.Println("CourseManager main(): saving course: ", course.Name)
-		_, err := data.SaveCourse(course, ctx, queries)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-	}
 	e := echo.New()
+	queries = database.New(db)
+	courseRepo := data.NewCourseSOARepo(queries)
+	courseService := services.NewCourseService(courseRepo)
+	courseHandler := handlers.NewCourseHandler(courseService, e)
+	termRepo := data.NewTermRepo(queries)
+	instanceRepo := data.NewInstanceRepo(queries)
+	instanceService := services.NewcourseInstanceService(instanceRepo, courseRepo, termRepo)
+	instanceHandler := handlers.NewCourseInstanceHandler(instanceService, e)
+	mainMenuHandler := handlers.NewMainMenuHandler(e)
+	handlers := []handlers.Handler{
+		courseHandler, instanceHandler, mainMenuHandler,
+	}
+	MountHandlers(handlers)
 	fs := echo.MustSubFS(embeddedFiles, "assets")
 	e.StaticFS("/static", fs)
-	e.GET("/", func(c echo.Context) error {
-		component := templates.ManagerMainMenu()
-		return RenderTempl(component, c, 200)
-	})
-	e.GET("/courses", func(c echo.Context) error {
-		courses, err := coursesRepo.All()
-		if err != nil {
-			return err
-		}
-		component := templates.ManageCourseComponent(courses)
-		return RenderTempl(component, c, 200)
-	})
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
 func RenderTempl(component templ.Component, c echo.Context, statusCode int) error {
 	c.Response().WriteHeader(statusCode)
 	return component.Render(c.Request().Context(), c.Response().Writer)
+}
+
+func MountHandlers(handlers []handlers.Handler) {
+	for _, handler := range handlers {
+		handler.Mount()
+	}
+
 }

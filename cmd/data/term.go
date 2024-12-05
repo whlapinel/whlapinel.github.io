@@ -10,6 +10,42 @@ import (
 	"time"
 )
 
+type TermRepo interface {
+	domain.Repository[domain.Term]
+}
+
+type termRepo struct {
+	queries *database.Queries
+}
+
+// All implements TermRepo.
+func (t termRepo) All() ([]*domain.Term, error) {
+	panic("unimplemented")
+}
+
+// ReadFromCSV implements TermRepo.
+func (t termRepo) ReadFromCSV() ([]*domain.Term, error) {
+	terms, err := TermsLoader()
+	if err != nil {
+		return nil, err
+	}
+	return terms, nil
+}
+
+// Save implements TermRepo.
+func (t termRepo) Save(*domain.Term) error {
+	panic("unimplemented")
+}
+
+// WriteToCSV implements TermRepo.
+func (t termRepo) WriteToCSV(*domain.Term) error {
+	panic("unimplemented")
+}
+
+func NewTermRepo(queries *database.Queries) TermRepo {
+	return termRepo{queries: queries}
+}
+
 const termsPath = "/home/whlapinel/personal_projects/github_portfolio_site/whlapinel.github.io/cmd/data/csv_files/terms.csv"
 const nonIDaysPath = "/home/whlapinel/personal_projects/github_portfolio_site/whlapinel.github.io/cmd/data/csv_files/non_instruct_days.csv"
 
@@ -65,7 +101,7 @@ func filterNonInstructionalDates(termID int, dates *domain.NonInstructionalDays)
 	return filtered
 }
 
-func TermsLoader() ([]domain.Term, error) {
+func TermsLoader() ([]*domain.Term, error) {
 	file, err := os.Open(termsPath)
 	if err != nil {
 		return nil, err
@@ -80,7 +116,7 @@ func TermsLoader() ([]domain.Term, error) {
 	if err != nil {
 		return nil, err
 	}
-	terms := []domain.Term{}
+	terms := []*domain.Term{}
 	for i, record := range records {
 		if i == 0 {
 			continue
@@ -105,7 +141,7 @@ func TermsLoader() ([]domain.Term, error) {
 		if err != nil {
 			return nil, err
 		}
-		terms = append(terms, *term)
+		terms = append(terms, term)
 
 	}
 	return terms, nil

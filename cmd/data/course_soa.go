@@ -111,8 +111,7 @@ func SaveCourse(course *domain.CourseSOA, ctx context.Context, queries *database
 	}
 	var currUnit *database.Unit
 	var currLesson *database.Lesson
-	var currDayNumber *database.DayNumber
-	for i, currDay := range course.Day {
+	for i, _ := range course.Day {
 		if currUnit == nil || int64(course.UnitNum[i]) != currUnit.Number {
 			log.Println("creating and saving unit")
 			currUnit = &database.Unit{
@@ -147,20 +146,6 @@ func SaveCourse(course *domain.CourseSOA, ctx context.Context, queries *database
 				log.Fatal(err)
 			}
 		}
-		if currDayNumber == nil || currDay != int(currDayNumber.Day) {
-			currDayNumber = &database.DayNumber{
-				Day:      int64(currDay),
-				LessonID: currLesson.ID,
-			}
-			*currDayNumber, err = queries.SaveDayNumber(ctx, database.SaveDayNumberParams{
-				LessonID: currLesson.ID,
-				Day:      currDayNumber.Day,
-			})
-			if err != nil {
-				log.Fatal(err)
-			}
-
-		}
 
 	}
 	return dbCourse.ID, nil
@@ -171,7 +156,9 @@ func CourseRowsToCourseSOA(rows []database.GetCoursesRow) ([]*domain.CourseSOA, 
 	var curricula = []*domain.CourseSOA{}
 	curricMap := make(map[int]*domain.CourseSOA)
 	var currID int64 = 0
+	var dayCount = 0
 	for _, row := range rows {
+		dayCount++
 		currID = row.CourseID
 		curriculum := curricMap[int(currID)]
 		if curriculum == nil {
@@ -180,7 +167,7 @@ func CourseRowsToCourseSOA(rows []database.GetCoursesRow) ([]*domain.CourseSOA, 
 			curriculum.Course.ID = int(currID)
 
 		}
-		curriculum.Day = append(curriculum.Day, int(row.DayNumber))
+		curriculum.Day = append(curriculum.Day, dayCount)
 		curriculum.UnitNum = append(curriculum.UnitNum, int(row.UnitNumber))
 		curriculum.UnitName = append(curriculum.UnitName, row.UnitName)
 		curriculum.LessonNum = append(curriculum.LessonNum, int(row.LessonNumber))

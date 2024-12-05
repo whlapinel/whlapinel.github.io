@@ -6,7 +6,10 @@ import (
 )
 
 type Handler interface {
-	Mount(e *echo.Echo)
+	Mount()
+}
+
+type CrudderHandler interface {
 	Create(c echo.Context) error
 	List(c echo.Context) error
 	Update(c echo.Context) error

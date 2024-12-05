@@ -15,7 +15,9 @@ templ ManagerMainMenu() {
 			</a>
 			<button>Generate Course Instance</button> // must select term
 			<button>Create New Course</button>
-			<button>Load Course From CSV</button>
+			<a hx-get="/courses/csv" hx-swap="outerHtml" hx-target="#page" hx-push-url="true">
+				<button>Load Course From CSV</button>
+			</a>
 			<button>Create New Term</button>
 		</div>
 	}

@@ -15,10 +15,11 @@ type CourseInstanceHandler interface {
 }
 type courseInstanceHandler struct {
 	service services.CourseInstanceService
+	e       *echo.Echo
 }
 
-func NewCourseInstanceHandler(service services.CourseInstanceService) CourseInstanceHandler {
-	return courseInstanceHandler{service: service}
+func NewCourseInstanceHandler(service services.CourseInstanceService, e *echo.Echo) CourseInstanceHandler {
+	return courseInstanceHandler{service: service, e: e}
 }
 
 const (
@@ -29,12 +30,12 @@ const (
 	CourseInstanceHandlerDelete      = "DELETE: /course-instances/:id"
 )
 
-func (h courseInstanceHandler) Mount(e *echo.Echo) {
-	e.POST("/course-instances", h.Create).Name = CourseInstanceHandlerCreate
-	e.GET("/course-instances", h.List).Name = CourseInstanceHandlerList
-	e.GET("/course-instances/csv", h.ReadFromCSV).Name = CourseInstanceHandlerReadFromCSV
-	e.PUT("/course-instances/:id", h.Update).Name = CourseInstanceHandlerUpdate
-	e.DELETE("/course-instances/:id", h.Delete).Name = CourseInstanceHandlerDelete
+func (h courseInstanceHandler) Mount() {
+	h.e.POST("/course-instances", h.Create).Name = CourseInstanceHandlerCreate
+	h.e.GET("/course-instances", h.List).Name = CourseInstanceHandlerList
+	h.e.GET("/course-instances/csv", h.ReadFromCSV).Name = CourseInstanceHandlerReadFromCSV
+	h.e.PUT("/course-instances/:id", h.Update).Name = CourseInstanceHandlerUpdate
+	h.e.DELETE("/course-instances/:id", h.Delete).Name = CourseInstanceHandlerDelete
 }
 
 func (h courseInstanceHandler) Create(c echo.Context) error {

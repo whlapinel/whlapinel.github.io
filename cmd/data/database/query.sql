@@ -1,22 +1,18 @@
 -- name: GetCourses :many
 SELECT
-    c.id as course_id,
-    c.name as course_name,
-    d.day AS day_number,
-    u.number AS unit_number,
-    u.name AS unit_name,
-    l.number AS lesson_number,
-    l.name AS lesson_name
-FROM 
-    day_numbers d
-JOIN 
-    lessons l ON d.lesson_id = l.id
-JOIN 
-    units u ON l.unit_id = u.id
-JOIN 
-    courses c ON u.course_id = c.id
-ORDER BY 
-    d.day;
+  c.id as course_id,
+  c.name as course_name,
+  c.description as course_description,
+  u.number as unit_number,
+  u.name as unit_name,
+  l.number as lesson_number,
+  l.name as lesson_name
+FROM
+  courses c
+JOIN
+  units u ON u.course_id = c.id AND u.instance_id = NULL
+JOIN
+  lessons l ON l.unit_id = u.id;
 
 
 -- name: SaveCourse :one
@@ -37,46 +33,26 @@ RETURNING *;
 
 -- name: SaveUnit :one
 INSERT INTO units (
-  number, name, description, course_id 
+  number, name, description, course_id, instance_id
 ) VALUES (
-  ?, ?, ?, ?
+  ?, ?, ?, ?, ?
 )
 RETURNING *;
 
 -- name: SaveLesson :one
 INSERT INTO lessons (
-  number, name, description, unit_id
+  number, name, description, unit_id, date
 ) VALUES (
-  ?, ?, ?, ?
-)
-RETURNING *;
-
--- name: SaveDayNumber :one
-INSERT INTO day_numbers (
-  lesson_id, day
-) VALUES (
-  ?, ?
+  ?, ?, ?, ?, ?
 )
 RETURNING *;
 
 -- name: SaveTerm :one
 INSERT INTO terms (
-  start, end
-) VALUES (
-  ?, ?
-)
-RETURNING *;
-
--- name: SaveDate :one
-INSERT INTO dates (
-  course_instance_id, lesson_id, date
+  name, start, end
 ) VALUES (
   ?, ?, ?
 )
-RETURNING *;
-
--- name: DeleteDayNumber :one
-DELETE FROM day_numbers WHERE id = ?
 RETURNING *;
 
 -- name: DeleteLesson :one
@@ -85,10 +61,6 @@ RETURNING *;
 
 -- name: DeleteUnit :one
 DELETE FROM units WHERE id = ?
-RETURNING *;
-
--- name: DeleteDate :one
-DELETE FROM dates WHERE course_instance_id = ? and lesson_id = ?
 RETURNING *;
 
 -- name: DeleteCourseInstance :one

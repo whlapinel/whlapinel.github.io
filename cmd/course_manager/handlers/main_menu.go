@@ -7,23 +7,24 @@ import (
 )
 
 type MainMenuHandler interface {
-	Mount(c *echo.Echo)
+	Mount()
 	ShowMenu(c echo.Context) error
 }
 
 type mainMenuHandler struct {
+	e *echo.Echo
 }
 
-func NewMainMenuHandler() MainMenuHandler {
-	return mainMenuHandler{}
+func NewMainMenuHandler(e *echo.Echo) MainMenuHandler {
+	return mainMenuHandler{e}
 }
 
 const (
 	MainMenuHandlerShowMenu = "GET: /"
 )
 
-func (h mainMenuHandler) Mount(e *echo.Echo) {
-	e.GET("/", h.ShowMenu).Name = MainMenuHandlerShowMenu
+func (h mainMenuHandler) Mount() {
+	h.e.GET("/", h.ShowMenu).Name = MainMenuHandlerShowMenu
 }
 func (h mainMenuHandler) ShowMenu(c echo.Context) error {
 	component := templates.ManagerMainMenu()

@@ -65,7 +65,7 @@ func GenerateInstancesFromCSV() ([]*domain.CourseInstance, error) {
 	if err != nil {
 		return nil, err
 	}
-	var currentTerm domain.Term
+	var currentTerm *domain.Term
 	for _, term := range terms {
 		if time.Now().After(term.Start) && time.Now().Before(term.End) {
 			currentTerm = term
@@ -73,7 +73,7 @@ func GenerateInstancesFromCSV() ([]*domain.CourseInstance, error) {
 	}
 	var schedules []*domain.CourseInstance
 	for _, course := range courses {
-		schedule, err := domain.NewCourseSchedule(currentTerm, *course)
+		schedule, err := domain.NewCourseSchedule(*currentTerm, *course)
 		if err != nil {
 			return nil, err
 		}

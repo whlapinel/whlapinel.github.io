@@ -14,10 +14,11 @@ type CourseHandler interface {
 }
 type courseHandler struct {
 	service services.CourseService
+	e       *echo.Echo
 }
 
-func NewCourseHandler(service services.CourseService) CourseHandler {
-	return courseHandler{service: service}
+func NewCourseHandler(service services.CourseService, e *echo.Echo) CourseHandler {
+	return courseHandler{service: service, e: e}
 }
 
 const (
@@ -28,12 +29,12 @@ const (
 	CourseHandlerDelete      = "DELETE: /courses/:id"
 )
 
-func (h courseHandler) Mount(e *echo.Echo) {
-	e.POST("/courses", h.Create).Name = CourseHandlerCreate
-	e.GET("/courses", h.List).Name = CourseHandlerList
-	e.GET("/courses/csv", h.ReadFromCSV).Name = CourseHandlerReadFromCSV
-	e.PUT("/courses/:id", h.Update).Name = CourseHandlerUpdate
-	e.DELETE("/courses/:id", h.Delete).Name = CourseHandlerDelete
+func (h courseHandler) Mount() {
+	h.e.POST("/courses", h.Create).Name = CourseHandlerCreate
+	h.e.GET("/courses", h.List).Name = CourseHandlerList
+	h.e.GET("/courses/csv", h.ReadFromCSV).Name = CourseHandlerReadFromCSV
+	h.e.PUT("/courses/:id", h.Update).Name = CourseHandlerUpdate
+	h.e.DELETE("/courses/:id", h.Delete).Name = CourseHandlerDelete
 }
 
 func (h courseHandler) Create(c echo.Context) error {
