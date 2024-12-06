@@ -11,7 +11,7 @@ import (
 
 type CourseInstanceHandler interface {
 	Handler
-	ReadFromCSV(c echo.Context) error
+	CrudderHandler
 }
 type courseInstanceHandler struct {
 	service services.CourseInstanceService
@@ -23,27 +23,41 @@ func NewCourseInstanceHandler(service services.CourseInstanceService, e *echo.Ec
 }
 
 const (
-	CourseInstanceHandlerCreate      = "POST: /course-instances"
-	CourseInstanceHandlerList        = "GET: /course-instances"
-	CourseInstanceHandlerReadFromCSV = "GET: /course-instances/csv"
-	CourseInstanceHandlerUpdate      = "PUT: /course-instances/:id"
-	CourseInstanceHandlerDelete      = "DELETE: /course-instances/:id"
+	CourseInstanceHandlerCreate      RouteName = "POST: /course-instances"
+	CourseInstanceHandlerList        RouteName = "GET: /course-instances"
+	CourseInstanceHandlerReadFromCSV RouteName = "GET: /course-instances/csv"
+	CourseInstanceHandlerUpdate      RouteName = "PUT: /course-instances/:id"
+	CourseInstanceHandlerDelete      RouteName = "DELETE: /course-instances/:id"
+)
+
+const (
+	CourseID ParamName = "course-id"
+	TermID   ParamName = "term-id"
 )
 
 func (h courseInstanceHandler) Mount() {
-	h.e.POST("/course-instances", h.Create).Name = CourseInstanceHandlerCreate
-	h.e.GET("/course-instances", h.List).Name = CourseInstanceHandlerList
-	h.e.GET("/course-instances/csv", h.ReadFromCSV).Name = CourseInstanceHandlerReadFromCSV
-	h.e.PUT("/course-instances/:id", h.Update).Name = CourseInstanceHandlerUpdate
-	h.e.DELETE("/course-instances/:id", h.Delete).Name = CourseInstanceHandlerDelete
+	nameRoute(h.e.POST("/course-instances", h.Create), CourseInstanceHandlerCreate)
+	nameRoute(h.e.GET("/course-instances", h.List), CourseInstanceHandlerList)
+	nameRoute(h.e.GET("/course-instances/csv", h.ReadFromCSV), CourseInstanceHandlerReadFromCSV)
+	nameRoute(h.e.PUT("/course-instances/:id", h.Update), CourseInstanceHandlerUpdate)
+	nameRoute(h.e.DELETE("/course-instances/:id", h.Delete), CourseInstanceHandlerDelete)
 }
 
 func (h courseInstanceHandler) Create(c echo.Context) error {
 	c.String(http.StatusOK, "not implemented")
 	return nil
 }
+
 func (h courseInstanceHandler) List(c echo.Context) error {
-	courses, err := h.service.All()
+	courseID, err := getIntegerParam(c, CourseID)
+	if err != nil {
+		return nil
+	}
+	termID, err := getIntegerParam(c, TermID)
+	if err != nil {
+		return err
+	}
+	courses, err := h.service.FetchOne(courseID, termID)
 	if err != nil {
 		return err
 	}

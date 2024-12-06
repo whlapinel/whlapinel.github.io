@@ -43,7 +43,7 @@ func ManagerMainMenu() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"grid grid-cols-3 gap-2\"><button>Build Site</button> <button>Manage Course Instance</button><a hx-get=\"/courses\" hx-swap=\"outerHtml\" hx-target=\"#page\" hx-push-url=\"true\"><button>Manage Course</button></a> <button>Generate Course Instance</button><button>Create New Course</button> <a hx-get=\"/courses/csv\" hx-swap=\"outerHtml\" hx-target=\"#page\" hx-push-url=\"true\"><button>Load Course From CSV</button></a> <button>Create New Term</button></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"grid grid-cols-3 gap-2\"><button>Build Site</button> <button>Manage Course Instance</button><a hx-get=\"/courses\" hx-swap=\"outerHtml\" hx-target=\"#page\" hx-push-url=\"true\"><button>Manage Course</button></a> <button>Generate Course Instance</button><button>Create New Course</button> <a hx-get=\"/courses/csv\" hx-swap=\"outerHtml\" hx-target=\"#page\" hx-push-url=\"true\"><button>Load Course From CSV</button></a> <button>Create New Term</button> <button>Load Term From CSV</button></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -57,7 +57,7 @@ func ManagerMainMenu() templ.Component {
 	})
 }
 
-func ManageCourseComponent(curricula []*domain.CourseSOA) templ.Component {
+func ManageCourseComponent(courses []*domain.CourseSOA) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -75,15 +75,15 @@ func ManageCourseComponent(curricula []*domain.CourseSOA) templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		for _, curric := range curricula {
+		for _, course := range courses {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<table><caption>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(curric.Course.GetTitle())
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(course.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 29, Col: 38}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 30, Col: 25}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -93,7 +93,7 @@ func ManageCourseComponent(curricula []*domain.CourseSOA) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			for i, day := range curric.Day {
+			for i, day := range course.Day {
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<tr><td>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -101,7 +101,7 @@ func ManageCourseComponent(curricula []*domain.CourseSOA) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(day))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 41, Col: 28}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 42, Col: 28}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -112,9 +112,9 @@ func ManageCourseComponent(curricula []*domain.CourseSOA) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var6 string
-				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(curric.UnitNum[i]))
+				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(course.UnitNum[i]))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 42, Col: 42}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 43, Col: 42}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -125,9 +125,9 @@ func ManageCourseComponent(curricula []*domain.CourseSOA) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var7 string
-				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(curric.UnitName[i])
+				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(course.UnitName[i])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 43, Col: 29}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 44, Col: 29}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -138,9 +138,9 @@ func ManageCourseComponent(curricula []*domain.CourseSOA) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var8 string
-				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(curric.LessonNum[i]))
+				templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(course.LessonNum[i]))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 44, Col: 44}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 45, Col: 44}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 				if templ_7745c5c3_Err != nil {
@@ -151,9 +151,9 @@ func ManageCourseComponent(curricula []*domain.CourseSOA) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var9 string
-				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(curric.LessonName[i])
+				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(course.LessonName[i])
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 45, Col: 31}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/course_manager/templates/manager.templ`, Line: 46, Col: 31}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
@@ -173,7 +173,7 @@ func ManageCourseComponent(curricula []*domain.CourseSOA) templ.Component {
 	})
 }
 
-func ManageInstanceComponent(instances []*domain.CourseInstance) templ.Component {
+func ManageInstanceComponent(instances *domain.CourseInstance) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)

@@ -27,8 +27,50 @@ func (c *courseSOARepo) All() ([]*domain.CourseSOA, error) {
 
 func (c *courseSOARepo) Save(course *domain.CourseSOA) error {
 	ctx := context.Background()
-	_, err := SaveCourse(course, ctx, c.queries)
-	return err
+	dbCourse, err := c.queries.SaveCourse(ctx, database.SaveCourseParams{Name: course.Name})
+	if err != nil {
+		return err
+	}
+	var currUnit *database.Unit
+	var currLesson *database.Lesson
+	for i := range course.Day {
+		if currUnit == nil || int64(course.UnitNum[i]) != currUnit.Number {
+			log.Println("creating and saving unit")
+			currUnit = &database.Unit{
+				Number:   int64(course.UnitNum[i]),
+				Name:     course.UnitName[i],
+				CourseID: dbCourse.ID,
+			}
+			*currUnit, err = c.queries.SaveUnit(ctx, database.SaveUnitParams{
+				Number:   currUnit.Number,
+				Name:     currUnit.Name,
+				CourseID: currUnit.CourseID,
+			})
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
+		if currLesson == nil || int64(course.LessonNum[i]) != currLesson.Number {
+			log.Println("Lesson Name: ", course.LessonName[i])
+			currLesson = &database.Lesson{
+				Number: int64(course.LessonNum[i]),
+				Name: sql.NullString{
+					String: course.LessonName[i],
+					Valid:  true,
+				},
+			}
+			*currLesson, err = c.queries.SaveLesson(ctx, database.SaveLessonParams{
+				Number: currLesson.Number,
+				Name:   currLesson.Name,
+				UnitID: currUnit.ID,
+			})
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
+
+	}
+	return nil
 }
 
 func (c *courseSOARepo) ReadFromCSV() ([]*domain.CourseSOA, error) {
@@ -161,12 +203,6 @@ func CourseRowsToCourseSOA(rows []database.GetCoursesRow) ([]*domain.CourseSOA, 
 		dayCount++
 		currID = row.CourseID
 		curriculum := curricMap[int(currID)]
-		if curriculum == nil {
-			curriculum = &domain.CourseSOA{}
-			curriculum.Course = domain.NewCourse(row.CourseName, "", []domain.Unit{}, "")
-			curriculum.Course.ID = int(currID)
-
-		}
 		curriculum.Day = append(curriculum.Day, dayCount)
 		curriculum.UnitNum = append(curriculum.UnitNum, int(row.UnitNumber))
 		curriculum.UnitName = append(curriculum.UnitName, row.UnitName)

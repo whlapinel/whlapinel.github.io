@@ -16,13 +16,24 @@ type courseInstanceRepo struct {
 	queries *database.Queries
 }
 
-func NewInstanceRepo(queries *database.Queries) domain.Repository[domain.CourseInstance] {
-	return courseInstanceRepo{queries}
+// FetchOne implements domain.CourseInstanceRepository.
+func (r courseInstanceRepo) FetchOne(courseID int, termID int) ([]*domain.CourseInstance, error) {
+	// ctx := context.Background()
+	// params := database.GetCourseInstancesParams{
+	// 	ID:     int64(courseID),
+	// 	TermID: int64(termID),
+	// }
+	// rows, err := r.queries.GetCourseInstances(ctx, params)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// instances := []*domain.CourseInstance{}
+	// for _, row := range
+	panic("unimplemented")
 }
 
-// Fetch from Database
-func (r courseInstanceRepo) All() ([]*domain.CourseInstance, error) {
-	return nil, fmt.Errorf("not implemented")
+func NewInstanceRepo(queries *database.Queries) domain.CourseInstanceRepository {
+	return courseInstanceRepo{queries}
 }
 
 func (r courseInstanceRepo) ReadFromCSV() ([]*domain.CourseInstance, error) {
@@ -73,7 +84,7 @@ func GenerateInstancesFromCSV() ([]*domain.CourseInstance, error) {
 	}
 	var schedules []*domain.CourseInstance
 	for _, course := range courses {
-		schedule, err := domain.NewCourseSchedule(*currentTerm, *course)
+		schedule, err := domain.NewCourseInstance(*currentTerm, *course)
 		if err != nil {
 			return nil, err
 		}
@@ -223,7 +234,7 @@ func importInstancesFromCSV() ([]*domain.CourseInstance, error) {
 }
 
 // convert schedule SOA to nested objects since that's how I wrote it originally
-func courseInstanceSoaToOop(instance domain.CourseInstance) *domain.Course {
+func courseInstanceSoaToOop(instance domain.CourseInstance) *domain.CourseOOP {
 	unitLessonCounter := make(map[int]int) // unit number and lesson count
 	var currUnit domain.Unit
 

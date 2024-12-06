@@ -6,17 +6,26 @@ import (
 )
 
 type CourseInstanceService interface {
-	Service[domain.CourseInstance]
+	FetchOne(courseID int, termID int) ([]*domain.CourseInstance, error)
+	CreatorService[domain.CourseInstance]
+	UpdaterService[domain.CourseInstance]
+	DeleterService[domain.CourseInstance]
+	CSVService[domain.CourseInstance]
 }
 
 type courseInstanceService struct {
-	instanceRepo domain.Repository[domain.CourseInstance]
+	instanceRepo domain.CourseInstanceRepository
 	courseRepo   domain.Repository[domain.CourseSOA]
 	termRepo     domain.Repository[domain.Term]
 }
 
+// FetchOne implements CourseInstanceService.
+func (svc courseInstanceService) FetchOne(courseID int, termID int) ([]*domain.CourseInstance, error) {
+	panic("unimplemented")
+}
+
 func NewcourseInstanceService(
-	instanceRepo domain.Repository[domain.CourseInstance],
+	instanceRepo domain.CourseInstanceRepository,
 	courseRepo domain.Repository[domain.CourseSOA],
 	termRepo domain.Repository[domain.Term]) CourseInstanceService {
 	return courseInstanceService{instanceRepo: instanceRepo, courseRepo: courseRepo, termRepo: termRepo}
@@ -25,10 +34,6 @@ func NewcourseInstanceService(
 
 func (svc courseInstanceService) Create(course *domain.CourseInstance) error {
 	return svc.instanceRepo.Save(course)
-}
-
-func (svc courseInstanceService) All() ([]*domain.CourseInstance, error) {
-	return svc.instanceRepo.All()
 }
 
 func (svc courseInstanceService) ReadFromCSV() ([]*domain.CourseInstance, error) {

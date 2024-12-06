@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS courses (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
@@ -32,9 +31,15 @@ CREATE TABLE IF NOT EXISTS lessons (
     number INTEGER NOT NULL,
     name TEXT,
     description TEXT,
-    date TEXT,
     FOREIGN KEY (unit_id) REFERENCES units(id),
     UNIQUE(unit_id, number)
+);
+
+CREATE TABLE IF NOT EXISTS dates (
+    number INTEGER NOT NULL,
+    lesson_id INTEGER NOT NULL,
+    date TEXT NOT NULL,
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id)
 );
 
 

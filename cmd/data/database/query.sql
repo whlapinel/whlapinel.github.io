@@ -14,6 +14,34 @@ JOIN
 JOIN
   lessons l ON l.unit_id = u.id;
 
+-- name: GetCourseInstances :many
+SELECT
+  ci.id as instance_id,
+  t.id as term_id,
+  t.name as term_name,
+  c.name as course_name, 
+  u.number as unit_number, 
+  u.name as unit_name, 
+  l.number as lesson_number, 
+  l.name as lesson_name, 
+  d.date, 
+  d.number as day_number
+FROM
+  course_instances as ci
+JOIN
+  courses as c ON c.id = ci.course_id
+JOIN
+  units as u on u.instance_id = ci.id
+JOIN
+  terms as t on t.id = ci.term_id
+JOIN
+  lessons as l on l.unit_id = u.id
+JOIN
+  dates as d ON d.lesson_id = l.id
+WHERE
+  c.id = ? AND term_id = ?
+ORDER BY
+  d.number;
 
 -- name: SaveCourse :one
 INSERT INTO courses (
@@ -41,9 +69,9 @@ RETURNING *;
 
 -- name: SaveLesson :one
 INSERT INTO lessons (
-  number, name, description, unit_id, date
+  number, name, description, unit_id
 ) VALUES (
-  ?, ?, ?, ?, ?
+  ?, ?, ?, ?
 )
 RETURNING *;
 

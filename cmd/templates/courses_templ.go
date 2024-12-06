@@ -13,7 +13,7 @@ import (
 	"strconv"
 )
 
-func CourseDivContainer(course domain.Course, upPath, text string) templ.Component {
+func CourseDivContainer(course domain.CourseOOP, upPath, text string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -306,7 +306,7 @@ func TitleDiv(title, description, path string) templ.Component {
 	})
 }
 
-func CoursesListComponent(courses []*domain.Course) templ.Component {
+func CoursesListComponent(courses []*domain.CourseOOP) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -413,7 +413,7 @@ func CoursesListComponent(courses []*domain.Course) templ.Component {
 				}
 				return templ_7745c5c3_Err
 			})
-			templ_7745c5c3_Err = CourseDivContainer(domain.Course{}, "", "").Render(templ.WithChildren(ctx, templ_7745c5c3_Var17), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = CourseDivContainer(domain.CourseOOP{}, "", "").Render(templ.WithChildren(ctx, templ_7745c5c3_Var17), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -427,7 +427,7 @@ func CoursesListComponent(courses []*domain.Course) templ.Component {
 	})
 }
 
-func CourseComponent(course domain.Course) templ.Component {
+func CourseComponent(course domain.CourseOOP) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -569,7 +569,7 @@ func CourseComponent(course domain.Course) templ.Component {
 	})
 }
 
-func UnitComponent(unit domain.Unit, course domain.Course) templ.Component {
+func UnitComponent(unit domain.Unit, course domain.CourseOOP) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -728,7 +728,7 @@ func UnitComponent(unit domain.Unit, course domain.Course) templ.Component {
 	})
 }
 
-func LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Course) templ.Component {
+func LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.CourseOOP) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)

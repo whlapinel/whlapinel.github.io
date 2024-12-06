@@ -21,7 +21,7 @@ func SameDate(date1 time.Time, date2 time.Time) bool {
 	var d2, m2, y2 = date2.Date()
 	return y1 == y2 && m1 == m2 && d1 == d2
 }
-func TodaysLesson(date time.Time, course domain.Course) domain.Lesson {
+func TodaysLesson(date time.Time, course domain.CourseOOP) domain.Lesson {
 	for _, unit := range course.Units {
 		for _, lesson := range unit.Lessons {
 			if SameDate(lesson.Date, date) {
@@ -43,9 +43,9 @@ func UnitDateRange(unit domain.Unit) []time.Time {
 	}
 }
 
-templ CourseCalendarComponent(course domain.Course) {
+templ CourseCalendarComponent(course domain.CourseOOP) {
 	@Layout(&page{title: course.GetTitle()}) {
-		@CourseDivContainer(domain.Course{}, RemoveDocsFromPath(coursesDir+"courses.html"), "Course List") {
+		@CourseDivContainer(domain.CourseOOP{}, RemoveDocsFromPath(coursesDir+"courses.html"), "Course List") {
 			@CourseUnorderedList() {
 				for _, unit := range course.Units {
 					<details class="cursor-pointer bg-blue-900 rounded p-2 m-1 text-lg hover:bg-blue-800">

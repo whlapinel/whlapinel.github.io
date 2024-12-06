@@ -8,25 +8,25 @@ import (
 type courseRepo struct {
 }
 
-func NewCoursesRepo() domain.Repository[domain.Course] {
+func NewCoursesRepo() domain.Repository[domain.CourseOOP] {
 	return &courseRepo{}
 }
 
-func (c *courseRepo) All() ([]*domain.Course, error) {
+func (c *courseRepo) All() ([]*domain.CourseOOP, error) {
 	return nil, fmt.Errorf("not implemented")
 }
 
-func (c *courseRepo) WriteToCSV(course *domain.Course) error {
+func (c *courseRepo) WriteToCSV(course *domain.CourseOOP) error {
 	return fmt.Errorf("not implemented")
 }
 
-func (c *courseRepo) ReadFromCSV() ([]*domain.Course, error) {
+func (c *courseRepo) ReadFromCSV() ([]*domain.CourseOOP, error) {
 
 	instances, err := importInstancesFromCSV()
 	if err != nil {
 		return nil, err
 	}
-	var courses []*domain.Course
+	var courses []*domain.CourseOOP
 	for _, instance := range instances {
 		courses = append(courses, courseInstanceSoaToOop(*instance))
 	}
@@ -34,6 +34,6 @@ func (c *courseRepo) ReadFromCSV() ([]*domain.Course, error) {
 
 }
 
-func (c *courseRepo) Save(course *domain.Course) error {
+func (c *courseRepo) Save(course *domain.CourseOOP) error {
 	return fmt.Errorf("not implemented")
 }

@@ -1,13 +1,10 @@
 package main
 
 import (
-	"context"
-	"database/sql"
 	"embed"
 	"gh_static_portfolio/cmd/course_manager/handlers"
 	"gh_static_portfolio/cmd/course_manager/services"
 	"gh_static_portfolio/cmd/data"
-	"gh_static_portfolio/cmd/data/database"
 	"log"
 
 	"github.com/a-h/templ"
@@ -20,32 +17,11 @@ import (
 var embeddedFiles embed.FS
 
 func main() {
-	var queries *database.Queries
-	ctx := context.Background()
-	db, err := sql.Open("sqlite3", ":memory:")
+	queries, err := data.InitDB()
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
-	if _, err := db.ExecContext(ctx, database.DDL); err != nil {
-		log.Fatal(err)
-	}
-	// Enable foreign keys
-	_, err = db.ExecContext(ctx, "PRAGMA foreign_keys = ON;")
-	if err != nil {
-		log.Fatal("Failed to enable foreign keys:", err)
-	}
-
-	// Check if foreign keys are enabled
-	var foreignKeysEnabled int
-	err = db.QueryRow("PRAGMA foreign_keys;").Scan(&foreignKeysEnabled)
-	if err != nil {
-		log.Fatal("Failed to check foreign_keys status:", err)
-	}
-
-	log.Println("Foreign keys enabled:", foreignKeysEnabled)
 	e := echo.New()
-	queries = database.New(db)
 	courseRepo := data.NewCourseSOARepo(queries)
 	courseService := services.NewCourseService(courseRepo)
 	courseHandler := handlers.NewCourseHandler(courseService, e)

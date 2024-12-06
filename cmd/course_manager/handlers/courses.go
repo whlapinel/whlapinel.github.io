@@ -30,11 +30,11 @@ const (
 )
 
 func (h courseHandler) Mount() {
-	h.e.POST("/courses", h.Create).Name = CourseHandlerCreate
-	h.e.GET("/courses", h.List).Name = CourseHandlerList
-	h.e.GET("/courses/csv", h.ReadFromCSV).Name = CourseHandlerReadFromCSV
-	h.e.PUT("/courses/:id", h.Update).Name = CourseHandlerUpdate
-	h.e.DELETE("/courses/:id", h.Delete).Name = CourseHandlerDelete
+	nameRoute(h.e.POST("/courses", h.Create), CourseHandlerCreate)
+	nameRoute(h.e.GET("/courses", h.List), CourseHandlerList)
+	nameRoute(h.e.GET("/courses/csv", h.ReadFromCSV), CourseHandlerReadFromCSV)
+	nameRoute(h.e.PUT("/courses/:id", h.Update), CourseHandlerUpdate)
+	nameRoute(h.e.DELETE("/courses/:id", h.Delete), CourseHandlerDelete)
 }
 
 func (h courseHandler) Create(c echo.Context) error {

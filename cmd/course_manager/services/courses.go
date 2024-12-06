@@ -5,9 +5,12 @@ import (
 	"gh_static_portfolio/cmd/domain"
 )
 
-
 type CourseService interface {
-	Service[domain.CourseSOA]
+	CreatorService[domain.CourseSOA]
+	UpdaterService[domain.CourseSOA]
+	DeleterService[domain.CourseSOA]
+	CSVService[domain.CourseSOA]
+	GetAllService[domain.CourseSOA]
 }
 
 type courseService struct {

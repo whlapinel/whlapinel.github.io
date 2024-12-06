@@ -19,14 +19,15 @@ templ ManagerMainMenu() {
 				<button>Load Course From CSV</button>
 			</a>
 			<button>Create New Term</button>
+			<button>Load Term From CSV</button>
 		</div>
 	}
 }
 
-templ ManageCourseComponent(curricula []*domain.CourseSOA) {
-	for _, curric := range curricula {
+templ ManageCourseComponent(courses []*domain.CourseSOA) {
+	for _, course := range courses {
 		<table>
-			<caption>{ curric.Course.GetTitle() }</caption>
+			<caption>{ course.Name }</caption>
 			<thead>
 				<tr>
 					<th>Day</th>
@@ -36,13 +37,13 @@ templ ManageCourseComponent(curricula []*domain.CourseSOA) {
 					<th>Lesson Name</th>
 				</tr>
 			</thead>
-			for i, day := range curric.Day {
+			for i, day := range course.Day {
 				<tr>
 					<td>{ strconv.Itoa(day) }</td>
-					<td>{ strconv.Itoa(curric.UnitNum[i]) }</td>
-					<td>{ curric.UnitName[i] }</td>
-					<td>{ strconv.Itoa(curric.LessonNum[i]) }</td>
-					<td>{ curric.LessonName[i] }</td>
+					<td>{ strconv.Itoa(course.UnitNum[i]) }</td>
+					<td>{ course.UnitName[i] }</td>
+					<td>{ strconv.Itoa(course.LessonNum[i]) }</td>
+					<td>{ course.LessonName[i] }</td>
 					<td><button></button></td>
 				</tr>
 			}
@@ -51,5 +52,5 @@ templ ManageCourseComponent(curricula []*domain.CourseSOA) {
 	}
 }
 
-templ ManageInstanceComponent(instances []*domain.CourseInstance) {
+templ ManageInstanceComponent(instances *domain.CourseInstance) {
 }
