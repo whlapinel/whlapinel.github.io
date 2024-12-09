@@ -35,7 +35,7 @@ paginate: true
 - **Request**: Asking for a webpage.
 - **Response**: Sending back the webpage.
 
-# Slide 3: **What is Flask?**
+# **What is Flask?**
 
 ## What is Flask?
 
@@ -45,7 +45,7 @@ paginate: true
   - Send HTML pages to users.
 - Great for beginners and small projects!
 
-### Example
+# Example
 
 ```python
 from flask import Flask
@@ -60,8 +60,6 @@ app.run()
 ```
 
 # **Structure of a Web Page**
-
-# Structure of a Web Page (HTML)
 
 1. **HTML**: The skeleton of a webpage.
 2. **CSS**: Adds style (colors, fonts).
@@ -83,8 +81,6 @@ app.run()
 ```
 
 # **Flask + HTML**
-
-# Flask + HTML: Serving Files
 
 ## Example Code
 
@@ -140,22 +136,12 @@ project/
 
 🎉 Congratulations, you're on the web!
 
-# Slide 8: **What’s Next?**
+# **What’s Next?**
 
 # What’s Next?
 
 1. **Add More Pages**:
    - Create another page called `contact.html`.
    - Add a route in `app.py`.
-
-2. **Learn HTML and CSS**:
-   - Make your pages look amazing.
-
-3. **Understand the Client-Server Model**:
-   - Learn how data flows between browser and server.
-
-4. **Explore Flask Features**:
-   - Templates (`render_template`).
-   - Form handling.
 
 🚀 Keep building and experimenting!
