@@ -16,12 +16,6 @@ tasks:
       - git push
       - git switch dev
 
-  marp:
-    cmds:
-      - echo 'Building...'
-      - echo 'running marp .'
-      - marp .
-
   run-manager:
     - echo 'Starting Course Manager'
     - templ generate
