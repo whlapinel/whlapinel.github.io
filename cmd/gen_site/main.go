@@ -2,10 +2,13 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"gh_static_portfolio/cmd/data"
 	"gh_static_portfolio/cmd/templates"
 	"log"
 	"os"
+	"os/exec"
+	"path"
 	"strings"
 )
 
@@ -153,6 +156,7 @@ func main() {
 			for _, lesson := range unit.Lessons {
 				lessonPage := templates.NewLessonPage(lesson, unit, *course)
 				err = RenderPage(lessonPage)
+				GenerateSlides(lessonPage.Directory())
 				if err != nil {
 					log.Fatalf("failed to render pages: %v", err)
 				}
@@ -205,4 +209,52 @@ func RenderPage(t templates.Templifier) error {
 		log.Fatalf("failed to write output file: %v", err)
 	}
 	return nil
+}
+
+func GenerateSlides(dir string) {
+	// File paths
+	markdownFile := "slides.md"
+	htmlFile := "slides.html"
+	markdownPath := path.Join(dir, markdownFile)
+	htmlPath := path.Join(dir, htmlFile)
+
+	// Get file information
+	mdInfo, err := os.Stat(markdownPath)
+	if err != nil {
+		log.Printf("Error: Could not access %s: %v\n", markdownPath, err)
+		return
+	}
+
+	htmlInfo, err := os.Stat(htmlPath)
+	if os.IsNotExist(err) {
+		// If HTML file doesn't exist, regenerate it
+		log.Println("HTML file does not exist. Generating...")
+		regenerateHTML(markdownPath, htmlPath)
+		return
+	} else if err != nil {
+		log.Printf("Error: Could not access %s: %v\n", htmlPath, err)
+		return
+	}
+
+	// Compare modification times
+	mdModTime := mdInfo.ModTime()
+	htmlModTime := htmlInfo.ModTime()
+
+	if mdModTime.After(htmlModTime) {
+		log.Println("Markdown file is newer. Regenerating HTML...")
+		regenerateHTML(markdownPath, htmlPath)
+	} else {
+		log.Println("No need to regenerate. HTML is up-to-date.")
+	}
+}
+
+// Regenerate HTML from the Markdown file
+func regenerateHTML(markdownFile, htmlFile string) {
+	cmd := exec.Command("marp", markdownFile, "-o", htmlFile)
+	err := cmd.Run()
+	if err != nil {
+		fmt.Printf("Error: Failed to regenerate HTML: %v\n", err)
+		return
+	}
+	fmt.Printf("HTML file %s successfully regenerated from %s\n", htmlFile, markdownFile)
 }

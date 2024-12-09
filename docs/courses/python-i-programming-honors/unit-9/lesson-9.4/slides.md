@@ -14,6 +14,11 @@ paginate: true
 - Create a list of coordinate pairs
 - Loop through the list and print each pair
 
+Example:
+1, 2
+3, 5
+5, 8
+
 # Agenda
 
 - Assignment 9.4 (CodeHS 15.4)
