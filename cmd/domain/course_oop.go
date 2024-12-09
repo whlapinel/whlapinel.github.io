@@ -12,10 +12,16 @@ type CourseRepository interface {
 // Courses I teach. this is the OOP version of CourseInstance. Bad wording I know.
 type CourseOOP struct {
 	ID          int
+	Instance    bool
 	Title       string
 	Description string
 	Units       []Unit
 	TermName    string
+}
+
+type CourseType int
+
+type CourseInstanceOOP struct {
 }
 
 func (c CourseOOP) GetTitle() string {

@@ -11,8 +11,13 @@ paginate: true
 
 # **Warmup**
 
-- Create a dictionary
-- Loop through the dictionary and print each key and value.
+- Create a list of coordinate pairs
+- Loop through the list and print each pair
+
+Example:
+1, 2
+3, 5
+5, 8
 
 # Agenda
 
