@@ -155,8 +155,8 @@ func main() {
 			// Generate page for each lesson
 			for _, lesson := range unit.Lessons {
 				lessonPage := templates.NewLessonPage(lesson, unit, *course)
-				err = RenderPage(lessonPage)
 				GenerateSlides(lessonPage.Directory())
+				err = RenderPage(lessonPage)
 				if err != nil {
 					log.Fatalf("failed to render pages: %v", err)
 				}
