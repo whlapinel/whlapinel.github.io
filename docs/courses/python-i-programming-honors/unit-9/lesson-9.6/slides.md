@@ -11,11 +11,11 @@ paginate: true
 
 # Warmup
 
-Create a dictionary with 10 items, each having a random letter as a key and a random number as the value
+- Using a loop, create a dictionary with 26 items, each with a letter as a key and a random number as the value corresponding to that letter's order in the alphabet.
 
 # Agenda
 
-- Assignment 9.5 (CodeHS 15.5)
+- Assignment 9.6 (CodeHS 15.5)
 
 # Looking Ahead
 
