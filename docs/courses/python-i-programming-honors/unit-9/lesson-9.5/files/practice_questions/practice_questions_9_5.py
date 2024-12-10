@@ -37,7 +37,7 @@
 # assert second_largest([5, 5, 5]) == None
 
 
-# 5. Find the longest string in a list
+# 5. 'longest_string': Find the longest string in a list
 # Accepts a list of strings
 # Returns a string
 
