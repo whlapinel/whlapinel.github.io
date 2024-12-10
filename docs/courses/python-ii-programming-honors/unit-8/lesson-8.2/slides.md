@@ -11,11 +11,9 @@ paginate: true
 
 # Warmup
 
-
 # Introduction to HTML and CSS
 
 Learn how to create beautiful and functional websites!
-
 
 # What is HTML?
 
@@ -40,15 +38,15 @@ Learn how to create beautiful and functional websites!
 
 # Common HTML Tags
 
-| Tag          | Purpose                         |
-|--------------|---------------------------------|
+| Tag            | Purpose                        |
+| -------------- | ------------------------------ |
 | `<h1> to <h6>` | Headings (largest to smallest) |
-| `<p>`        | Paragraphs                     |
-| `<a>`        | Links                          |
-| `<img>`      | Images                         |
-| `<ul>`       | Unordered lists                |
-| `<ol>`       | Ordered lists                  |
-| `<div>`      | Division (grouping content)    |
+| `<p>`          | Paragraphs                     |
+| `<a>`          | Links                          |
+| `<img>`        | Images                         |
+| `<ul>`         | Unordered lists                |
+| `<ol>`         | Ordered lists                  |
+| `<div>`        | Division (grouping content)    |
 
 # What is CSS?
 
@@ -98,14 +96,14 @@ body {
 
 # Common CSS Properties
 
-| Property         | Description                 |
-|------------------|-----------------------------|
-| `color`          | Text color                 |
+| Property           | Description              |
+| ------------------ | ------------------------ |
+| `color`            | Text color               |
 | `background-color` | Background color         |
-| `font-size`      | Size of text               |
-| `margin`         | Space outside an element   |
-| `padding`        | Space inside an element    |
-| `border`         | Border around an element   |
+| `font-size`        | Size of text             |
+| `margin`           | Space outside an element |
+| `padding`          | Space inside an element  |
+| `border`           | Border around an element |
 
 # The Box Model
 
@@ -116,7 +114,7 @@ Every HTML element is a **box** made up of:
 3. **Border**
 4. **Margin**
 
-![The Box Model](https://mdn.mozillademos.org/files/13647/box-model-standard-small.png)
+![bg right:50% contain](./box-model.png)
 
 # CSS Selectors
 
@@ -148,6 +146,7 @@ Every HTML element is a **box** made up of:
 
 - Makes your website look good on all devices.
 - Use **media queries** for responsiveness:
+
   ```css
   @media (max-width: 600px) {
       body {
@@ -155,8 +154,6 @@ Every HTML element is a **box** made up of:
       }
   }
   ```
-
----
 
 # Practice Exercise: HTML
 
@@ -168,8 +165,6 @@ Create a simple HTML page with:
 4. An image
 5. A link
 
----
-
 # Practice Exercise: CSS
 
 Style your page with:
@@ -179,21 +174,8 @@ Style your page with:
 3. Padding and margin adjustments
 4. A border around an element
 
----
-
 # Summary
 
 - **HTML** defines the structure of a webpage.
 - **CSS** defines the style of a webpage.
 - Together, they create visually appealing, functional websites.
-
----
-
-# Questions?
-
-Let’s build a webpage together!
-```
-
----
-
-Feel free to customize these slides based on your audience or additional content you'd like to include!
