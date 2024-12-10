@@ -158,7 +158,7 @@ project/
 
 🎉 Congratulations, you're on the web!
 
-# Assignment 9.1
+# Assignment 8.1
 
 - Personalize your pages
 - Add a header and footer to your home page (`index.html`)
