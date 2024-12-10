@@ -11,7 +11,7 @@ paginate: true
 
 # Warmup
 
-- Read the contents of the file `data.txt`
+- Read the contents of the file `data.txt` (see "other files" from lesson page)
 - Create a dictionary consisting of words found in the file, where keys are the first letter of the word and values are a list of words starting with that letter.
 - Write this dictionary to a new file called `sorted.txt`
 

@@ -142,13 +142,18 @@ app.run()
 <li>Create a file: <code>index.html</code>:</li>
 </ol>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+
 <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My Home Page<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Welcome to My Website<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>This is my first webpage served with Flask!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Welcome to My Home Page<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>This is a simple HTML page.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;about&quot;</span>&gt;</span>Learn more about me<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
@@ -162,14 +167,13 @@ app.run()
 <ul>
 <li>Personalize your pages</li>
 <li>Add a header and footer to your home page (<code>index.html</code>)</li>
-<li>Create another page called <code>contact.html</code>.</li>
+<li>Create another page called <code>about.html</code> that includes a link back to your home page.</li>
 <li>Add a route in <code>app.py</code>.</li>
 <li>Submit your files as a zip file
 <ul>
 <li>server.py</li>
 <li>index.html</li>
 <li>about.html</li>
-<li>contact.html</li>
 </ul>
 </li>
 </ul>
