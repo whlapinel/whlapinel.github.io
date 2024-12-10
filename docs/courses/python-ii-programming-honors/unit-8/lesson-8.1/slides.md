@@ -9,6 +9,24 @@ paginate: true
 <!-- backgroundColor: black -->
 <!-- class: invert -->
 
+# Warmup
+
+```python
+my_list = [
+    [1,2,3,4,5],
+    [1,2,3,4,5],
+    [1,2,3,4,5],
+]
+```
+
+Write a function `col_sum` that will take any 2D list of integers and provide a sum for each column.
+
+Example:
+
+```python
+assert col_sum(my_list) == [3,6,9,12,15]
+```
+
 # **Introduction to Web Development**
 
 # Welcome to Web Development 101 🌐
@@ -18,7 +36,6 @@ paginate: true
 - How the web works
 - Basic structure of a web page (HTML)
 - Serving web pages with Flask
-- Building your first web application
 
 # **How the Web Works**
 
@@ -136,12 +153,11 @@ project/
 
 🎉 Congratulations, you're on the web!
 
-# **What’s Next?**
+# Assignment 9.1
 
-# What’s Next?
+**Add More Pages**:
 
-1. **Add More Pages**:
-   - Create another page called `contact.html`.
-   - Add a route in `app.py`.
+- Create another page called `contact.html`.
+- Add a route in `app.py`.
 
 🚀 Keep building and experimenting!
