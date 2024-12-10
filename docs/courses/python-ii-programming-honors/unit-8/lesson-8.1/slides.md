@@ -62,6 +62,12 @@ assert col_sum(my_list) == [3,6,9,12,15]
   - Send HTML pages to users.
 - Great for beginners and small projects!
 
+Run in your terminal:
+
+```bash
+pip install Flask
+```
+
 # Example
 
 ```python

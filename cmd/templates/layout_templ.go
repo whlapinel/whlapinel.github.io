@@ -36,7 +36,7 @@ func Layout(selectedPage Templifier) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Will Lapinel</title><link rel=\"stylesheet\" href=\"/styles/styles.css\"><script src=\"/js/htmx.js\" defer></script><script src=\"/js/index.js\" defer></script></head><body class=\"bg-slate-800 text-white\" hx-boost=\"true\"><header><div class=\"flex justify-between\"><a href=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Will Lapinel</title><link rel=\"stylesheet\" href=\"/styles/styles.css\"><link rel=\"icon\" href=\"/images/favicon.png\"><script src=\"/js/htmx.js\" defer></script><script src=\"/js/index.js\" defer></script></head><body class=\"bg-slate-800 text-white\" hx-boost=\"true\"><header><div class=\"flex justify-between\"><a href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -81,7 +81,7 @@ func Layout(selectedPage Templifier) templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs("nav-index")
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/layout.templ`, Line: 68, Col: 25}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/layout.templ`, Line: 69, Col: 25}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
@@ -99,7 +99,7 @@ func Layout(selectedPage Templifier) templ.Component {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs("nav-" + strings.ToLower(page.GetTitle()))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/layout.templ`, Line: 70, Col: 55}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/layout.templ`, Line: 71, Col: 55}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -117,7 +117,7 @@ func Layout(selectedPage Templifier) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(page.GetTitle())
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/layout.templ`, Line: 73, Col: 25}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `cmd/templates/layout.templ`, Line: 74, Col: 25}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
