@@ -110,7 +110,7 @@ app = Flask(__name__)
 
 <span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span></span>)</span>
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">home</span>():
-    <span class="hljs-keyword">return</span> send_from_directory(directory=<span class="hljs-string">&quot;static&quot;</span>, filename=<span class="hljs-string">&quot;index.html&quot;</span>)
+    <span class="hljs-keyword">return</span> send_from_directory(directory=<span class="hljs-string">&quot;static&quot;</span>, path=<span class="hljs-string">&quot;index.html&quot;</span>)
 
 app.run()
 </code></pre>

@@ -108,7 +108,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return send_from_directory(directory="static", filename="index.html")
+    return send_from_directory(directory="static", path="index.html")
 
 app.run()
 ```
