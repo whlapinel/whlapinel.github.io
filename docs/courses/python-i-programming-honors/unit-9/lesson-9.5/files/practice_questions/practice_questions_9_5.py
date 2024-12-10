@@ -1,4 +1,4 @@
-# Assignment 1: Basic List Operations
+# Practice Questions 9.5: Basic List Operations
 # For each problem, write a function that meets the requirements specified. Use the assert statements to test your code by uncommenting them.
 
 
