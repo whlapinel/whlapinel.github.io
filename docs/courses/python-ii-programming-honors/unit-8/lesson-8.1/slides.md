@@ -155,9 +155,14 @@ project/
 
 # Assignment 9.1
 
-**Add More Pages**:
-
+- Personalize your pages
+- Add a header and footer to your home page (`index.html`)
 - Create another page called `contact.html`.
 - Add a route in `app.py`.
+- Submit your files as a zip file
+  - server.py
+  - index.html
+  - about.html
+  - contact.html
 
 🚀 Keep building and experimenting!
