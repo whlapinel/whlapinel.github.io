@@ -1,7 +1,7 @@
 # This was created to illustrate how to read a file backwards. This is the challenge in CodeHS 15.6.7 "Reverse a File"
 
 # Read the file
-file = open("secret_data.txt")
+file = open("data.txt")
 file.seek(0, 2)
 size = file.tell()
 
@@ -20,7 +20,7 @@ file.close()
 backwards_string = "".join(backwards)
 
 
-file_new = open("secret_new_data.txt", "w")
+file_new = open("new_data.txt", "w")
 file_new.write(backwards_string)
 
 file_new.close()
