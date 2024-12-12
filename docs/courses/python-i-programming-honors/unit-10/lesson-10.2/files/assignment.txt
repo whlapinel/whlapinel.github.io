@@ -1,3 +1,5 @@
+# Copy and paste this into a python file. It's only in .txt because students' browsers may block downloading python files.
+
 # Assignment 10.2
 
 # Python Practice: Working with List Comprehensions
