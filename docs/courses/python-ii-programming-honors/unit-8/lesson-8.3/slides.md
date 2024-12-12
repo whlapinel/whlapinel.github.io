@@ -91,11 +91,7 @@ Strengthen understanding of HTML/CSS for creating aesthetically pleasing static 
   - Relative units (e.g., `%`, `em`, `rem`).
   - Flexible layout with `minmax()` in Grid.
 
-# Activity
-
-## Build a Responsive Portfolio Page
-
-### Instructions
+# Assignment 8.3
 
 1. **HTML Structure**:
    - Use semantic elements like `<header>`, `<section>`, and `<footer>`.
@@ -108,4 +104,3 @@ Strengthen understanding of HTML/CSS for creating aesthetically pleasing static 
 3. **Enhancements**:
    - Add a navigation bar and links.
    - Use colors, fonts, and spacing to improve aesthetics.
-
