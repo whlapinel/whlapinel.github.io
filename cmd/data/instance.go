@@ -1,7 +1,6 @@
 package data
 
 import (
-	"context"
 	"encoding/csv"
 	"fmt"
 	"gh_static_portfolio/cmd/data/database"
@@ -234,12 +233,11 @@ func importInstancesFromCSV() ([]*domain.CourseInstance, error) {
 }
 
 // convert schedule SOA to nested objects since that's how I wrote it originally
-func courseInstanceSoaToOop(instance domain.CourseInstance) *domain.CourseOOP {
+func courseInstanceSoaToOop(instance domain.CourseInstance) *domain.Course {
 	unitLessonCounter := make(map[int]int) // unit number and lesson count
 	var currUnit domain.Unit
 
 	for i, unitNum := range instance.UnitNum {
-		log.Println("curricSoaToOop: i=", i, "unitNum=", unitNum, "currUnit=", currUnit)
 		if _, exists := unitLessonCounter[unitNum]; !exists {
 			if currUnit.GetTitle() != "" {
 				instance.Course.Units = append(instance.Course.Units, currUnit) // if we've hit a new unit we should append the previous unit since it's complete (crucial assumption is that everything is in order)
@@ -270,18 +268,7 @@ func courseInstanceSoaToOop(instance domain.CourseInstance) *domain.CourseOOP {
 	}
 	instance.Course.Units = append(instance.Course.Units, currUnit) // append the final unit
 	instance.Course.TermName = instance.Term.Name
-	instance.Course.Title = instance.CourseSOA.Name
+	instance.Course.Name = instance.CourseSOA.Name
 	return &instance.Course
 
-}
-
-func SaveCourseInstance(ctx context.Context, instance domain.CourseInstance, queries *database.Queries) (database.CourseInstance, error) {
-	params := database.SaveCourseInstanceParams{}
-	params.CourseID = int64(instance.Course.ID)
-	params.TermID = int64(instance.Term.ID)
-	dbInstance, err := queries.SaveCourseInstance(ctx, params)
-	if err != nil {
-		return database.CourseInstance{}, nil
-	}
-	return dbInstance, nil
 }

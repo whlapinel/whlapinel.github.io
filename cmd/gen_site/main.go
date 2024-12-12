@@ -10,6 +10,8 @@ import (
 	"os/exec"
 	"path"
 	"strings"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 func main() {
@@ -119,8 +121,13 @@ func main() {
 	// 	log.Fatalf("failed to render pages: %v", err)
 	// }
 
+	queries, db, err := data.InitDB()
+	defer db.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
 	// Generate "courses I teach" list page
-	courseRepo := data.NewCoursesRepo()
+	courseRepo := data.NewCoursesRepo(queries)
 	courses, err := courseRepo.ReadFromCSV()
 	if err != nil {
 		log.Fatalf("Error getting courses: %v", err)
@@ -132,7 +139,7 @@ func main() {
 	}
 	// Generate page for each course
 	for _, course := range courses {
-		log.Println("Site generator main() course: Name: ", course.Title)
+		log.Println("Site generator main() course: Name: ", course.Name)
 		coursePage := templates.NewCoursePage(course)
 		err = RenderPage(coursePage)
 		if err != nil {
@@ -146,7 +153,7 @@ func main() {
 		}
 		// Generate page for each unit
 		for _, unit := range course.Units {
-			log.Println("looping through units in main():", unit.Title)
+			log.Println("looping through units in main():", unit.Name)
 			unitPage := templates.NewUnitPage(unit, *course)
 			err = RenderPage(unitPage)
 			if err != nil {

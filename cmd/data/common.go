@@ -12,14 +12,13 @@ import (
 //go:embed database/schema.sql
 var DDL string
 
-func InitDB() (*database.Queries, error) {
+func InitDB() (*database.Queries, *sql.DB, error) {
 	var queries *database.Queries
 	ctx := context.Background()
-	db, err := sql.Open("sqlite3", ":memory:")
+	db, err := sql.Open("sqlite3", "course_manager.db")
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	defer db.Close()
 	if _, err := db.ExecContext(ctx, DDL); err != nil {
 		log.Fatal(err)
 	}
@@ -38,6 +37,6 @@ func InitDB() (*database.Queries, error) {
 
 	log.Println("Foreign keys enabled:", foreignKeysEnabled)
 	queries = database.New(db)
-	return queries, nil
+	return queries, db, nil
 
 }

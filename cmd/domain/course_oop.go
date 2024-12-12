@@ -1,21 +1,24 @@
 package domain
 
-func NewCourse(title string, descr string, units []Unit, termName string) CourseOOP {
-	return CourseOOP{Title: title, Description: descr, Units: units, TermName: termName}
+func NewCourse(title string, descr string, units []Unit, termName string) Course {
+	return Course{Name: title, Description: descr, Units: units, TermName: termName}
 
 }
 
 type CourseRepository interface {
-	GetAll() ([]CourseOOP, error)
+	Repository[Course]
+	GetTemplates() ([]*Course, error)
+	GetInstances() ([]*Course, error)
 }
 
 // Courses I teach. this is the OOP version of CourseInstance. Bad wording I know.
-type CourseOOP struct {
+type Course struct {
 	ID          int
-	Instance    bool
-	Title       string
+	TemplateID  int
+	Name        string
 	Description string
 	Units       []Unit
+	TermID      int
 	TermName    string
 }
 
@@ -24,6 +27,6 @@ type CourseType int
 type CourseInstanceOOP struct {
 }
 
-func (c CourseOOP) GetTitle() string {
-	return c.Title
+func (c Course) GetTitle() string {
+	return c.Name
 }

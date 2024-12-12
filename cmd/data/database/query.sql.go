@@ -12,25 +12,19 @@ import (
 
 const deleteCourse = `-- name: DeleteCourse :one
 DELETE FROM courses WHERE id = ?
-RETURNING id, name, description
+RETURNING id, template_id, term_id, name, description
 `
 
 func (q *Queries) DeleteCourse(ctx context.Context, id int64) (Course, error) {
 	row := q.db.QueryRowContext(ctx, deleteCourse, id)
 	var i Course
-	err := row.Scan(&i.ID, &i.Name, &i.Description)
-	return i, err
-}
-
-const deleteCourseInstance = `-- name: DeleteCourseInstance :one
-DELETE FROM course_instances WHERE id = ?
-RETURNING id, course_id, term_id
-`
-
-func (q *Queries) DeleteCourseInstance(ctx context.Context, id int64) (CourseInstance, error) {
-	row := q.db.QueryRowContext(ctx, deleteCourseInstance, id)
-	var i CourseInstance
-	err := row.Scan(&i.ID, &i.CourseID, &i.TermID)
+	err := row.Scan(
+		&i.ID,
+		&i.TemplateID,
+		&i.TermID,
+		&i.Name,
+		&i.Description,
+	)
 	return i, err
 }
 
@@ -83,7 +77,7 @@ func (q *Queries) DeleteTerm(ctx context.Context, id int64) (Term, error) {
 
 const deleteUnit = `-- name: DeleteUnit :one
 DELETE FROM units WHERE id = ?
-RETURNING id, course_id, instance_id, number, name, description
+RETURNING id, course_id, number, name, description
 `
 
 func (q *Queries) DeleteUnit(ctx context.Context, id int64) (Unit, error) {
@@ -92,7 +86,6 @@ func (q *Queries) DeleteUnit(ctx context.Context, id int64) (Unit, error) {
 	err := row.Scan(
 		&i.ID,
 		&i.CourseID,
-		&i.InstanceID,
 		&i.Number,
 		&i.Name,
 		&i.Description,
@@ -100,74 +93,25 @@ func (q *Queries) DeleteUnit(ctx context.Context, id int64) (Unit, error) {
 	return i, err
 }
 
-const getCourseInstances = `-- name: GetCourseInstances :many
-SELECT
-  ci.id as instance_id,
-  t.id as term_id,
-  t.name as term_name,
-  c.name as course_name, 
-  u.number as unit_number, 
-  u.name as unit_name, 
-  l.number as lesson_number, 
-  l.name as lesson_name, 
-  d.date, 
-  d.number as day_number
-FROM
-  course_instances as ci
-JOIN
-  courses as c ON c.id = ci.course_id
-JOIN
-  units as u on u.instance_id = ci.id
-JOIN
-  terms as t on t.id = ci.term_id
-JOIN
-  lessons as l on l.unit_id = u.id
-JOIN
-  dates as d ON d.lesson_id = l.id
-WHERE
-  c.id = ? AND term_id = ?
-ORDER BY
-  d.number
+const getCourses = `-- name: GetCourses :many
+SELECT id, template_id, term_id, name, description FROM courses
 `
 
-type GetCourseInstancesParams struct {
-	ID     int64
-	TermID int64
-}
-
-type GetCourseInstancesRow struct {
-	InstanceID   int64
-	TermID       int64
-	TermName     string
-	CourseName   string
-	UnitNumber   int64
-	UnitName     string
-	LessonNumber int64
-	LessonName   sql.NullString
-	Date         string
-	DayNumber    int64
-}
-
-func (q *Queries) GetCourseInstances(ctx context.Context, arg GetCourseInstancesParams) ([]GetCourseInstancesRow, error) {
-	rows, err := q.db.QueryContext(ctx, getCourseInstances, arg.ID, arg.TermID)
+func (q *Queries) GetCourses(ctx context.Context) ([]Course, error) {
+	rows, err := q.db.QueryContext(ctx, getCourses)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []GetCourseInstancesRow
+	var items []Course
 	for rows.Next() {
-		var i GetCourseInstancesRow
+		var i Course
 		if err := rows.Scan(
-			&i.InstanceID,
+			&i.ID,
+			&i.TemplateID,
 			&i.TermID,
-			&i.TermName,
-			&i.CourseName,
-			&i.UnitNumber,
-			&i.UnitName,
-			&i.LessonNumber,
-			&i.LessonName,
-			&i.Date,
-			&i.DayNumber,
+			&i.Name,
+			&i.Description,
 		); err != nil {
 			return nil, err
 		}
@@ -182,50 +126,173 @@ func (q *Queries) GetCourseInstances(ctx context.Context, arg GetCourseInstances
 	return items, nil
 }
 
-const getCourses = `-- name: GetCourses :many
+const getInstances = `-- name: GetInstances :many
 SELECT
   c.id as course_id,
   c.name as course_name,
-  c.description as course_description,
-  u.number as unit_number,
-  u.name as unit_name,
-  l.number as lesson_number,
-  l.name as lesson_name
-FROM
+  c.description as course_descr,
+  c.term_id
+FROM 
   courses c
-JOIN
-  units u ON u.course_id = c.id AND u.instance_id = NULL
-JOIN
-  lessons l ON l.unit_id = u.id
+WHERE 
+  c.template_id IS NOT NULL
 `
 
-type GetCoursesRow struct {
-	CourseID          int64
-	CourseName        string
-	CourseDescription sql.NullString
-	UnitNumber        int64
-	UnitName          string
-	LessonNumber      int64
-	LessonName        sql.NullString
+type GetInstancesRow struct {
+	CourseID    int64
+	CourseName  string
+	CourseDescr sql.NullString
+	TermID      sql.NullInt64
 }
 
-func (q *Queries) GetCourses(ctx context.Context) ([]GetCoursesRow, error) {
-	rows, err := q.db.QueryContext(ctx, getCourses)
+func (q *Queries) GetInstances(ctx context.Context) ([]GetInstancesRow, error) {
+	rows, err := q.db.QueryContext(ctx, getInstances)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []GetCoursesRow
+	var items []GetInstancesRow
 	for rows.Next() {
-		var i GetCoursesRow
+		var i GetInstancesRow
 		if err := rows.Scan(
 			&i.CourseID,
 			&i.CourseName,
-			&i.CourseDescription,
-			&i.UnitNumber,
-			&i.UnitName,
-			&i.LessonNumber,
-			&i.LessonName,
+			&i.CourseDescr,
+			&i.TermID,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getLessons = `-- name: GetLessons :many
+SELECT
+  l.id,
+  l.number,
+  l.name,
+  l.description
+FROM
+  lessons l
+WHERE
+  l.unit_id = ?
+`
+
+type GetLessonsRow struct {
+	ID          int64
+	Number      int64
+	Name        sql.NullString
+	Description sql.NullString
+}
+
+func (q *Queries) GetLessons(ctx context.Context, unitID int64) ([]GetLessonsRow, error) {
+	rows, err := q.db.QueryContext(ctx, getLessons, unitID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetLessonsRow
+	for rows.Next() {
+		var i GetLessonsRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Number,
+			&i.Name,
+			&i.Description,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getTemplates = `-- name: GetTemplates :many
+SELECT
+  c.id as course_id,
+  c.name as course_name,
+  c.description as course_descr
+FROM 
+  courses c
+WHERE 
+  c.template_id IS NULL
+`
+
+type GetTemplatesRow struct {
+	CourseID    int64
+	CourseName  string
+	CourseDescr sql.NullString
+}
+
+func (q *Queries) GetTemplates(ctx context.Context) ([]GetTemplatesRow, error) {
+	rows, err := q.db.QueryContext(ctx, getTemplates)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetTemplatesRow
+	for rows.Next() {
+		var i GetTemplatesRow
+		if err := rows.Scan(&i.CourseID, &i.CourseName, &i.CourseDescr); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const getUnits = `-- name: GetUnits :many
+SELECT
+  u.id,
+  u.number,
+  u.name,
+  u.description
+FROM
+  units u
+WHERE
+  u.course_id = ?
+`
+
+type GetUnitsRow struct {
+	ID          int64
+	Number      int64
+	Name        string
+	Description sql.NullString
+}
+
+func (q *Queries) GetUnits(ctx context.Context, courseID int64) ([]GetUnitsRow, error) {
+	rows, err := q.db.QueryContext(ctx, getUnits, courseID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetUnitsRow
+	for rows.Next() {
+		var i GetUnitsRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Number,
+			&i.Name,
+			&i.Description,
 		); err != nil {
 			return nil, err
 		}
@@ -246,7 +313,7 @@ INSERT INTO courses (
 ) VALUES (
   ?, ?
 )
-RETURNING id, name, description
+RETURNING id, template_id, term_id, name, description
 `
 
 type SaveCourseParams struct {
@@ -257,28 +324,13 @@ type SaveCourseParams struct {
 func (q *Queries) SaveCourse(ctx context.Context, arg SaveCourseParams) (Course, error) {
 	row := q.db.QueryRowContext(ctx, saveCourse, arg.Name, arg.Description)
 	var i Course
-	err := row.Scan(&i.ID, &i.Name, &i.Description)
-	return i, err
-}
-
-const saveCourseInstance = `-- name: SaveCourseInstance :one
-INSERT INTO course_instances (
-  course_id, term_id
-) VALUES (
-  ?, ?
-)
-RETURNING id, course_id, term_id
-`
-
-type SaveCourseInstanceParams struct {
-	CourseID int64
-	TermID   int64
-}
-
-func (q *Queries) SaveCourseInstance(ctx context.Context, arg SaveCourseInstanceParams) (CourseInstance, error) {
-	row := q.db.QueryRowContext(ctx, saveCourseInstance, arg.CourseID, arg.TermID)
-	var i CourseInstance
-	err := row.Scan(&i.ID, &i.CourseID, &i.TermID)
+	err := row.Scan(
+		&i.ID,
+		&i.TemplateID,
+		&i.TermID,
+		&i.Name,
+		&i.Description,
+	)
 	return i, err
 }
 
@@ -345,11 +397,11 @@ func (q *Queries) SaveTerm(ctx context.Context, arg SaveTermParams) (Term, error
 
 const saveUnit = `-- name: SaveUnit :one
 INSERT INTO units (
-  number, name, description, course_id, instance_id
+  number, name, description, course_id
 ) VALUES (
-  ?, ?, ?, ?, ?
+  ?, ?, ?, ?
 )
-RETURNING id, course_id, instance_id, number, name, description
+RETURNING id, course_id, number, name, description
 `
 
 type SaveUnitParams struct {
@@ -357,7 +409,6 @@ type SaveUnitParams struct {
 	Name        string
 	Description sql.NullString
 	CourseID    int64
-	InstanceID  sql.NullInt64
 }
 
 func (q *Queries) SaveUnit(ctx context.Context, arg SaveUnitParams) (Unit, error) {
@@ -366,13 +417,11 @@ func (q *Queries) SaveUnit(ctx context.Context, arg SaveUnitParams) (Unit, error
 		arg.Name,
 		arg.Description,
 		arg.CourseID,
-		arg.InstanceID,
 	)
 	var i Unit
 	err := row.Scan(
 		&i.ID,
 		&i.CourseID,
-		&i.InstanceID,
 		&i.Number,
 		&i.Name,
 		&i.Description,

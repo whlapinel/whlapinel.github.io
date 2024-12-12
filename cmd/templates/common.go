@@ -18,7 +18,7 @@ const (
 	coursesDir   = "./docs/courses/"
 )
 
-func courseRoutePath(course domain.CourseOOP) string {
+func courseRoutePath(course domain.Course) string {
 	return fmt.Sprintf("%s%s", coursesDir, DirName(course))
 }
 
@@ -26,15 +26,15 @@ func courseSoaRoutePath(course domain.CourseSOA) string {
 	return fmt.Sprintf("%s%s", coursesDir, DirName(course))
 }
 
-func unitRoutePath(unit domain.Unit, course domain.CourseOOP) string {
+func unitRoutePath(unit domain.Unit, course domain.Course) string {
 	return fmt.Sprintf("%s%s%s", coursesDir, DirName(course), DirName(unit))
 }
 
-func lessonRoutePath(lesson domain.Lesson, unit domain.Unit, course domain.CourseOOP) string {
+func lessonRoutePath(lesson domain.Lesson, unit domain.Unit, course domain.Course) string {
 	return fmt.Sprintf("%s%s%s%s", coursesDir, DirName(course), DirName(unit), DirName(lesson))
 }
 
-func filesRoutePath(lesson domain.Lesson, unit domain.Unit, course domain.CourseOOP) string {
+func filesRoutePath(lesson domain.Lesson, unit domain.Unit, course domain.Course) string {
 	return fmt.Sprintf("https://github.com/whlapinel/whlapinel.github.io/tree/main/docs/courses/%s%s%sfiles", DirName(course), DirName(unit), DirName(lesson))
 }
 
@@ -213,7 +213,7 @@ func NewPersonalPage() Templifier {
 	}
 }
 
-func NewCoursesListPage(courses []*domain.CourseOOP) Templifier {
+func NewCoursesListPage(courses []*domain.Course) Templifier {
 	return &page{
 		title:     "Courses",
 		directory: coursesDir,
@@ -222,7 +222,7 @@ func NewCoursesListPage(courses []*domain.CourseOOP) Templifier {
 
 }
 
-func NewCoursePage(course *domain.CourseOOP) Templifier {
+func NewCoursePage(course *domain.Course) Templifier {
 	return &page{
 		title:     course.GetTitle(),
 		directory: courseRoutePath(*course),
@@ -230,7 +230,7 @@ func NewCoursePage(course *domain.CourseOOP) Templifier {
 	}
 }
 
-func NewCourseCalendarPage(course domain.CourseOOP) Templifier {
+func NewCourseCalendarPage(course domain.Course) Templifier {
 	return &page{
 		title:     course.GetTitle() + " Calendar",
 		directory: courseRoutePath(course),
@@ -238,7 +238,7 @@ func NewCourseCalendarPage(course domain.CourseOOP) Templifier {
 	}
 }
 
-func NewUnitPage(unit domain.Unit, course domain.CourseOOP) Templifier {
+func NewUnitPage(unit domain.Unit, course domain.Course) Templifier {
 	return &page{
 		title:     unit.GetTitle(),
 		directory: unitRoutePath(unit, course),
@@ -246,7 +246,7 @@ func NewUnitPage(unit domain.Unit, course domain.CourseOOP) Templifier {
 	}
 }
 
-func NewLessonPage(lesson domain.Lesson, unit domain.Unit, course domain.CourseOOP) Templifier {
+func NewLessonPage(lesson domain.Lesson, unit domain.Unit, course domain.Course) Templifier {
 	return &page{
 		title:     lesson.GetTitle(),
 		directory: lessonRoutePath(lesson, unit, course),

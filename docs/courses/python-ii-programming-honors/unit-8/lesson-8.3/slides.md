@@ -11,7 +11,11 @@ paginate: true
 
 # Warmup
 
-# Lesson 3: HTML & CSS Deep Dive
+- Read the contents of the file `data.txt` (see "other files" from lesson page)
+- Create a dictionary consisting of words found in the file, where keys are the first letter of the word and values are a list of words starting with that letter.
+- Write this dictionary to a new file called `sorted.txt`
+
+# Lesson 3: More on HTML and CSS
 
 ## Objective
 
@@ -38,7 +42,10 @@ Strengthen understanding of HTML/CSS for creating aesthetically pleasing static 
 
 # CSS Layout Techniques
 
-## Flexbox
+- Flexbox
+- Grid
+
+# Flexbox
 
 - Align and distribute items within a container.
 - **Properties to Learn:**
@@ -46,13 +53,18 @@ Strengthen understanding of HTML/CSS for creating aesthetically pleasing static 
   - `justify-content`
   - `align-items`
 
-## Grid
+# Grid
 
 - Create two-dimensional layouts.
 - **Properties to Learn:**
   - `display: grid;`
   - `grid-template-rows`
   - `grid-template-columns`
+
+# Examples of flexbox and grid
+
+[flexbox](https://whlapinel.github.io/courses/python-ii-programming-honors/unit-8/lesson-8.3/files/flex.html)
+[grid](https://whlapinel.github.io/courses/python-ii-programming-honors/unit-8/lesson-8.3/files/grid.html)
 
 # Responsive Design
 
@@ -87,12 +99,10 @@ Strengthen understanding of HTML/CSS for creating aesthetically pleasing static 
    - Include sections for "About Me," "Projects," and "Contact."
 
 2. **CSS Styling**:
-   - Use Flexbox or Grid to create a visually appealing layout.
+   - Use Flexbox *and* Grid to create a visually appealing layout.
    - Apply at least one media query to make it responsive.
 
 3. **Enhancements**:
    - Add a navigation bar and links.
    - Use colors, fonts, and spacing to improve aesthetics.
 
-4. **Presentation**:
-   - Students will showcase their portfolio page to the class.

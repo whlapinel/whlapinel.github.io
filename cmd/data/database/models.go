@@ -10,14 +10,10 @@ import (
 
 type Course struct {
 	ID          int64
+	TemplateID  sql.NullInt64
+	TermID      sql.NullInt64
 	Name        string
 	Description sql.NullString
-}
-
-type CourseInstance struct {
-	ID       int64
-	CourseID int64
-	TermID   int64
 }
 
 type Date struct {
@@ -70,7 +66,6 @@ type Term struct {
 type Unit struct {
 	ID          int64
 	CourseID    int64
-	InstanceID  sql.NullInt64
 	Number      int64
 	Name        string
 	Description sql.NullString

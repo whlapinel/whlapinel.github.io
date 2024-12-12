@@ -9,81 +9,84 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type CourseOOPHandler interface {
+type CourseHandler interface {
 	Handler
 	CrudderHandler
+	ListTemplates(c echo.Context) error
 }
-type courseOOPHandler struct {
-	service services.CourseInstanceService
+type courseHandler struct {
+	service services.CourseService
 	e       *echo.Echo
 }
 
-func NewCourseOOPHandler(service services.CourseInstanceService, e *echo.Echo) CourseOOPHandler {
-	return courseOOPHandler{service: service, e: e}
+func NewCourseHandler(service services.CourseService, e *echo.Echo) CourseHandler {
+	return courseHandler{service: service, e: e}
 }
 
 const (
-	CourseOOPHandlerCreate      RouteName = "POST: /course-instances"
-	CourseOOPHandlerList        RouteName = "GET: /course-instances"
-	CourseOOPHandlerReadFromCSV RouteName = "GET: /course-instances/csv"
-	CourseOOPHandlerUpdate      RouteName = "PUT: /course-instances/:id"
-	CourseOOPHandlerDelete      RouteName = "DELETE: /course-instances/:id"
+	CourseHandlerCreate        RouteName = "POST: /courses"
+	CourseHandlerListTemplates RouteName = "GET: /courses"
+	CourseHandlerReadFromCSV   RouteName = "GET: /courses/csv"
+	CourseHandlerUpdate        RouteName = "PUT: /courses/:id"
+	CourseHandlerDelete        RouteName = "DELETE: /courses/:id"
 )
 
-
-func (h courseOOPHandler) Mount() {
-	nameRoute(h.e.POST("/course-instances", h.Create), CourseOOPHandlerCreate)
-	nameRoute(h.e.GET("/course-instances", h.List), CourseOOPHandlerList)
-	nameRoute(h.e.GET("/course-instances/csv", h.ReadFromCSV), CourseOOPHandlerReadFromCSV)
-	nameRoute(h.e.PUT("/course-instances/:id", h.Update), CourseOOPHandlerUpdate)
-	nameRoute(h.e.DELETE("/course-instances/:id", h.Delete), CourseOOPHandlerDelete)
+func (h courseHandler) Mount() {
+	nameRoute(h.e.POST("/courses", h.Create), CourseHandlerCreate)
+	nameRoute(h.e.GET("/courses", h.ListTemplates), CourseHandlerListTemplates)
+	nameRoute(h.e.GET("/courses/csv", h.ReadFromCSV), CourseHandlerReadFromCSV)
+	nameRoute(h.e.PUT("/courses/:id", h.Update), CourseHandlerUpdate)
+	nameRoute(h.e.DELETE("/courses/:id", h.Delete), CourseHandlerDelete)
 }
 
-func (h courseOOPHandler) Create(c echo.Context) error {
+func (h courseHandler) Create(c echo.Context) error {
 	c.String(http.StatusOK, "not implemented")
 	return nil
 }
 
-func (h courseOOPHandler) List(c echo.Context) error {
-	courseID, err := getIntegerParam(c, CourseID)
+func (h courseHandler) List(c echo.Context) error {
+	courses, err := h.service.All()
 	if err != nil {
-		return nil
-	}
-	termID, err := getIntegerParam(c, TermID)
-	if err != nil {
+		log.Println("courseHandler List():", err)
 		return err
 	}
-	courses, err := h.service.FetchOne(courseID, termID)
-	if err != nil {
-		return err
-	}
-	component := templates.ManageInstanceComponent(courses)
+	component := templates.ManageCourseOOPComponent(courses)
 	return RenderTempl(component, c, 200)
 }
 
-func (h courseOOPHandler) ReadFromCSV(c echo.Context) error {
-	instances, err := h.service.ReadFromCSV()
+func (h courseHandler) ListTemplates(c echo.Context) error {
+	courses, err := h.service.GetTemplates()
+	if err != nil {
+		log.Println("courseHandler List():", err)
+		return err
+	}
+	component := templates.ManageCourseOOPComponent(courses)
+	return RenderTempl(component, c, 200)
+}
+
+func (h courseHandler) ReadFromCSV(c echo.Context) error {
+	courses, err := h.service.ReadFromCSV()
 	if err != nil {
 		return err
 	}
-	for _, instance := range instances {
+	for _, instance := range courses {
 		err := h.service.Create(instance)
 		if err != nil {
 			log.Println("error: ", err)
 			return err
 		}
 	}
-	component := templates.ManageInstanceComponent(instances)
+	component := templates.ManageCourseOOPComponent(courses)
 	return RenderTempl(component, c, 200)
 
 }
 
-func (h courseOOPHandler) Delete(c echo.Context) error {
+func (h courseHandler) Delete(c echo.Context) error {
 	c.String(http.StatusOK, "not implemented")
 	return nil
 }
 
-func (h courseOOPHandler) Update(c echo.Context) error {
+func (h courseHandler) Update(c echo.Context) error {
 	c.String(http.StatusOK, "not implemented")
 	return nil
 }

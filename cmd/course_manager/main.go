@@ -17,21 +17,18 @@ import (
 var embeddedFiles embed.FS
 
 func main() {
-	queries, err := data.InitDB()
+	queries, db, err := data.InitDB()
+	defer db.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
 	e := echo.New()
-	courseRepo := data.NewCourseSOARepo(queries)
+	courseRepo := data.NewCoursesRepo(queries)
 	courseService := services.NewCourseService(courseRepo)
 	courseHandler := handlers.NewCourseHandler(courseService, e)
-	termRepo := data.NewTermRepo(queries)
-	instanceRepo := data.NewInstanceRepo(queries)
-	instanceService := services.NewcourseInstanceService(instanceRepo, courseRepo, termRepo)
-	instanceHandler := handlers.NewCourseInstanceHandler(instanceService, e)
 	mainMenuHandler := handlers.NewMainMenuHandler(e)
 	handlers := []handlers.Handler{
-		courseHandler, instanceHandler, mainMenuHandler,
+		courseHandler, mainMenuHandler,
 	}
 	MountHandlers(handlers)
 	fs := echo.MustSubFS(embeddedFiles, "assets")

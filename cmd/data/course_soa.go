@@ -17,12 +17,7 @@ type courseSOARepo struct {
 }
 
 func (c *courseSOARepo) All() ([]*domain.CourseSOA, error) {
-	ctx := context.Background()
-	rows, err := c.queries.GetCourses(ctx)
-	if err != nil {
-		return nil, err
-	}
-	return CourseRowsToCourseSOA(rows)
+	return nil, fmt.Errorf("courseSOARepo.All() not implemented")
 }
 
 func (c *courseSOARepo) Save(course *domain.CourseSOA) error {
@@ -191,32 +186,6 @@ func SaveCourse(course *domain.CourseSOA, ctx context.Context, queries *database
 
 	}
 	return dbCourse.ID, nil
-
-}
-
-func CourseRowsToCourseSOA(rows []database.GetCoursesRow) ([]*domain.CourseSOA, error) {
-	var curricula = []*domain.CourseSOA{}
-	curricMap := make(map[int]*domain.CourseSOA)
-	var currID int64 = 0
-	var dayCount = 0
-	for _, row := range rows {
-		dayCount++
-		currID = row.CourseID
-		curriculum := curricMap[int(currID)]
-		curriculum.Day = append(curriculum.Day, dayCount)
-		curriculum.UnitNum = append(curriculum.UnitNum, int(row.UnitNumber))
-		curriculum.UnitName = append(curriculum.UnitName, row.UnitName)
-		curriculum.LessonNum = append(curriculum.LessonNum, int(row.LessonNumber))
-		if row.LessonName.Valid {
-			curriculum.LessonName = append(curriculum.LessonName, row.LessonName.String)
-		}
-		curricMap[int(currID)] = curriculum
-
-	}
-	for _, val := range curricMap {
-		curricula = append(curricula, val)
-	}
-	return curricula, nil
 
 }
 

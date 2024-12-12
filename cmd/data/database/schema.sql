@@ -1,28 +1,22 @@
 CREATE TABLE IF NOT EXISTS courses (
     id INTEGER PRIMARY KEY,
+    template_id INTEGER,
+    term_id INTEGER,
     name TEXT NOT NULL UNIQUE,
-    description TEXT
+    description TEXT,
+    FOREIGN KEY (term_id) REFERENCES terms(id),
+    FOREIGN KEY (template_id) REFERENCES courses(id)
 );
 
-CREATE TABLE IF NOT EXISTS course_instances (
-    id INTEGER PRIMARY KEY,
-    course_id INTEGER NOT NULL,
-    term_id INTEGER NOT NULL,
-    FOREIGN KEY (course_id) REFERENCES courses(id),
-    FOREIGN KEY (term_id) REFERENCES terms(id),
-    UNIQUE(course_id, term_id)
-);
 
 CREATE TABLE IF NOT EXISTS units (
     id INTEGER PRIMARY KEY,
     course_id INTEGER NOT NULL,
-    instance_id INTEGER,
     number INTEGER NOT NULL,
     name TEXT NOT NULL,
     description TEXT,
     FOREIGN KEY (course_id) REFERENCES courses(id),
-    UNIQUE(course_id, number),
-    UNIQUE(instance_id, number)
+    UNIQUE(course_id, number)
 );
 
 CREATE TABLE IF NOT EXISTS lessons (

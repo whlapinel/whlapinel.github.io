@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-templ CourseDivContainer(course domain.CourseOOP, upPath, text string) {
+templ CourseDivContainer(course domain.Course, upPath, text string) {
 	<nav class="flex gap-2 ml-4">
 		if course.TermName != "" {
 			<a href={ templ.SafeURL(RemoveDocsFromPath(courseRoutePath(course) + FileName(NewCourseCalendarPage(course)))) }>
@@ -65,9 +65,9 @@ templ TitleDiv(title, description, path string) {
 	</div>
 }
 
-templ CoursesListComponent(courses []*domain.CourseOOP) {
+templ CoursesListComponent(courses []*domain.Course) {
 	@Layout(NewCoursesListPage(nil)) {
-		@CourseDivContainer(domain.CourseOOP{}, "", "") {
+		@CourseDivContainer(domain.Course{}, "", "") {
 			@CourseUnorderedList() {
 				for _, course := range courses {
 					@ListedLinkItem(RemoveDocsFromPath(courseRoutePath(*course))+FileName(course), false) {
@@ -80,7 +80,7 @@ templ CoursesListComponent(courses []*domain.CourseOOP) {
 	}
 }
 
-templ CourseComponent(course domain.CourseOOP) {
+templ CourseComponent(course domain.Course) {
 	@Layout(&page{title: "Course"}) {
 		@CourseDivContainer(course, RemoveDocsFromPath(coursesDir+"courses.html"), "Course List") {
 			@CourseUnorderedList() {
@@ -99,7 +99,7 @@ templ CourseComponent(course domain.CourseOOP) {
 	}
 }
 
-templ UnitComponent(unit domain.Unit, course domain.CourseOOP) {
+templ UnitComponent(unit domain.Unit, course domain.Course) {
 	@Layout(&page{title: course.GetTitle()}) {
 		@CourseDivContainer(course, RemoveDocsFromPath(courseRoutePath(course))+FileName(course), course.GetTitle()) {
 			@CourseUnorderedList() {
@@ -118,7 +118,7 @@ templ UnitComponent(unit domain.Unit, course domain.CourseOOP) {
 	}
 }
 
-templ LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.CourseOOP) {
+templ LessonComponent(lesson domain.Lesson, unit domain.Unit, course domain.Course) {
 	@Layout(&page{title: course.GetTitle()}) {
 		@CourseDivContainer(course, RemoveDocsFromPath(unitRoutePath(unit, course))+FileName(unit), unit.GetTitle()) {
 			@CourseUnorderedList() {

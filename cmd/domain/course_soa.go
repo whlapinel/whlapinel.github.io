@@ -8,7 +8,7 @@ type CourseSOARepository interface {
 type CourseSOA struct {
 	ID          int
 	Name        string
-	Course      CourseOOP
+	Course      Course
 	Day         []int // day of instruction number e.g. 1, 2, ...87
 	UnitNum     []int // unit number e.g. 1, 2, 3
 	UnitName    []string

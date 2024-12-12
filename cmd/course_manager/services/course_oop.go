@@ -5,39 +5,43 @@ import (
 	"gh_static_portfolio/cmd/domain"
 )
 
-type CourseOOPService interface {
-	CreatorService[domain.CourseOOP]
-	UpdaterService[domain.CourseOOP]
-	DeleterService[domain.CourseOOP]
-	CSVService[domain.CourseOOP]
-	GetAllService[domain.CourseOOP]
+type CourseService interface {
+	CreatorService[domain.Course]
+	UpdaterService[domain.Course]
+	DeleterService[domain.Course]
+	CSVService[domain.Course]
+	GetAllService[domain.Course]
+	GetTemplates() ([]*domain.Course, error)
 }
 
-type courseOOPService struct {
-	repo domain.Repository[domain.CourseOOP]
+type courseService struct {
+	repo domain.CourseRepository
 }
 
-func NewCourseOOPService(courseRepo domain.Repository[domain.CourseOOP]) CourseOOPService {
-	return courseOOPService{repo: courseRepo}
+func NewCourseService(courseRepo domain.CourseRepository) CourseService {
+	return courseService{repo: courseRepo}
 
 }
 
-func (svc courseOOPService) Create(course *domain.CourseOOP) error {
+func (svc courseService) Create(course *domain.Course) error {
 	return svc.repo.Save(course)
 }
 
-func (svc courseOOPService) All() ([]*domain.CourseOOP, error) {
+func (svc courseService) All() ([]*domain.Course, error) {
 	return svc.repo.All()
 }
+func (svc courseService) GetTemplates() ([]*domain.Course, error) {
+	return svc.repo.GetTemplates()
+}
 
-func (svc courseOOPService) ReadFromCSV() ([]*domain.CourseOOP, error) {
+func (svc courseService) ReadFromCSV() ([]*domain.Course, error) {
 	return svc.repo.ReadFromCSV()
 }
 
-func (svc courseOOPService) Update(course *domain.CourseOOP) error {
+func (svc courseService) Update(course *domain.Course) error {
 	return fmt.Errorf("not implemented")
 }
 
-func (svc courseOOPService) Delete(course *domain.CourseOOP) error {
+func (svc courseService) Delete(course *domain.Course) error {
 	return fmt.Errorf("not implemented")
 }
