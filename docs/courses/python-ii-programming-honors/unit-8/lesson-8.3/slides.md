@@ -26,18 +26,16 @@ Strengthen understanding of HTML/CSS for creating aesthetically pleasing static 
 
 # Semantic HTML Elements
 
-## What are Semantic Elements?
+- "Semantic" elements convey meaning about their content.
 
-- Elements that convey meaning about their content.
-
-### Examples
+## Examples
 
 - `<header>`: Represents introductory content.
 - `<footer>`: Represents footer content.
 - `<section>`: Groups related content.
 - `<article>`: Represents self-contained content.
 
-### Why Use Semantic Elements?
+## Why Use Semantic Elements?
 
 - Improves accessibility.
 - Helps with SEO.
