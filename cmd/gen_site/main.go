@@ -19,83 +19,6 @@ func main() {
 	for _, directory := range directories {
 		ClearHTMLFiles(directory)
 	}
-	// Generate education page using education data
-	// educationRepo := data.NewEducationRepo()
-	// educationItems, err := educationRepo.GetAll()
-	// if err != nil {
-	// 	log.Fatalf("failed to get education items: %v", err)
-	// }
-	// educationPage := templates.NewEducationPage(educationItems)
-	// err = RenderPage(educationPage)
-	// if err != nil {
-	// 	log.Fatalf("failed to render pages: %v", err)
-	// }
-	// // Generate "classes attended" list for education
-	// for _, item := range educationItems {
-	// 	if len(item.Classes) > 0 {
-	// 		educationItemPage := templates.NewClassesPage(item)
-	// 		err = RenderPage(educationItemPage)
-	// 		if err != nil {
-	// 			log.Fatalf("failed to render pages: %v", err)
-	// 		}
-	// 	}
-	// }
-	// // Generate skills page using skills data
-	// skillsRepo := data.NewSkillRepo()
-	// skillItems, err := skillsRepo.GetAll()
-	// if err != nil {
-	// 	log.Fatalf("failed to get skill items: %v", err)
-	// }
-	// skillsPage := templates.NewSkillsPage(skillItems)
-	// err = RenderPage(skillsPage)
-	// if err != nil {
-	// 	log.Fatalf("failed to render pages: %v", err)
-	// }
-	// // Generate work history page using work history data
-	// workHistoryRepo := data.NewWorkHistoryRepo()
-	// workHistoryItems, err := workHistoryRepo.GetAll()
-	// if err != nil {
-	// 	log.Fatalf("failed to get work history items: %v", err)
-	// }
-	// workHistoryPage := templates.NewWorkHistoryPage(workHistoryItems)
-	// err = RenderPage(workHistoryPage)
-	// if err != nil {
-	// 	log.Fatalf("failed to render pages: %v", err)
-	// }
-	// // Generate projects page using projects data
-	// projectsRepo := data.NewProjectRepo()
-	// projectItems, err := projectsRepo.GetAll()
-	// if err != nil {
-	// 	log.Fatalf("failed to get project items: %v", err)
-	// }
-	// projectsPage := templates.NewProjectsPage(projectItems)
-	// err = RenderPage(projectsPage)
-	// if err != nil {
-	// 	log.Fatalf("failed to render pages: %v", err)
-	// }
-	// // Generate blogs list using blogs data
-	// blogRepo := data.NewBlogRepo()
-	// blogItems, err := blogRepo.GetAll()
-	// if err != nil {
-	// 	log.Fatalf("failed to get blog items: %v", err)
-	// }
-	// blogsPage := templates.NewBlogsListPage(blogItems)
-	// err = RenderPage(blogsPage)
-	// if err != nil {
-	// 	log.Fatalf("failed to render pages: %v", err)
-	// }
-	// err = RenderPage(blogsPage)
-	// if err != nil {
-	// 	log.Fatalf("failed to render pages: %v", err)
-	// }
-	// // Generate individual blogs pages
-	// for _, blog := range blogItems {
-	// 	blogPage := templates.NewBlogPage(blog)
-	// 	err = RenderPage(blogPage)
-	// 	if err != nil {
-	// 		log.Fatalf("failed to render pages: %v", err)
-	// 	}
-	// }
 	// Generate home page
 	homePage := templates.NewHomePage()
 	err := RenderPage(homePage)
@@ -114,13 +37,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to render pages: %v", err)
 	}
-	// // Generate personal page
-	// personalPage := templates.NewPersonalPage()
-	// err = RenderPage(personalPage)
-	// if err != nil {
-	// 	log.Fatalf("failed to render pages: %v", err)
-	// }
-
+	// Database
 	queries, db, err := data.InitDB()
 	defer db.Close()
 	if err != nil {
@@ -193,24 +110,10 @@ func RenderPage(t templates.Templifier) error {
 	if err != nil {
 		log.Fatalf("failed to create directory: %v", err)
 	}
-	// ClearHTMLFiles(t.Directory())
 	f, err := os.Create(t.Directory() + templates.FileName(t))
 	if err != nil {
 		log.Fatalf("failed to create output file: %v", err)
 	}
-	// added 11/24: remove all html files before writing. Probably not necessary, so commenting out for now
-	// files, err := os.ReadDir(t.Directory())
-	// if err != nil {
-	// 	return err
-	// }
-	// for _, file := range files {
-	// 	if strings.HasSuffix(file.Name(), ".html") {
-	// 		err := os.Remove(t.Directory() + file.Name())
-	// 		if err != nil {
-	// 			log.Fatalf("failed to delete file: %v", err)
-	// 		}
-	// 	}
-	// }
 	err = t.Templify().Render(context.Background(), f)
 	if err != nil {
 		log.Fatalf("failed to write output file: %v", err)

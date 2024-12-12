@@ -11,8 +11,11 @@ paginate: true
 
 # Warmup
 
-- Read the contents of the file `data.txt` (see "other files" from lesson page)
+- Using Python, read and print to the terminal the contents of the file `warmup_data.txt`
+  - [Download](https://whlapinel.github.io/courses/python-ii-programming-honors/unit-8/lesson-8.3/files/warmup_data.txt)
+
 - Create a dictionary consisting of words found in the file, where keys are the first letter of the word and values are a list of words starting with that letter.
+
 - Write this dictionary to a new file called `sorted.txt`
 
 # Lesson 3: More on HTML and CSS
