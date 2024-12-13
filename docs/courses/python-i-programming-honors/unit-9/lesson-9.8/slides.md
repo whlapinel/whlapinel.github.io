@@ -15,9 +15,9 @@ paginate: true
 
 # Agenda
 
-- [Unit 9 Exam](https://whlapinel.github.io/courses/python-i-programming-honors/unit-9/lesson-9.8/files/exam.md)
+- [Unit 9 Exam](https://whlapinel.github.io/courses/python-i-programming-honors/unit-9/lesson-9.8/files/exam.html)
 
-- [Alternative Exam (only if I've specifically told you to take this instead!)](https://whlapinel.github.io/courses/python-i-programming-honors/unit-9/lesson-9.8/files/alt_exam.md)
+- [Alternative Exam (only if I've specifically told you to take this instead!)](https://whlapinel.github.io/courses/python-i-programming-honors/unit-9/lesson-9.8/files/alt_exam.txt)
 
 - Python Essentials Summary Exam due today
 
