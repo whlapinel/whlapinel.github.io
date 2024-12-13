@@ -77,9 +77,9 @@ templ ManageCourseComponent(courses []*domain.CourseSOA) {
 				<tr>
 					<td>{ strconv.Itoa(day) }</td>
 					<td>{ strconv.Itoa(course.UnitNum[i]) }</td>
-					<td>{ course.UnitName[i] }</td>
+					<td>{ course.UnitDescr[i] }</td>
 					<td>{ strconv.Itoa(course.LessonNum[i]) }</td>
-					<td>{ course.LessonName[i] }</td>
+					<td>{ course.LessonDescr[i] }</td>
 					<td><button></button></td>
 				</tr>
 			}

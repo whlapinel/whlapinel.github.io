@@ -11,9 +11,9 @@ type CourseSOA struct {
 	Course      Course
 	Day         []int // day of instruction number e.g. 1, 2, ...87
 	UnitNum     []int // unit number e.g. 1, 2, 3
-	UnitName    []string
+	UnitDescr   []string
 	LessonNum   []int // lesson number e.g. 1, 2, 3
-	LessonName  []string
+	LessonDescr []string
 	StandardNum []int
 	StdDescr    []string
 }
@@ -25,9 +25,9 @@ func (c CourseSOA) GetTitle() string {
 func (curric CourseSOA) Truncate(end int) CourseSOA {
 	curric.Day = curric.Day[:end]
 	curric.UnitNum = curric.UnitNum[:end]
-	curric.UnitName = curric.UnitName[:end]
+	curric.UnitDescr = curric.UnitDescr[:end]
 	curric.LessonNum = curric.LessonNum[:end]
-	curric.LessonName = curric.LessonName[:end]
+	curric.LessonDescr = curric.LessonDescr[:end]
 	curric.StandardNum = curric.StandardNum[:end]
 	return curric
 }

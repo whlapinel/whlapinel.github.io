@@ -88,7 +88,7 @@ func (c *courseRepo) ReadFromCSV() ([]*domain.Course, error) {
 	}
 	var courses []*domain.Course
 	for _, instance := range instances {
-		courses = append(courses, courseInstanceSoaToOop(*instance))
+		courses = append(courses, courseInstanceSoaToOopV2(*instance))
 	}
 	return courses, nil
 

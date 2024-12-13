@@ -33,7 +33,7 @@ func (c *courseSOARepo) Save(course *domain.CourseSOA) error {
 			log.Println("creating and saving unit")
 			currUnit = &database.Unit{
 				Number:   int64(course.UnitNum[i]),
-				Name:     course.UnitName[i],
+				Name:     course.UnitDescr[i],
 				CourseID: dbCourse.ID,
 			}
 			*currUnit, err = c.queries.SaveUnit(ctx, database.SaveUnitParams{
@@ -46,11 +46,11 @@ func (c *courseSOARepo) Save(course *domain.CourseSOA) error {
 			}
 		}
 		if currLesson == nil || int64(course.LessonNum[i]) != currLesson.Number {
-			log.Println("Lesson Name: ", course.LessonName[i])
+			log.Println("Lesson Name: ", course.LessonDescr[i])
 			currLesson = &database.Lesson{
 				Number: int64(course.LessonNum[i]),
 				Name: sql.NullString{
-					String: course.LessonName[i],
+					String: course.LessonDescr[i],
 					Valid:  true,
 				},
 			}
@@ -104,7 +104,7 @@ func (c *courseSOARepo) ReadFromCSV() ([]*domain.CourseSOA, error) {
 			}
 		}
 		course.UnitNum = append(course.UnitNum, unitNum)
-		course.UnitName = append(course.UnitName, record[unitDescrCol])
+		course.UnitDescr = append(course.UnitDescr, record[unitDescrCol])
 		lessonNum := 0
 		if record[lessonNumCol] != "" {
 			lessonNum, err = strconv.Atoi(record[lessonNumCol])
@@ -113,7 +113,7 @@ func (c *courseSOARepo) ReadFromCSV() ([]*domain.CourseSOA, error) {
 			}
 		}
 		course.LessonNum = append(course.LessonNum, lessonNum)
-		course.LessonName = append(course.LessonName, record[lessonDescrCol])
+		course.LessonDescr = append(course.LessonDescr, record[lessonDescrCol])
 		stdNum := 0
 		if record[stdNumCol] != "" {
 			stdNum, err = strconv.Atoi(record[stdNumCol])
@@ -153,7 +153,7 @@ func SaveCourse(course *domain.CourseSOA, ctx context.Context, queries *database
 			log.Println("creating and saving unit")
 			currUnit = &database.Unit{
 				Number:   int64(course.UnitNum[i]),
-				Name:     course.UnitName[i],
+				Name:     course.UnitDescr[i],
 				CourseID: dbCourse.ID,
 			}
 			*currUnit, err = queries.SaveUnit(ctx, database.SaveUnitParams{
@@ -166,11 +166,11 @@ func SaveCourse(course *domain.CourseSOA, ctx context.Context, queries *database
 			}
 		}
 		if currLesson == nil || int64(course.LessonNum[i]) != currLesson.Number {
-			log.Println("Lesson Name: ", course.LessonName[i])
+			log.Println("Lesson Name: ", course.LessonDescr[i])
 			currLesson = &database.Lesson{
 				Number: int64(course.LessonNum[i]),
 				Name: sql.NullString{
-					String: course.LessonName[i],
+					String: course.LessonDescr[i],
 					Valid:  true,
 				},
 			}
@@ -227,7 +227,7 @@ func loadCoursesFromCSV() ([]*domain.CourseSOA, error) {
 			}
 		}
 		course.UnitNum = append(course.UnitNum, unitNum)
-		course.UnitName = append(course.UnitName, record[unitDescrCol])
+		course.UnitDescr = append(course.UnitDescr, record[unitDescrCol])
 		lessonNum := 0
 		if record[lessonNumCol] != "" {
 			lessonNum, err = strconv.Atoi(record[lessonNumCol])
@@ -236,7 +236,7 @@ func loadCoursesFromCSV() ([]*domain.CourseSOA, error) {
 			}
 		}
 		course.LessonNum = append(course.LessonNum, lessonNum)
-		course.LessonName = append(course.LessonName, record[lessonDescrCol])
+		course.LessonDescr = append(course.LessonDescr, record[lessonDescrCol])
 		stdNum := 0
 		if record[stdNumCol] != "" {
 			stdNum, err = strconv.Atoi(record[stdNumCol])

@@ -106,6 +106,9 @@ func ClearHTMLFiles(directory string) {
 
 func RenderPage(t templates.Templifier) error {
 	log.Println("RenderPage: ", t.GetTitle())
+	if t.GetTitle() == "" {
+		return fmt.Errorf("RenderPage(): t.GetTitle() is empty")
+	}
 	err := os.MkdirAll(t.Directory(), os.ModePerm)
 	if err != nil {
 		log.Fatalf("failed to create directory: %v", err)

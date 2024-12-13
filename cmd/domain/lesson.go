@@ -2,8 +2,8 @@ package domain
 
 import "time"
 
-func NewLesson(number int, title string, descr string, date time.Time) Lesson {
-	return Lesson{Number: number, Name: title, Description: descr, Date: date}
+func NewLesson(number int, name string, descr string, date time.Time) Lesson {
+	return Lesson{Number: number, Name: name, Description: descr, Date: date}
 }
 
 type Lesson struct {
