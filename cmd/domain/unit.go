@@ -1,7 +1,7 @@
 package domain
 
-func NewUnit(num int, name string, descr string, lessons []Lesson) Unit {
-	return Unit{Number: num, Name: name, Description: descr, Lessons: lessons}
+func NewUnit(num int, sequence int, name string, descr string, lessons []Lesson) Unit {
+	return Unit{Number: num, SequenceNum: sequence, Name: name, Description: descr, Lessons: lessons}
 
 }
 

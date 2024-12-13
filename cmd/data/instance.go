@@ -16,6 +16,7 @@ const (
 	courseNameCol = iota
 	dayNumCol
 	unitNumCol
+	unitSequenceCol
 	unitDescrCol
 	lessonNumCol
 	lessonDescrCol
@@ -191,6 +192,11 @@ func importInstancesFromCSV() ([]*domain.CourseInstance, error) {
 			}
 		}
 		instance.UnitNum = append(instance.UnitNum, unitNum)
+		unitSequence, err := strconv.Atoi(record[unitSequenceCol])
+		if err != nil {
+			return nil, fmt.Errorf("error reading unit sequence number from csv")
+		}
+		instance.UnitSequence = append(instance.UnitSequence, unitSequence)
 		instance.UnitDescr = append(instance.UnitDescr, record[unitDescrCol])
 		lessonNum := 0
 		if record[lessonNumCol] != "" {
@@ -233,46 +239,46 @@ func importInstancesFromCSV() ([]*domain.CourseInstance, error) {
 	return instances, nil
 }
 
-// convert schedule SOA to nested objects since that's how I wrote it originally
-func courseInstanceSoaToOop(instance domain.CourseInstance) *domain.Course {
-	unitLessonCounter := make(map[int]int) // unit number and lesson count
-	var currUnit domain.Unit
+// // convert schedule SOA to nested objects since that's how I wrote it originally
+// func courseInstanceSoaToOop(instance domain.CourseInstance) *domain.Course {
+// 	unitLessonCounter := make(map[int]int) // unit number and lesson count
+// 	var currUnit domain.Unit
 
-	for i, unitNum := range instance.UnitNum {
-		if _, exists := unitLessonCounter[unitNum]; !exists {
-			if currUnit.GetTitle() != "" {
-				instance.Course.Units = append(instance.Course.Units, currUnit) // if we've hit a new unit we should append the previous unit since it's complete (crucial assumption is that everything is in order)
-			}
-			unitLessonCounter[unitNum] = 1
-			lessonName := fmt.Sprintf("Lesson %d.%d", unitNum, instance.LessonNum[i])
-			if instance.UnitNum[i] < 0 {
-				lessonName = fmt.Sprintf("%s Day %d", instance.UnitDescr[i], instance.LessonNum[i])
-			}
-			lessons := []domain.Lesson{
-				domain.NewLesson(instance.LessonNum[i], lessonName, instance.LessonDescr[i], instance.Date[i]),
-			}
-			unitName := fmt.Sprintf("Unit %d", unitNum)
-			if unitNum < 0 {
-				unitName = instance.UnitDescr[i]
-			}
-			currUnit = domain.NewUnit(unitNum, unitName, instance.UnitDescr[i], lessons)
-		} else {
-			// if it's the same as current unit, create a new lesson and increment the count
-			unitLessonCounter[unitNum]++
-			lessonTitle := fmt.Sprintf("Lesson %d.%d", unitNum, instance.LessonNum[i])
-			if instance.UnitNum[i] < 0 {
-				lessonTitle = fmt.Sprintf("%s Day %d", instance.UnitDescr[i], instance.LessonNum[i])
-			}
-			lesson := domain.NewLesson(instance.LessonNum[i], lessonTitle, instance.LessonDescr[i], instance.Date[i])
-			currUnit.Lessons = append(currUnit.Lessons, lesson)
-		}
-	}
-	instance.Course.Units = append(instance.Course.Units, currUnit) // append the final unit
-	instance.Course.TermName = instance.Term.Name
-	instance.Course.Name = instance.CourseSOA.Name
-	return &instance.Course
+// 	for i, unitNum := range instance.UnitNum {
+// 		if _, exists := unitLessonCounter[unitNum]; !exists {
+// 			if currUnit.GetTitle() != "" {
+// 				instance.Course.Units = append(instance.Course.Units, currUnit) // if we've hit a new unit we should append the previous unit since it's complete (crucial assumption is that everything is in order)
+// 			}
+// 			unitLessonCounter[unitNum] = 1
+// 			lessonName := fmt.Sprintf("Lesson %d.%d", unitNum, instance.LessonNum[i])
+// 			if instance.UnitNum[i] < 0 {
+// 				lessonName = fmt.Sprintf("%s Day %d", instance.UnitDescr[i], instance.LessonNum[i])
+// 			}
+// 			lessons := []domain.Lesson{
+// 				domain.NewLesson(instance.LessonNum[i], lessonName, instance.LessonDescr[i], instance.Date[i]),
+// 			}
+// 			unitName := fmt.Sprintf("Unit %d", unitNum)
+// 			if unitNum < 0 {
+// 				unitName = instance.UnitDescr[i]
+// 			}
+// 			currUnit = domain.NewUnit(unitNum, unitName, instance.UnitDescr[i], lessons)
+// 		} else {
+// 			// if it's the same as current unit, create a new lesson and increment the count
+// 			unitLessonCounter[unitNum]++
+// 			lessonTitle := fmt.Sprintf("Lesson %d.%d", unitNum, instance.LessonNum[i])
+// 			if instance.UnitNum[i] < 0 {
+// 				lessonTitle = fmt.Sprintf("%s Day %d", instance.UnitDescr[i], instance.LessonNum[i])
+// 			}
+// 			lesson := domain.NewLesson(instance.LessonNum[i], lessonTitle, instance.LessonDescr[i], instance.Date[i])
+// 			currUnit.Lessons = append(currUnit.Lessons, lesson)
+// 		}
+// 	}
+// 	instance.Course.Units = append(instance.Course.Units, currUnit) // append the final unit
+// 	instance.Course.TermName = instance.Term.Name
+// 	instance.Course.Name = instance.CourseSOA.Name
+// 	return &instance.Course
 
-}
+// }
 
 func courseInstanceSoaToOopV2(instance domain.CourseInstance) *domain.Course {
 	unitMap := make(map[int]domain.Unit)
@@ -281,19 +287,19 @@ func courseInstanceSoaToOopV2(instance domain.CourseInstance) *domain.Course {
 		TermName: instance.Term.Name,
 	}
 
-	for i, unitNum := range instance.UnitNum {
+	for i, sequence := range instance.UnitSequence {
 		var unit domain.Unit
-		if _, exists := unitMap[unitNum]; exists {
-			unit = unitMap[unitNum]
+		if _, exists := unitMap[sequence]; exists {
+			unit = unitMap[sequence]
 		} else {
-			unitName := fmt.Sprintf("Unit %d", unitNum)
-			if unitNum < 0 {
+			unitName := fmt.Sprintf("Unit %d", instance.UnitNum[i])
+			if instance.UnitNum[i] < 0 {
 				unitName = instance.UnitDescr[i]
 			}
-			unit = domain.NewUnit(unitNum, unitName, instance.UnitDescr[i], []domain.Lesson{})
+			unit = domain.NewUnit(instance.UnitNum[i], sequence, unitName, instance.UnitDescr[i], []domain.Lesson{})
 		}
 		lessonNum := instance.LessonNum[i]
-		lessonName := fmt.Sprintf("Lesson %d.%d", unitNum, instance.LessonNum[i])
+		lessonName := fmt.Sprintf("Lesson %d.%d", instance.UnitNum[i], instance.LessonNum[i])
 		if instance.UnitNum[i] < 0 {
 			lessonName = fmt.Sprintf("%s Day %d", instance.UnitDescr[i], instance.LessonNum[i])
 		}
@@ -301,9 +307,9 @@ func courseInstanceSoaToOopV2(instance domain.CourseInstance) *domain.Course {
 		lessonDate := instance.Date[i]
 		lesson := domain.NewLesson(lessonNum, lessonName, lessonDescr, lessonDate)
 		unit.Lessons = append(unit.Lessons, lesson)
-		unitMap[unitNum] = unit
+		unitMap[sequence] = unit
 	}
-	units := sortedKeys(unitMap)
+	units := sortedBySequence(unitMap)
 	for _, unitNum := range units {
 		unit := unitMap[unitNum]
 		course.Units = append(course.Units, unit)
@@ -312,10 +318,10 @@ func courseInstanceSoaToOopV2(instance domain.CourseInstance) *domain.Course {
 
 }
 
-func sortedKeys(unitMap map[int]domain.Unit) []int {
+func sortedBySequence(unitMap map[int]domain.Unit) []int {
 	keys := make([]int, 0, len(unitMap))
-	for i := range unitMap {
-		keys = append(keys, i)
+	for sequence := range unitMap {
+		keys = append(keys, sequence)
 	}
 
 	slices.Sort(keys)

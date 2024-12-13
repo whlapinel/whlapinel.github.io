@@ -6,16 +6,17 @@ type CourseSOARepository interface {
 }
 
 type CourseSOA struct {
-	ID          int
-	Name        string
-	Course      Course
-	Day         []int // day of instruction number e.g. 1, 2, ...87
-	UnitNum     []int // unit number e.g. 1, 2, 3
-	UnitDescr   []string
-	LessonNum   []int // lesson number e.g. 1, 2, 3
-	LessonDescr []string
-	StandardNum []int
-	StdDescr    []string
+	ID           int
+	Name         string
+	Course       Course
+	Day          []int // day of instruction number e.g. 1, 2, ...87
+	UnitNum      []int // unit number e.g. 1, 2, 3
+	UnitSequence []int
+	UnitDescr    []string
+	LessonNum    []int // lesson number e.g. 1, 2, 3
+	LessonDescr  []string
+	StandardNum  []int
+	StdDescr     []string
 }
 
 func (c CourseSOA) GetTitle() string {
