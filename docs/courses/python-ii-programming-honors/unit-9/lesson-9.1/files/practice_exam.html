@@ -1,0 +1,221 @@
+<h1 id="pcap-exam-practice">PCAP Exam Practice</h1>
+<h2 id="data-types-and-variables"><strong>1. Data Types and Variables</strong></h2>
+<p><strong>Question</strong>: What is the output of the following code?</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="fl">3.5</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>y <span class="op">=</span> <span class="bu">int</span>(x)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>z <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="bu">print</span>(z)</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>6.5<br />
+</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>7<br />
+</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>6<br />
+</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>3.5</li>
+</ol></li>
+</ul>
+<h2 id="control-flow"><strong>2. Control Flow</strong></h2>
+<p><strong>Question</strong>: What will the following code output?</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="bu">print</span>(i, end<span class="op">=</span><span class="st">&quot; &quot;</span>)</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>0 1 2 3<br />
+</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>3 2 1 0<br />
+</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>3 2 1<br />
+</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>SyntaxError</li>
+</ol></li>
+</ul>
+<h2 id="functions"><strong>3. Functions</strong></h2>
+<p><strong>Question</strong>: What is the output of this code?</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">def</span> func(a, b<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="cf">return</span> a <span class="op">*</span> b</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="bu">print</span>(func(<span class="dv">2</span>))</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>2<br />
+</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>10<br />
+</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>TypeError<br />
+</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>None</li>
+</ol></li>
+</ul>
+<h2 id="lists"><strong>4. Lists</strong></h2>
+<p><strong>Question</strong>: What is the result of the following code?</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>list1 <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>list2 <span class="op">=</span> list1</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>list1[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="bu">print</span>(list2)</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>[1, 2, 3, 4]<br />
+</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>[99, 2, 3, 4]<br />
+</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>None<br />
+</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>[1, 2, 3]</li>
+</ol></li>
+</ul>
+<h2 id="dictionaries"><strong>5. Dictionaries</strong></h2>
+<p><strong>Question</strong>: What will the following code output?</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>d <span class="op">=</span> {<span class="st">&#39;a&#39;</span>: <span class="dv">1</span>, <span class="st">&#39;b&#39;</span>: <span class="dv">2</span>}</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>d[<span class="st">&#39;c&#39;</span>] <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="bu">print</span>(<span class="bu">len</span>(d))</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>2<br />
+</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>3<br />
+</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>4<br />
+</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>KeyError</li>
+</ol></li>
+</ul>
+<h2 id="exception-handling"><strong>6. Exception Handling</strong></h2>
+<p><strong>Question</strong>: What is the output of the code below?</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="cf">try</span>:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>    x <span class="op">=</span> <span class="dv">5</span> <span class="op">/</span> <span class="dv">0</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="cf">except</span> <span class="pp">ZeroDivisionError</span>:</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">&quot;Division error&quot;</span>)</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>Division error<br />
+</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>ZeroDivisionError<br />
+</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>None<br />
+</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>Program crash</li>
+</ol></li>
+</ul>
+<h2 id="classes-and-objects"><strong>7. Classes and Objects</strong></h2>
+<p><strong>Question</strong>: What is true about the following code?</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">class</span> Example:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, value):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>        <span class="va">self</span>.value <span class="op">=</span> value</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>obj <span class="op">=</span> Example(<span class="dv">10</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a><span class="bu">print</span>(obj.value)</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>Prints <code>None</code><br />
+</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>Prints <code>10</code><br />
+</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>AttributeError<br />
+</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>SyntaxError</li>
+</ol></li>
+</ul>
+<h2 id="file-handling"><strong>8. File Handling</strong></h2>
+<p><strong>Question</strong>: What mode opens a file for writing and overwrites the file if it already exists?</p>
+<ul>
+<li><ol type="A">
+<li><code>r</code><br />
+</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li><code>w</code><br />
+</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li><code>a</code><br />
+</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li><code>r+</code></li>
+</ol></li>
+</ul>
+<h2 id="modules"><strong>9. Modules</strong></h2>
+<p><strong>Question</strong>: Which of the following is the correct way to import the <code>math</code> module and use its <code>sqrt</code> function?</p>
+<ul>
+<li><ol type="A">
+<li><code>import math.sqrt</code><br />
+</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li><code>import math</code> and <code>math.sqrt(4)</code><br />
+</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li><code>from math import sqrt</code> and <code>sqrt(4)</code><br />
+</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>Both B and C</li>
+</ol></li>
+</ul>
+<h2 id="logical-operators"><strong>10. Logical Operators</strong></h2>
+<p><strong>Question</strong>: What will the following code print?</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>x <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>y <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="bu">print</span>(x <span class="kw">and</span> <span class="kw">not</span> y)</span></code></pre></div>
+<ul>
+<li><ol type="A">
+<li>True<br />
+</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>False<br />
+</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>None<br />
+</li>
+</ol></li>
+<li><ol start="4" type="A">
+<li>SyntaxError</li>
+</ol></li>
+</ul>
