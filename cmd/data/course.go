@@ -262,3 +262,92 @@ func importCoursesFromCSV() ([]*domain.Course, error) {
 	}
 	return courses, nil
 }
+
+// This imports a course template and a term and generates a course instance
+func GenerateCourseInstancesFromCSV2() ([]*domain.Course, error) {
+	courses, err := importCoursesFromCSV()
+	if err != nil {
+		return nil, err
+	}
+	terms, err := TermsLoader()
+	if err != nil {
+		return nil, err
+	}
+	var currentTerm *domain.Term
+	for _, term := range terms {
+		if time.Now().After(term.Start) && time.Now().Before(term.End) {
+			currentTerm = term
+		}
+	}
+	currDate := currentTerm.InstructionalDays[0]
+	dateNum := 0
+courseLoop:
+	for i := range courses {
+		for j := range courses[i].Units {
+			for k := range courses[i].Units[j].Lessons {
+				courses[i].Units[j].Lessons[k].Date = currDate
+				if dateNum != len(currentTerm.InstructionalDays)-1 {
+					dateNum++
+					currDate = currentTerm.InstructionalDays[dateNum]
+				} else {
+					break courseLoop
+				}
+			}
+		}
+	}
+	return courses, nil
+}
+
+// func WriteCourseInstancesToCSV(instances []*domain.Course) error {
+// file, err := os.Create(newScheduleDir)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	writer := csv.NewWriter(file)
+// 	var rows [][]string
+// 	rows = append(rows, []string{
+// 		"course_name",
+// 		"day_num",
+// 		"unit_num",
+// 		"unit_descr",
+// 		"lesson_num",
+// 		"lesson_descr",
+// 		"std_num",
+// 		"std_descr",
+// 		"date",
+// 		"term_id",
+// 		"term_name",
+// 	})
+// 	for _, instance := range instances {
+// 		for i := range instance.Day {
+// 			courseName := instance.Course.GetTitle()
+// 			day := strconv.Itoa(instance.Day[i])
+// 			unitNum := strconv.Itoa(instance.UnitNum[i])
+// 			unitDescr := instance.UnitDescr[i]
+// 			lessonNum := strconv.Itoa(instance.LessonNum[i])
+// 			lessonDescr := instance.LessonDescr[i]
+// 			std := strconv.Itoa(instance.StandardNum[i])
+// 			stdDescr := instance.StdDescr[i]
+// 			date := instance.Date[i].String()[:10]
+// 			termID := strconv.Itoa(instance.Term.ID)
+// 			termName := instance.Term.Name
+// 			rows = append(rows, []string{
+// 				courseName,
+// 				day,
+// 				unitNum,
+// 				unitDescr,
+// 				lessonNum,
+// 				lessonDescr,
+// 				std,
+// 				stdDescr,
+// 				date,
+// 				termID,
+// 				termName,
+// 			})
+
+// 		}
+// 	}
+// 	writer.WriteAll(rows)
+// 	return nil
+
+// }

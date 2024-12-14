@@ -24,3 +24,21 @@ func TestImportCoursesFromCSV(t *testing.T) {
 	}
 
 }
+
+func TestGenerateInstances(t *testing.T) {
+	courseInstances, err := GenerateCourseInstancesFromCSV2()
+	if err != nil {
+		t.Errorf("error generating instances from csv: %s", err)
+	}
+	for _, instance := range courseInstances {
+		log.Println(instance.Name)
+		log.Println("num units: ", len(instance.Units))
+		for _, unit := range instance.Units {
+			log.Println(unit.Name)
+			log.Println("num lessons: ", len(unit.Lessons))
+			for _, lesson := range unit.Lessons {
+				log.Println(lesson.Name, lesson.Description, lesson.Date.Format(time.DateOnly))
+			}
+		}
+	}
+}
