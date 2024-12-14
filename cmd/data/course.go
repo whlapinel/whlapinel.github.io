@@ -264,7 +264,7 @@ func importCoursesFromCSV() ([]*domain.Course, error) {
 }
 
 // This imports a course template and a term and generates a course instance
-func GenerateCourseInstancesFromCSV2() ([]*domain.Course, error) {
+func GenerateCourseInstancesFromCSV2(date time.Time) ([]*domain.Course, error) {
 	courses, err := importCoursesFromCSV()
 	if err != nil {
 		return nil, err
@@ -275,14 +275,14 @@ func GenerateCourseInstancesFromCSV2() ([]*domain.Course, error) {
 	}
 	var currentTerm *domain.Term
 	for _, term := range terms {
-		if time.Now().After(term.Start) && time.Now().Before(term.End) {
+		if date.After(term.Start) && date.Before(term.End) {
 			currentTerm = term
 		}
 	}
-	currDate := currentTerm.InstructionalDays[0]
-	dateNum := 0
 courseLoop:
 	for i, course := range courses {
+		dateNum := 0
+		currDate := currentTerm.InstructionalDays[dateNum]
 		for j, unit := range course.Units {
 			for k, lesson := range unit.Lessons {
 				log.Printf("Assigning %v to lesson %v", currDate, lesson.Name) // Log assignment
@@ -319,32 +319,27 @@ func WriteCourseInstancesToCSV(instances []*domain.Course) error {
 		"term_id",
 		"term_name",
 	})
-	dayNum := 1
-	var currDate time.Time
 	for _, instance := range instances {
+		dayNum := 0
 		for _, unit := range instance.Units {
 			for _, lesson := range unit.Lessons {
-				emptyTime := time.Time{}
-				if currDate == emptyTime {
-					currDate = lesson.Date
-				}
-				if lesson.Date != currDate {
-					dayNum++
-				}
+				dayNum++
 				courseName := instance.Name
 				unitNum := unit.Number
 				unitDescr := unit.Description
 				lessonNum := lesson.Number
 				stdNum := ""
 				stdDescr := ""
-				date := currDate
+				date := lesson.Date
 				termID := ""
 				termName := instance.TermName
 				row := []string{
 					courseName,
+					strconv.Itoa(dayNum),
 					strconv.Itoa(unitNum),
 					unitDescr,
 					strconv.Itoa(lessonNum),
+					lesson.Description,
 					stdNum,
 					stdDescr,
 					date.Format(time.DateOnly),

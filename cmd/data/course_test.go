@@ -26,7 +26,8 @@ func TestImportCoursesFromCSV(t *testing.T) {
 }
 
 func TestGenerateInstances(t *testing.T) {
-	courseInstances, err := GenerateCourseInstancesFromCSV2()
+	date := time.Now().AddDate(0, 2, 0)
+	courseInstances, err := GenerateCourseInstancesFromCSV2(date)
 	if err != nil {
 		t.Errorf("error generating instances from csv: %s", err)
 	}
