@@ -279,10 +279,10 @@ func GenerateCourseInstancesFromCSV2(date time.Time) ([]*domain.Course, error) {
 			currentTerm = term
 		}
 	}
-courseLoop:
 	for i, course := range courses {
 		dateNum := 0
 		currDate := currentTerm.InstructionalDays[dateNum]
+		courses[i].TermName = currentTerm.Name
 		for j, unit := range course.Units {
 			for k, lesson := range unit.Lessons {
 				log.Printf("Assigning %v to lesson %v", currDate, lesson.Name) // Log assignment
@@ -291,7 +291,7 @@ courseLoop:
 					dateNum++
 					currDate = currentTerm.InstructionalDays[dateNum]
 				} else {
-					break courseLoop
+					currDate = time.Time{}
 				}
 			}
 		}
@@ -330,7 +330,10 @@ func WriteCourseInstancesToCSV(instances []*domain.Course) error {
 				lessonNum := lesson.Number
 				stdNum := ""
 				stdDescr := ""
-				date := lesson.Date
+				date := lesson.Date.Format(time.DateOnly)
+				if lesson.Date.IsZero() {
+					date = ""
+				}
 				termID := ""
 				termName := instance.TermName
 				row := []string{
@@ -342,7 +345,7 @@ func WriteCourseInstancesToCSV(instances []*domain.Course) error {
 					lesson.Description,
 					stdNum,
 					stdDescr,
-					date.Format(time.DateOnly),
+					date,
 					termID,
 					termName,
 				}
