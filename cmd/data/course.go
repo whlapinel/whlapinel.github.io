@@ -187,7 +187,7 @@ func importCoursesFromCSV() ([]*domain.Course, error) {
 	for _, record := range records[1:] {
 		courseName := record[courseNameCol]
 		courseHolder, exists := courseMap[courseName]
-		termName := record[termNameCol]
+		termName := record[scheduleTermNameCol]
 		if !exists {
 			course := domain.Course{
 				Name:     courseName,
