@@ -237,7 +237,7 @@ func importCoursesFromCSV() ([]*domain.Course, error) {
 		}
 		lessonName := fmt.Sprintf("Lesson %d.%d", unitNum, lessonNum)
 		if unitNum < 0 {
-			lessonName = fmt.Sprintf("%s Day %d", unitDescr, lessonNum)
+			lessonName = fmt.Sprintf("%s Day %d", unitName, lessonNum)
 
 		}
 		lessonDescr := record[lessonDescrCol]
