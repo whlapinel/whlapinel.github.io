@@ -1,0 +1,179 @@
+course_name,day_num,unit_num,unit_descr,lesson_num,lesson_descr,std_num,std_descr,date,term_id,term_name
+Python I Programming Honors,0,Setup and intros,1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,0,Setup and intros,2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,0,Setup and intros,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,1,"Ethics, Security and History of Computer Programming",1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,1,"Ethics, Security and History of Computer Programming",2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,1,"Ethics, Security and History of Computer Programming",4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,2,Problem Solving With Computers,1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,2,Problem Solving With Computers,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,2,Problem Solving With Computers,4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,3,Basic Python and Console Interaction,1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,3,Basic Python and Console Interaction,2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,3,Basic Python and Console Interaction,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,3,Basic Python and Console Interaction,4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,3,Basic Python and Console Interaction,6,,,2024-08-26,,Fall 2024
+Python I Programming Honors,3,Basic Python and Console Interaction,7,,,2024-08-26,,Fall 2024
+Python I Programming Honors,3,Basic Python and Console Interaction,8,,,2024-08-26,,Fall 2024
+Python I Programming Honors,3,Basic Python and Console Interaction,9,,,2024-08-26,,Fall 2024
+Python I Programming Honors,4,Conditionals,2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,4,Conditionals,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,4,Conditionals,4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,4,Conditionals,5,,,2024-08-26,,Fall 2024
+Python I Programming Honors,4,Conditionals,6,,,2024-08-26,,Fall 2024
+Python I Programming Honors,4,Conditionals,7,,,2024-08-26,,Fall 2024
+Python I Programming Honors,4,Conditionals,8,,,2024-08-26,,Fall 2024
+Python I Programming Honors,5,Looping,1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,5,Looping,2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,5,Looping,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,5,Looping,4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,5,Looping,5,,,2024-08-26,,Fall 2024
+Python I Programming Honors,5,Looping,6,,,2024-08-26,,Fall 2024
+Python I Programming Honors,5,Looping,7,,,2024-08-26,,Fall 2024
+Python I Programming Honors,6,Functions and Exceptions,1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,6,Functions and Exceptions,2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,6,Functions and Exceptions,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,6,Functions and Exceptions,4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,6,Functions and Exceptions,5,,,2024-08-26,,Fall 2024
+Python I Programming Honors,6,Functions and Exceptions,6,,,2024-08-26,,Fall 2024
+Python I Programming Honors,6,Functions and Exceptions,7,,,2024-08-26,,Fall 2024
+Python I Programming Honors,6,Functions and Exceptions,8,,,2024-08-26,,Fall 2024
+Python I Programming Honors,-1,Midterm Review & Exam,1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,-1,Midterm Review & Exam,2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,-1,Midterm Review & Exam,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,-1,Midterm Review & Exam,4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,-1,Midterm Review & Exam,5,,,2024-08-26,,Fall 2024
+Python I Programming Honors,-1,Midterm Review & Exam,6,,,2024-08-26,,Fall 2024
+Python I Programming Honors,-1,Midterm Review & Exam,7,,,2024-08-26,,Fall 2024
+Python I Programming Honors,-1,Midterm Review & Exam,8,,,2024-08-26,,Fall 2024
+Python I Programming Honors,7,Strings,1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,7,Strings,2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,7,Strings,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,7,Strings,4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,7,Strings,5,,,2024-08-26,,Fall 2024
+Python I Programming Honors,7,Strings,6,,,2024-08-26,,Fall 2024
+Python I Programming Honors,7,Strings,7,,,2024-08-26,,Fall 2024
+Python I Programming Honors,8,Data Structures,1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,8,Data Structures,2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,8,Data Structures,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,8,Data Structures,4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,8,Data Structures,5,,,2024-08-26,,Fall 2024
+Python I Programming Honors,8,Data Structures,6,,,2024-08-26,,Fall 2024
+Python I Programming Honors,8,Data Structures,7,,,2024-08-26,,Fall 2024
+Python I Programming Honors,8,Data Structures,8,,,2024-08-26,,Fall 2024
+Python I Programming Honors,8,Data Structures,9,,,2024-08-26,,Fall 2024
+Python I Programming Honors,9,Text Files,1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,9,Text Files,2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,9,Text Files,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,9,Text Files,4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,9,Text Files,5,,,2024-08-26,,Fall 2024
+Python I Programming Honors,9,Text Files,6,,,2024-08-26,,Fall 2024
+Python I Programming Honors,9,Text Files,7,,,2024-08-26,,Fall 2024
+Python I Programming Honors,9,Text Files,8,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,1,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,2,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,3,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,4,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,5,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,6,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,7,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,8,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,9,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,10,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,11,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,12,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,13,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,14,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,15,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,16,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,17,,,2024-08-26,,Fall 2024
+Python I Programming Honors,10,PCEP Preparation and Exam,18,,,2024-08-26,,Fall 2024
+Python II Programming Honors,0,Setup and intros,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,0,Setup and intros,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,0,Setup and intros,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,1,Python Fundamentals Review,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,1,Python Fundamentals Review,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,1,Python Fundamentals Review,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,1,Python Fundamentals Review,4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,1,Python Fundamentals Review,5,,,2024-08-26,,Fall 2024
+Python II Programming Honors,2,More advanced Python,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,2,More advanced Python,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,2,More advanced Python,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,2,More advanced Python,4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,2,More advanced Python,5,,,2024-08-26,,Fall 2024
+Python II Programming Honors,2,More advanced Python,6,,,2024-08-26,,Fall 2024
+Python II Programming Honors,2,More advanced Python,7,,,2024-08-26,,Fall 2024
+Python II Programming Honors,2,More advanced Python,8,,,2024-08-26,,Fall 2024
+Python II Programming Honors,3,Python CLI,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,3,Python CLI,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,3,Python CLI,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,3,Python CLI,4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,4,File I/O and SQL,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,4,File I/O and SQL,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,4,File I/O and SQL,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,4,File I/O and SQL,4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,4,File I/O and SQL,5,,,2024-08-26,,Fall 2024
+Python II Programming Honors,4,File I/O and SQL,6,,,2024-08-26,,Fall 2024
+Python II Programming Honors,4,File I/O and SQL,7,,,2024-08-26,,Fall 2024
+Python II Programming Honors,4,File I/O and SQL,8,,,2024-08-26,,Fall 2024
+Python II Programming Honors,4,File I/O and SQL,9,,,2024-08-26,,Fall 2024
+Python II Programming Honors,4,File I/O and SQL,10,,,2024-08-26,,Fall 2024
+Python II Programming Honors,5,"OOP, closures and generators",1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,5,"OOP, closures and generators",2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,5,"OOP, closures and generators",3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,5,"OOP, closures and generators",4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,5,"OOP, closures and generators",5,,,2024-08-26,,Fall 2024
+Python II Programming Honors,5,"OOP, closures and generators",6,,,2024-08-26,,Fall 2024
+Python II Programming Honors,5,"OOP, closures and generators",7,,,2024-08-26,,Fall 2024
+Python II Programming Honors,5,"OOP, closures and generators",8,,,2024-08-26,,Fall 2024
+Python II Programming Honors,-1,Midterm Review and exam,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,-1,Midterm Review and exam,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,-1,Midterm Review and exam,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,-1,Midterm Review and exam,4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,-1,Midterm Review and exam,5,,,2024-08-26,,Fall 2024
+Python II Programming Honors,-1,Midterm Review and exam,6,,,2024-08-26,,Fall 2024
+Python II Programming Honors,-1,Midterm Review and exam,7,,,2024-08-26,,Fall 2024
+Python II Programming Honors,-1,Midterm Review and exam,8,,,2024-08-26,,Fall 2024
+Python II Programming Honors,-1,Midterm Review and exam,9,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,5,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,6,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,7,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,8,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,9,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,10,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,11,,,2024-08-26,,Fall 2024
+Python II Programming Honors,6,Data Science,12,,,2024-08-26,,Fall 2024
+Python II Programming Honors,7,IoT Programming,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,7,IoT Programming,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,7,IoT Programming,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,7,IoT Programming,4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,7,IoT Programming,5,,,2024-08-26,,Fall 2024
+Python II Programming Honors,7,IoT Programming,6,,,2024-08-26,,Fall 2024
+Python II Programming Honors,7,IoT Programming,7,,,2024-08-26,,Fall 2024
+Python II Programming Honors,7,IoT Programming,8,,,2024-08-26,,Fall 2024
+Python II Programming Honors,8,Web Development,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,8,Web Development,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,8,Web Development,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,8,Web Development,4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,8,Web Development,5,,,2024-08-26,,Fall 2024
+Python II Programming Honors,8,Web Development,6,,,2024-08-26,,Fall 2024
+Python II Programming Honors,8,Web Development,7,,,2024-08-26,,Fall 2024
+Python II Programming Honors,8,Web Development,8,,,2024-08-26,,Fall 2024
+Python II Programming Honors,8,Web Development,9,,,2024-08-26,,Fall 2024
+Python II Programming Honors,8,Web Development,10,,,2024-08-26,,Fall 2024
+Python II Programming Honors,9,Certification testing and extension,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,9,Certification testing and extension,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,9,Certification testing and extension,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,9,Certification testing and extension,4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,9,Certification testing and extension,5,,,2024-08-26,,Fall 2024
+Python II Programming Honors,9,Certification testing and extension,6,,,2024-08-26,,Fall 2024
+Python II Programming Honors,10,Final Project,1,,,2024-08-26,,Fall 2024
+Python II Programming Honors,10,Final Project,2,,,2024-08-26,,Fall 2024
+Python II Programming Honors,10,Final Project,3,,,2024-08-26,,Fall 2024
+Python II Programming Honors,10,Final Project,4,,,2024-08-26,,Fall 2024
+Python II Programming Honors,10,Final Project,5,,,2024-08-26,,Fall 2024
+Python II Programming Honors,10,Final Project,6,,,2024-08-26,,Fall 2024

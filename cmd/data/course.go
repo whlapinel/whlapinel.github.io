@@ -282,9 +282,10 @@ func GenerateCourseInstancesFromCSV2() ([]*domain.Course, error) {
 	currDate := currentTerm.InstructionalDays[0]
 	dateNum := 0
 courseLoop:
-	for i := range courses {
-		for j := range courses[i].Units {
-			for k := range courses[i].Units[j].Lessons {
+	for i, course := range courses {
+		for j, unit := range course.Units {
+			for k, lesson := range unit.Lessons {
+				log.Printf("Assigning %v to lesson %v", currDate, lesson.Name) // Log assignment
 				courses[i].Units[j].Lessons[k].Date = currDate
 				if dateNum != len(currentTerm.InstructionalDays)-1 {
 					dateNum++
@@ -298,56 +299,65 @@ courseLoop:
 	return courses, nil
 }
 
-// func WriteCourseInstancesToCSV(instances []*domain.Course) error {
-// file, err := os.Create(newScheduleDir)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	writer := csv.NewWriter(file)
-// 	var rows [][]string
-// 	rows = append(rows, []string{
-// 		"course_name",
-// 		"day_num",
-// 		"unit_num",
-// 		"unit_descr",
-// 		"lesson_num",
-// 		"lesson_descr",
-// 		"std_num",
-// 		"std_descr",
-// 		"date",
-// 		"term_id",
-// 		"term_name",
-// 	})
-// 	for _, instance := range instances {
-// 		for i := range instance.Day {
-// 			courseName := instance.Course.GetTitle()
-// 			day := strconv.Itoa(instance.Day[i])
-// 			unitNum := strconv.Itoa(instance.UnitNum[i])
-// 			unitDescr := instance.UnitDescr[i]
-// 			lessonNum := strconv.Itoa(instance.LessonNum[i])
-// 			lessonDescr := instance.LessonDescr[i]
-// 			std := strconv.Itoa(instance.StandardNum[i])
-// 			stdDescr := instance.StdDescr[i]
-// 			date := instance.Date[i].String()[:10]
-// 			termID := strconv.Itoa(instance.Term.ID)
-// 			termName := instance.Term.Name
-// 			rows = append(rows, []string{
-// 				courseName,
-// 				day,
-// 				unitNum,
-// 				unitDescr,
-// 				lessonNum,
-// 				lessonDescr,
-// 				std,
-// 				stdDescr,
-// 				date,
-// 				termID,
-// 				termName,
-// 			})
+func WriteCourseInstancesToCSV(instances []*domain.Course) error {
+	file, err := os.Create(newScheduleDir)
+	if err != nil {
+		return err
+	}
+	writer := csv.NewWriter(file)
+	var rows [][]string
+	rows = append(rows, []string{
+		"course_name",
+		"day_num",
+		"unit_num",
+		"unit_descr",
+		"lesson_num",
+		"lesson_descr",
+		"std_num",
+		"std_descr",
+		"date",
+		"term_id",
+		"term_name",
+	})
+	dayNum := 1
+	var currDate time.Time
+	for _, instance := range instances {
+		for _, unit := range instance.Units {
+			for _, lesson := range unit.Lessons {
+				emptyTime := time.Time{}
+				if currDate == emptyTime {
+					currDate = lesson.Date
+				}
+				if lesson.Date != currDate {
+					dayNum++
+				}
+				courseName := instance.Name
+				unitNum := unit.Number
+				unitDescr := unit.Description
+				lessonNum := lesson.Number
+				stdNum := ""
+				stdDescr := ""
+				date := currDate
+				termID := ""
+				termName := instance.TermName
+				row := []string{
+					courseName,
+					strconv.Itoa(unitNum),
+					unitDescr,
+					strconv.Itoa(lessonNum),
+					stdNum,
+					stdDescr,
+					date.Format(time.DateOnly),
+					termID,
+					termName,
+				}
+				rows = append(rows, row)
 
-// 		}
-// 	}
-// 	writer.WriteAll(rows)
-// 	return nil
+			}
 
-// }
+		}
+	}
+	writer.WriteAll(rows)
+	return nil
+
+}

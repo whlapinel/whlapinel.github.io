@@ -41,4 +41,8 @@ func TestGenerateInstances(t *testing.T) {
 			}
 		}
 	}
+	err = WriteCourseInstancesToCSV(courseInstances)
+	if err != nil {
+		t.Errorf("error writing to csv: %s", err)
+	}
 }
