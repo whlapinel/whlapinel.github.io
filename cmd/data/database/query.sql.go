@@ -30,7 +30,7 @@ func (q *Queries) DeleteCourse(ctx context.Context, id int64) (Course, error) {
 
 const deleteLesson = `-- name: DeleteLesson :one
 DELETE FROM lessons WHERE id = ?
-RETURNING id, unit_id, number, name, description
+RETURNING id, unit_id, template_id, number, name, description
 `
 
 func (q *Queries) DeleteLesson(ctx context.Context, id int64) (Lesson, error) {
@@ -39,6 +39,7 @@ func (q *Queries) DeleteLesson(ctx context.Context, id int64) (Lesson, error) {
 	err := row.Scan(
 		&i.ID,
 		&i.UnitID,
+		&i.TemplateID,
 		&i.Number,
 		&i.Name,
 		&i.Description,
@@ -77,7 +78,7 @@ func (q *Queries) DeleteTerm(ctx context.Context, id int64) (Term, error) {
 
 const deleteUnit = `-- name: DeleteUnit :one
 DELETE FROM units WHERE id = ?
-RETURNING id, course_id, number, name, description
+RETURNING id, course_id, template_id, number, name, description
 `
 
 func (q *Queries) DeleteUnit(ctx context.Context, id int64) (Unit, error) {
@@ -86,6 +87,7 @@ func (q *Queries) DeleteUnit(ctx context.Context, id int64) (Unit, error) {
 	err := row.Scan(
 		&i.ID,
 		&i.CourseID,
+		&i.TemplateID,
 		&i.Number,
 		&i.Name,
 		&i.Description,
@@ -334,13 +336,40 @@ func (q *Queries) SaveCourse(ctx context.Context, arg SaveCourseParams) (Course,
 	return i, err
 }
 
+const saveDate = `-- name: SaveDate :one
+INSERT INTO dates (
+  term_id, day_number, date
+) VALUES (
+  ?, ?, ?
+)
+RETURNING id, term_id, day_number, date
+`
+
+type SaveDateParams struct {
+	TermID    int64
+	DayNumber int64
+	Date      string
+}
+
+func (q *Queries) SaveDate(ctx context.Context, arg SaveDateParams) (Date, error) {
+	row := q.db.QueryRowContext(ctx, saveDate, arg.TermID, arg.DayNumber, arg.Date)
+	var i Date
+	err := row.Scan(
+		&i.ID,
+		&i.TermID,
+		&i.DayNumber,
+		&i.Date,
+	)
+	return i, err
+}
+
 const saveLesson = `-- name: SaveLesson :one
 INSERT INTO lessons (
   number, name, description, unit_id
 ) VALUES (
   ?, ?, ?, ?
 )
-RETURNING id, unit_id, number, name, description
+RETURNING id, unit_id, template_id, number, name, description
 `
 
 type SaveLessonParams struct {
@@ -361,6 +390,7 @@ func (q *Queries) SaveLesson(ctx context.Context, arg SaveLessonParams) (Lesson,
 	err := row.Scan(
 		&i.ID,
 		&i.UnitID,
+		&i.TemplateID,
 		&i.Number,
 		&i.Name,
 		&i.Description,
@@ -401,7 +431,7 @@ INSERT INTO units (
 ) VALUES (
   ?, ?, ?, ?
 )
-RETURNING id, course_id, number, name, description
+RETURNING id, course_id, template_id, number, name, description
 `
 
 type SaveUnitParams struct {
@@ -422,6 +452,7 @@ func (q *Queries) SaveUnit(ctx context.Context, arg SaveUnitParams) (Unit, error
 	err := row.Scan(
 		&i.ID,
 		&i.CourseID,
+		&i.TemplateID,
 		&i.Number,
 		&i.Name,
 		&i.Description,

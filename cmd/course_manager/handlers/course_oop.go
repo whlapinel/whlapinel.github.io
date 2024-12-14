@@ -11,8 +11,8 @@ import (
 
 type CourseHandler interface {
 	Handler
-	CrudderHandler
 	ListTemplates(c echo.Context) error
+	ListInstances(c echo.Context) error
 }
 type courseHandler struct {
 	service services.CourseService
@@ -26,6 +26,7 @@ func NewCourseHandler(service services.CourseService, e *echo.Echo) CourseHandle
 const (
 	CourseHandlerCreate        RouteName = "POST: /courses"
 	CourseHandlerListTemplates RouteName = "GET: /courses"
+	CourseHandlerListInstances RouteName = "GET: /courses/:term-id"
 	CourseHandlerReadFromCSV   RouteName = "GET: /courses/csv"
 	CourseHandlerUpdate        RouteName = "PUT: /courses/:id"
 	CourseHandlerDelete        RouteName = "DELETE: /courses/:id"
@@ -34,6 +35,7 @@ const (
 func (h courseHandler) Mount() {
 	nameRoute(h.e.POST("/courses", h.Create), CourseHandlerCreate)
 	nameRoute(h.e.GET("/courses", h.ListTemplates), CourseHandlerListTemplates)
+	nameRoute(h.e.GET("/courses/:term-id", h.ListInstances), CourseHandlerListInstances)
 	nameRoute(h.e.GET("/courses/csv", h.ReadFromCSV), CourseHandlerReadFromCSV)
 	nameRoute(h.e.PUT("/courses/:id", h.Update), CourseHandlerUpdate)
 	nameRoute(h.e.DELETE("/courses/:id", h.Delete), CourseHandlerDelete)
@@ -44,8 +46,8 @@ func (h courseHandler) Create(c echo.Context) error {
 	return nil
 }
 
-func (h courseHandler) List(c echo.Context) error {
-	courses, err := h.service.All()
+func (h courseHandler) ListInstances(c echo.Context) error {
+	courses, err := h.service.GetInstances()
 	if err != nil {
 		log.Println("courseHandler List():", err)
 		return err
@@ -70,7 +72,7 @@ func (h courseHandler) ReadFromCSV(c echo.Context) error {
 		return err
 	}
 	for _, instance := range courses {
-		err := h.service.Create(instance)
+		err := h.service.CreateInstance(instance)
 		if err != nil {
 			log.Println("error: ", err)
 			return err

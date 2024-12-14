@@ -3,11 +3,14 @@ package data
 import (
 	"context"
 	"database/sql"
+	"encoding/csv"
 	"fmt"
 	"gh_static_portfolio/cmd/data/database"
 	"gh_static_portfolio/cmd/domain"
 	"log"
+	"os"
 	"strconv"
+	"time"
 )
 
 type courseRepo struct {
@@ -68,7 +71,7 @@ func (c *courseRepo) GetTemplates() ([]*domain.Course, error) {
 	return courses, nil
 }
 
-func NewCoursesRepo(db *database.Queries) domain.CourseRepository {
+func NewCourseRepo(db *database.Queries) domain.CourseRepo {
 	return &courseRepo{queries: db}
 }
 
@@ -80,15 +83,21 @@ func (c *courseRepo) WriteToCSV(course *domain.Course) error {
 	return fmt.Errorf("not implemented")
 }
 
+// TODO: Convert this to import directly from CSV rather than using instance import
 func (c *courseRepo) ReadFromCSV() ([]*domain.Course, error) {
 
-	instances, err := importInstancesFromCSV()
+	// instances, err := importInstancesFromCSV()
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// var courses []*domain.Course
+	// for _, instance := range instances {
+	// 	courses = append(courses, courseInstanceSoaToOopV2(*instance))
+	// }
+	// return courses, nil
+	courses, err := importCoursesFromCSV()
 	if err != nil {
 		return nil, err
-	}
-	var courses []*domain.Course
-	for _, instance := range instances {
-		courses = append(courses, courseInstanceSoaToOopV2(*instance))
 	}
 	return courses, nil
 
@@ -120,7 +129,7 @@ func (c *courseRepo) Save(course *domain.Course) error {
 			CourseID:    currUnit.CourseID,
 		})
 		if err != nil {
-			return err
+			return fmt.Errorf("courseRepo.Save(): %s", err)
 		}
 		unit.ID = int(currUnit.ID)
 		for j, lesson := range unit.Lessons {
@@ -152,4 +161,101 @@ func (c *courseRepo) Save(course *domain.Course) error {
 	}
 	return nil
 
+}
+
+func importCoursesFromCSV() ([]*domain.Course, error) {
+
+	file, err := os.Open(scheduleCsvDir)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+	reader := csv.NewReader(file)
+	records, err := reader.ReadAll()
+	if err != nil {
+		return nil, err
+	}
+	if len(records) == 0 {
+		log.Fatalf("file is empty")
+	}
+	type UnitMap map[int]domain.Unit
+	type CourseHolder struct {
+		Course domain.Course
+		Units  UnitMap
+	}
+	courseMap := make(map[string]CourseHolder)
+	for _, record := range records[1:] {
+		courseName := record[courseNameCol]
+		courseHolder, exists := courseMap[courseName]
+		if !exists {
+			course := domain.Course{
+				Name: courseName,
+			}
+			holder := CourseHolder{
+				Course: course,
+				Units:  UnitMap{},
+			}
+			courseMap[courseName] = holder
+			courseHolder = holder
+		}
+		unitNum := 0
+		if record[unitNumCol] != "" {
+			unitNum, err = strconv.Atoi(record[unitNumCol])
+			if err != nil {
+				return nil, fmt.Errorf("error reading unit number from csv")
+			}
+		} else {
+			return nil, fmt.Errorf("unit number field is blank")
+		}
+		unitSequence, err := strconv.Atoi(record[unitSequenceCol])
+		if err != nil {
+			return nil, fmt.Errorf("error reading unit sequence number from csv")
+		}
+		unitName := fmt.Sprintf("Unit %d", unitNum)
+		if unitNum < 0 {
+			unitName = record[unitDescrCol]
+		}
+		unitDescr := record[unitDescrCol]
+		unit, exists := courseHolder.Units[unitSequence]
+		if !exists {
+			courseHolder.Units[unitSequence] = domain.Unit{
+				Number:      unitNum,
+				SequenceNum: unitSequence,
+				Name:        unitName,
+				Description: unitDescr,
+			}
+			unit = courseHolder.Units[unitSequence]
+		}
+		lessonNum := 0
+		if record[lessonNumCol] != "" {
+			lessonNum, err = strconv.Atoi(record[lessonNumCol])
+			if err != nil {
+				return nil, fmt.Errorf("error reading lesson number from csv")
+			}
+		}
+		lessonName := fmt.Sprintf("Lesson %d.%d", unitNum, lessonNum)
+		if unitNum < 0 {
+			lessonName = record[lessonDescrCol]
+		}
+		lessonDescr := record[lessonDescrCol]
+		lessonDate, err := time.Parse(time.DateOnly, record[scheduleDateCol])
+		if err != nil {
+			return nil, fmt.Errorf("error parsing date: %s", err)
+		}
+		lesson := domain.NewLesson(lessonNum, lessonName, lessonDescr, lessonDate)
+		unit.Lessons = append(unit.Lessons, lesson)
+		courseHolder.Units[unitSequence] = unit
+		courseMap[courseName] = courseHolder
+	}
+	var courses []*domain.Course
+	for _, holder := range courseMap {
+		course := holder.Course
+		nums := sortedBySequence(holder.Units)
+		for _, num := range nums {
+			course.Units = append(course.Units, holder.Units[num])
+		}
+		courses = append(courses, &course)
+
+	}
+	return courses, nil
 }

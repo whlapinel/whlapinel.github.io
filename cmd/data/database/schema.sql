@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS courses (
     id INTEGER PRIMARY KEY,
     template_id INTEGER,
     term_id INTEGER,
-    name TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
     description TEXT,
     FOREIGN KEY (term_id) REFERENCES terms(id),
     FOREIGN KEY (template_id) REFERENCES courses(id)
@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS courses (
 CREATE TABLE IF NOT EXISTS units (
     id INTEGER PRIMARY KEY,
     course_id INTEGER NOT NULL,
+    template_id INTEGER,
     number INTEGER NOT NULL,
     name TEXT NOT NULL,
     description TEXT,
@@ -22,6 +23,7 @@ CREATE TABLE IF NOT EXISTS units (
 CREATE TABLE IF NOT EXISTS lessons (
     id INTEGER PRIMARY KEY,
     unit_id INTEGER NOT NULL,
+    template_id INTEGER,
     number INTEGER NOT NULL,
     name TEXT,
     description TEXT,
@@ -30,10 +32,18 @@ CREATE TABLE IF NOT EXISTS lessons (
 );
 
 CREATE TABLE IF NOT EXISTS dates (
-    number INTEGER NOT NULL,
-    lesson_id INTEGER NOT NULL,
+    id INTEGER PRIMARY KEY,
+    term_id INTEGER NOT NULL,
+    day_number INTEGER NOT NULL,
     date TEXT NOT NULL,
-    FOREIGN KEY (lesson_id) REFERENCES lessons(id)
+    FOREIGN KEY (term_id) REFERENCES terms(id)
+);
+
+CREATE TABLE IF NOT EXISTS lesson_dates (
+    lesson_id INTEGER NOT NULL,
+    date_id INTEGER NOT NULL,
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id),
+    FOREIGN KEY (date_id) REFERENCES dates(id)
 );
 
 

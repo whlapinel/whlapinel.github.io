@@ -3,6 +3,7 @@ package data
 import (
 	"context"
 	"encoding/csv"
+	"fmt"
 	"gh_static_portfolio/cmd/data/database"
 	"gh_static_portfolio/cmd/domain"
 	"os"
@@ -11,7 +12,8 @@ import (
 )
 
 type TermRepo interface {
-	domain.Repository[domain.Term]
+	Save(term *domain.Term) (int, error)
+	ReadFromCSV() ([]*domain.Term, error)
 }
 
 type termRepo struct {
@@ -33,8 +35,25 @@ func (t termRepo) ReadFromCSV() ([]*domain.Term, error) {
 }
 
 // Save implements TermRepo.
-func (t termRepo) Save(*domain.Term) error {
-	panic("unimplemented")
+func (t termRepo) Save(term *domain.Term) (int, error) {
+	termParams := database.SaveTermParams{
+		Name:  term.Name,
+		Start: term.Start.Format(time.DateOnly),
+		End:   term.End.Format(time.DateOnly),
+	}
+	dbTerm, err := t.queries.SaveTerm(context.Background(), termParams)
+	if err != nil {
+		return 0, fmt.Errorf("termRepo.Save(): %s", err)
+	}
+	for i, date := range term.InstructionalDays {
+		dateParams := database.SaveDateParams{
+			TermID:    dbTerm.ID,
+			DayNumber: int64(i) + 1,
+			Date:      date.Format(time.DateOnly),
+		}
+		t.queries.SaveDate(context.Background(), dateParams)
+	}
+	return int(dbTerm.ID), nil
 }
 
 // WriteToCSV implements TermRepo.
@@ -136,7 +155,7 @@ func TermsLoader() ([]*domain.Term, error) {
 		termDates := filterNonInstructionalDates(termID, dates)
 		termType := record[termTypeCol]
 
-		termName := record[scheduleTermNameCol]
+		termName := record[termNameCol]
 		term, err := domain.NewTerm(startDate, endDate, termDates, domain.TermType(termType), termID, termName)
 		if err != nil {
 			return nil, err

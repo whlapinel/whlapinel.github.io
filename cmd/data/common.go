@@ -12,10 +12,10 @@ import (
 //go:embed database/schema.sql
 var DDL string
 
-func InitDB() (*database.Queries, *sql.DB, error) {
+func InitDB(fileName string) (*database.Queries, *sql.DB, error) {
 	var queries *database.Queries
 	ctx := context.Background()
-	db, err := sql.Open("sqlite3", "course_manager.db")
+	db, err := sql.Open("sqlite3", fileName)
 	if err != nil {
 		return nil, nil, err
 	}

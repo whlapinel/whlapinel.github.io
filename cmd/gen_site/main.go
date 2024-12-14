@@ -38,13 +38,13 @@ func main() {
 		log.Fatalf("failed to render pages: %v", err)
 	}
 	// Database
-	queries, db, err := data.InitDB()
+	queries, db, err := data.InitDB("course_manager.db")
 	defer db.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
 	// Generate "courses I teach" list page
-	courseRepo := data.NewCoursesRepo(queries)
+	courseRepo := data.NewCourseRepo(queries)
 	courses, err := courseRepo.ReadFromCSV()
 	if err != nil {
 		log.Fatalf("Error getting courses: %v", err)

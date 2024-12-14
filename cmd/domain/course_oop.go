@@ -5,7 +5,7 @@ func NewCourse(title string, descr string, units []Unit, termName string) Course
 
 }
 
-type CourseRepository interface {
+type CourseRepo interface {
 	Repository[Course]
 	GetTemplates() ([]*Course, error)
 	GetInstances() ([]*Course, error)
@@ -29,4 +29,8 @@ type CourseInstanceOOP struct {
 
 func (c Course) GetTitle() string {
 	return c.Name
+}
+
+func (c *Course) AddUnit(unit Unit) {
+	c.Units = append(c.Units, unit)
 }

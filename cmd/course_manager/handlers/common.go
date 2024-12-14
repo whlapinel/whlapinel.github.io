@@ -11,13 +11,6 @@ type Handler interface {
 	Mount()
 }
 
-type CrudderHandler interface {
-	Create(c echo.Context) error
-	List(c echo.Context) error
-	Update(c echo.Context) error
-	Delete(c echo.Context) error
-}
-
 type RouteName string
 type ParamName string
 

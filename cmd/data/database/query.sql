@@ -77,6 +77,14 @@ INSERT INTO terms (
 )
 RETURNING *;
 
+-- name: SaveDate :one
+INSERT INTO dates (
+  term_id, day_number, date
+) VALUES (
+  ?, ?, ?
+)
+RETURNING *;
+
 -- name: DeleteLesson :one
 DELETE FROM lessons WHERE id = ?
 RETURNING *;

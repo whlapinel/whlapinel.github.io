@@ -17,17 +17,24 @@ type Course struct {
 }
 
 type Date struct {
-	Number   int64
-	LessonID int64
-	Date     string
+	ID        int64
+	TermID    int64
+	DayNumber int64
+	Date      string
 }
 
 type Lesson struct {
 	ID          int64
 	UnitID      int64
+	TemplateID  sql.NullInt64
 	Number      int64
 	Name        sql.NullString
 	Description sql.NullString
+}
+
+type LessonDate struct {
+	LessonID int64
+	DateID   int64
 }
 
 type LessonObjective struct {
@@ -66,6 +73,7 @@ type Term struct {
 type Unit struct {
 	ID          int64
 	CourseID    int64
+	TemplateID  sql.NullInt64
 	Number      int64
 	Name        string
 	Description sql.NullString

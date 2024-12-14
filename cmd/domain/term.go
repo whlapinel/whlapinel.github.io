@@ -10,6 +10,8 @@ func NewTerm(start, end time.Time, nonInstructionalDays []time.Time, termType Te
 		return nil, fmt.Errorf("start must come before end: %s is after %s", start.String(), end.String())
 	}
 	term := Term{Start: start, End: end, NonInstructionalDays: nonInstructionalDays, TermType: termType, ID: termID, Name: name}
+	instructionDates := InstructionDays(term)
+	term.InstructionalDays = instructionDates
 	return &term, nil
 }
 
@@ -19,6 +21,7 @@ type Term struct {
 	Start                time.Time
 	End                  time.Time
 	NonInstructionalDays []time.Time
+	InstructionalDays    []time.Time
 	TermType             TermType
 	ID                   int
 	Name                 string

@@ -66,7 +66,7 @@ func (r courseInstanceRepo) Save(instance *domain.CourseInstance) error {
 	return fmt.Errorf("not implemented")
 }
 
-const scheduleCsvDir = "./cmd/data/csv_files/schedules.csv"
+const scheduleCsvDir = "/home/whlapinel/personal_projects/github_portfolio_site/whlapinel.github.io/cmd/data/csv_files/schedules.csv"
 
 func GenerateInstancesFromCSV() ([]*domain.CourseInstance, error) {
 	courses, err := loadCoursesFromCSV()
@@ -328,3 +328,4 @@ func sortedBySequence(unitMap map[int]domain.Unit) []int {
 	return keys
 
 }
+

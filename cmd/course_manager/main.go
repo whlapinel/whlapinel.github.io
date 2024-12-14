@@ -17,13 +17,13 @@ import (
 var embeddedFiles embed.FS
 
 func main() {
-	queries, db, err := data.InitDB()
+	queries, db, err := data.InitDB("course_manager.db")
 	defer db.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
 	e := echo.New()
-	courseRepo := data.NewCoursesRepo(queries)
+	courseRepo := data.NewCourseRepo(queries)
 	courseService := services.NewCourseService(courseRepo)
 	courseHandler := handlers.NewCourseHandler(courseService, e)
 	mainMenuHandler := handlers.NewMainMenuHandler(e)

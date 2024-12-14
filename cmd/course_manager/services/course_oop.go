@@ -6,24 +6,26 @@ import (
 )
 
 type CourseService interface {
-	CreatorService[domain.Course]
-	UpdaterService[domain.Course]
-	DeleterService[domain.Course]
-	CSVService[domain.Course]
-	GetAllService[domain.Course]
+	CreateTemplate(template *domain.Course) error
+	CreateInstance(course *domain.Course) error
 	GetTemplates() ([]*domain.Course, error)
+	GetInstances() ([]*domain.Course, error)
+	ReadFromCSV() ([]*domain.Course, error)
 }
 
 type courseService struct {
-	repo domain.CourseRepository
+	repo domain.CourseRepo
 }
 
-func NewCourseService(courseRepo domain.CourseRepository) CourseService {
+func NewCourseService(courseRepo domain.CourseRepo) CourseService {
 	return courseService{repo: courseRepo}
 
 }
 
-func (svc courseService) Create(course *domain.Course) error {
+func (svc courseService) CreateTemplate(course *domain.Course) error {
+	return svc.repo.Save(course)
+}
+func (svc courseService) CreateInstance(course *domain.Course) error {
 	return svc.repo.Save(course)
 }
 
@@ -33,9 +35,19 @@ func (svc courseService) All() ([]*domain.Course, error) {
 func (svc courseService) GetTemplates() ([]*domain.Course, error) {
 	return svc.repo.GetTemplates()
 }
+func (svc courseService) GetInstances() ([]*domain.Course, error) {
+	return svc.repo.GetInstances()
+}
 
 func (svc courseService) ReadFromCSV() ([]*domain.Course, error) {
-	return svc.repo.ReadFromCSV()
+	courses, err := svc.repo.ReadFromCSV()
+	if err != nil {
+		return nil, err
+	}
+	for _, course := range courses {
+		svc.repo.Save(course)
+	}
+	return courses, nil
 }
 
 func (svc courseService) Update(course *domain.Course) error {

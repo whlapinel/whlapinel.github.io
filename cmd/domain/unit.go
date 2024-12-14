@@ -19,3 +19,7 @@ type Unit struct {
 	Description string
 	Lessons     []Lesson
 }
+
+func (u *Unit) AddLesson(lesson Lesson) {
+	u.Lessons = append(u.Lessons, lesson)
+}

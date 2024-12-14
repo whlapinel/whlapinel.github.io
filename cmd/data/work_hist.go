@@ -39,4 +39,3 @@ var workHistoryItems = []*domain.WorkHistoryItem{
 		Description: "10 years of active duty with 4 deployments aboard various ships.",
 	},
 }
-
