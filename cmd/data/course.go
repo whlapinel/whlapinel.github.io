@@ -187,9 +187,11 @@ func importCoursesFromCSV() ([]*domain.Course, error) {
 	for _, record := range records[1:] {
 		courseName := record[courseNameCol]
 		courseHolder, exists := courseMap[courseName]
+		termName := record[termNameCol]
 		if !exists {
 			course := domain.Course{
-				Name: courseName,
+				Name:     courseName,
+				TermName: termName,
 			}
 			holder := CourseHolder{
 				Course: course,
@@ -235,7 +237,8 @@ func importCoursesFromCSV() ([]*domain.Course, error) {
 		}
 		lessonName := fmt.Sprintf("Lesson %d.%d", unitNum, lessonNum)
 		if unitNum < 0 {
-			lessonName = record[lessonDescrCol]
+			lessonName = fmt.Sprintf("%s Day %d", unitDescr, lessonNum)
+
 		}
 		lessonDescr := record[lessonDescrCol]
 		lessonDate, err := time.Parse(time.DateOnly, record[scheduleDateCol])
