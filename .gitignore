@@ -1,6 +1,0 @@
-node_modules
-.vscode
-secret*
-*solution*
-*.db
-cmd
