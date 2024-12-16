@@ -20,4 +20,6 @@ paginate: true
 Assignment 10.1 (Practice with Dictionaries)
 
 - See "other files" in lesson folder
-- [Link](https://whlapinel.github.io/courses/python-i-programming-honors/unit-10/lesson-10.1/files/assignment.py)
+
+- [Link](https://python/python/courses/python-i-programming-honors/unit-10/lesson-10.1/files/assignment.py)
+- [Exam Syllabus](https://pythoninstitute.org/pcep-exam-syllabus)
