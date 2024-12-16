@@ -47,3 +47,33 @@ func TestGenerateInstances(t *testing.T) {
 		t.Errorf("error writing to csv: %s", err)
 	}
 }
+
+func TestSaveInstance(t *testing.T) {
+	terms, err := TermsLoader()
+	if err != nil {
+		t.Errorf("TermsLoader(): %s", err)
+	}
+	for _, term := range terms {
+		_, err := tr.Save(term)
+		if err != nil {
+			t.Errorf("tr.Save(): %s", err)
+		}
+	}
+	templates, err := importCoursesFromCSV()
+	if err != nil {
+		t.Errorf("importCoursesFromCSV: %s", err)
+	}
+	for _, template := range templates {
+		savedTemplate, err := cr.SaveTemplate(template)
+		if err != nil {
+			t.Errorf("cr.SaveTemplate(): %s", err)
+		}
+		instance := savedTemplate.CreateInstance()
+		err = cr.SaveInstance(instance)
+		if err != nil {
+			t.Errorf("cr.SaveInstance(): %s", err)
+		}
+		log.Println("course ID: ", template.ID)
+
+	}
+}

@@ -9,12 +9,84 @@ import (
 	"gh_static_portfolio/cmd/domain"
 	"log"
 	"os"
+	"slices"
 	"strconv"
 	"time"
 )
 
+const (
+	courseNameCol = iota
+	dayNumCol
+	unitNumCol
+	unitSequenceCol
+	unitDescrCol
+	lessonNumCol
+	lessonDescrCol
+	stdNumCol
+	stdDescrCol
+	scheduleDateCol
+	scheduleTermIdCol
+	scheduleTermNameCol
+)
+
 type courseRepo struct {
 	queries *database.Queries
+}
+
+// SaveInstance implements domain.CourseRepo.
+func (c *courseRepo) SaveInstance(course *domain.CourseInstance) error {
+	ctx := context.Background()
+	savedCourse, err := c.queries.SaveCourse(ctx, database.SaveCourseParams{
+		TemplateID: sql.NullInt64{
+			Int64: int64(course.TemplateID),
+			Valid: true,
+		},
+		TermID: sql.NullInt64{
+			Int64: int64(course.TermID),
+			Valid: false,
+		},
+		Name: course.Name,
+		Description: sql.NullString{
+			String: course.Description,
+			Valid:  course.Description != "",
+		},
+	})
+	if err != nil {
+		return fmt.Errorf("courseRepo.SaveCourse(): %s", err)
+	}
+	course.ID = int(savedCourse.ID)
+	for _, unit := range course.Units {
+		unit.CourseID = int(savedCourse.ID)
+		log.Println("unit template ID: ", unit.TemplateID)
+		log.Println("unit ID: ", unit.ID)
+		savedUnit, err := c.SaveUnit(unit)
+		log.Println("savedUnit template ID: ", savedUnit.TemplateID)
+		log.Println("savedUnit ID: ", savedUnit.ID)
+		if err != nil {
+			log.Println("savedUnit:", unit.CourseID,
+				"\nNumber:", unit.Number,
+				"\nName:", unit.Name,
+				"\nTemplateID:", unit.TemplateID,
+				"\nCourseID:", course.ID,
+				"\nCourse TemplateID:", course.TemplateID,
+				"\nCourse Name:", course.Name,
+				"\nTerm Name:", course.TermName,
+			)
+			return fmt.Errorf("error in c.SaveUnit(): %s", err)
+		}
+		unit = *savedUnit
+		log.Println("lesson count: ", len(unit.Lessons), "for ", unit.Name)
+		for _, lesson := range unit.Lessons {
+			lesson.UnitID = unit.ID
+			_, err := c.SaveLessonInstance(lesson)
+			if err != nil {
+				return fmt.Errorf("error in SaveLessonInstance():%s", err)
+			}
+		}
+
+	}
+	return nil
+
 }
 
 // GetInstances implements domain.CourseRepository.
@@ -85,16 +157,6 @@ func (c *courseRepo) WriteToCSV(course *domain.Course) error {
 
 // TODO: Convert this to import directly from CSV rather than using instance import
 func (c *courseRepo) ReadFromCSV() ([]*domain.Course, error) {
-
-	// instances, err := importInstancesFromCSV()
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// var courses []*domain.Course
-	// for _, instance := range instances {
-	// 	courses = append(courses, courseInstanceSoaToOopV2(*instance))
-	// }
-	// return courses, nil
 	courses, err := importCoursesFromCSV()
 	if err != nil {
 		return nil, err
@@ -104,67 +166,163 @@ func (c *courseRepo) ReadFromCSV() ([]*domain.Course, error) {
 }
 
 // Save updates the ID for Course, Units, and Lessons
-func (c *courseRepo) Save(course *domain.Course) error {
+func (c *courseRepo) SaveTemplate(course *domain.Course) (*domain.Course, error) {
 	ctx := context.Background()
-	dbCourse, err := c.queries.SaveCourse(ctx, database.SaveCourseParams{Name: course.Name})
+	dbCourse, err := c.queries.SaveCourse(ctx, database.SaveCourseParams{
+		TemplateID: sql.NullInt64{Valid: false},
+		TermID:     sql.NullInt64{Valid: false},
+		Name:       course.Name,
+	})
 	if err != nil {
-		return err
+		return nil, fmt.Errorf("c.queries.SaveCourse(): %s", err)
 	}
 	course.ID = int(dbCourse.ID)
 	for i, unit := range course.Units {
-		var hasDescr = unit.Description == ""
-		currUnit := database.Unit{
-			CourseID: int64(course.ID),
-			Number:   int64(unit.Number),
-			Name:     unit.Name,
-			Description: sql.NullString{
-				String: unit.Description,
-				Valid:  hasDescr,
-			},
-		}
-		currUnit, err = c.queries.SaveUnit(ctx, database.SaveUnitParams{
-			Number:      currUnit.Number,
-			Name:        currUnit.Name,
-			Description: currUnit.Description,
-			CourseID:    currUnit.CourseID,
-		})
+		unit.CourseID = course.ID
+		savedUnit, err := c.SaveUnit(unit)
 		if err != nil {
-			return fmt.Errorf("courseRepo.Save(): %s", err)
+			return nil, fmt.Errorf("c.SaveUnit(): %s", err)
 		}
-		unit.ID = int(currUnit.ID)
+		course.Units[i] = *savedUnit
+		unit = *savedUnit
 		for j, lesson := range unit.Lessons {
-			log.Println("lesson name:", lesson.Name, "lesson number: ", lesson.Number)
-			currLesson := database.Lesson{
-				UnitID: int64(unit.ID),
-				Number: int64(lesson.Number),
-				Name: sql.NullString{
-					String: lesson.Name,
-					Valid:  lesson.Name != "",
-				},
-				Description: sql.NullString{
-					String: lesson.Description,
-					Valid:  lesson.Description != "",
-				},
-			}
-			currLesson, err = c.queries.SaveLesson(ctx, database.SaveLessonParams{
-				Number:      currLesson.Number,
-				Name:        currLesson.Name,
-				Description: currLesson.Description,
-				UnitID:      currLesson.UnitID,
-			})
+			lesson.UnitID = unit.ID
+			savedLesson, err := c.SaveLessonTemplate(lesson)
 			if err != nil {
-				return fmt.Errorf("courseRepo.Save(), SaveLesson(): %v, unit id: %s, lesson#: %s", err, strconv.Itoa(int(currUnit.ID)), strconv.Itoa(int(currLesson.Number)))
+				return nil, fmt.Errorf("c.SaveLessonTemplate(): %s", err)
 			}
-			course.Units[i].Lessons[j].ID = int(currLesson.ID)
+			unit.Lessons[j] = *savedLesson
 		}
 
 	}
-	return nil
+	return course, nil
 
 }
 
-func importCoursesFromCSV() ([]*domain.Course, error) {
+func (c *courseRepo) SaveUnit(unit domain.Unit) (*domain.Unit, error) {
+	log.Println("SaveUnit(): ", "templateID", unit.TemplateID, "ID", unit.ID)
+	var hasDescr = unit.Description == ""
+	currUnit := database.Unit{
+		CourseID: int64(unit.CourseID),
+		TemplateID: sql.NullInt64{
+			Int64: int64(unit.TemplateID),
+			Valid: unit.TemplateID != 0,
+		},
+		Number:   int64(unit.Number),
+		Sequence: int64(unit.SequenceNum),
+		Name:     unit.Name,
+		Description: sql.NullString{
+			String: unit.Description,
+			Valid:  hasDescr,
+		},
+	}
+	if currUnit.Sequence == 0 {
+		return nil, fmt.Errorf("currUnit sequence is 0")
+	}
+	currUnit, err := c.queries.SaveUnit(context.Background(), database.SaveUnitParams{
+		Number:      currUnit.Number,
+		Sequence:    currUnit.Sequence,
+		TemplateID:  currUnit.TemplateID,
+		Name:        currUnit.Name,
+		Description: currUnit.Description,
+		CourseID:    currUnit.CourseID,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("courseRepo.SaveUnit(): %s", err)
+	}
+	unit.ID = int(currUnit.ID)
+	log.Println("unit sequence:", unit.SequenceNum)
+	if unit.SequenceNum == 0 {
+		return nil, fmt.Errorf("unit sequence is 0")
+	}
+	return &unit, nil
 
+}
+
+// Should include date
+func (c *courseRepo) SaveLessonInstance(lesson domain.Lesson) (*domain.Lesson, error) {
+	if lesson.TemplateID == 0 {
+		return nil, fmt.Errorf("lesson instance template ID is 0")
+	}
+	savedLesson, err := c.SaveLesson(lesson)
+	if err != nil {
+		return nil, fmt.Errorf("c.SaveLesson():%s", err)
+	}
+	lesson = *savedLesson
+	err = c.SaveLessonDate(lesson)
+	if err != nil {
+		return nil, fmt.Errorf("c.SaveLessonDate(): %s", err)
+	}
+	return &lesson, nil
+}
+
+func (c *courseRepo) SaveLessonDate(lesson domain.Lesson) error {
+	dbDate, err := c.queries.GetDate(context.Background(), lesson.Date.Format(time.DateOnly))
+	if err != nil {
+		return fmt.Errorf("courseRepo.SaveInstance(), c.queries.GetDate(): %s", err)
+	}
+	log.Println("Saved date: ID:", dbDate.ID, "\nDay Number:", dbDate.DayNumber, "\nTerm ID:", dbDate.TermID)
+	lessonDate, err := c.queries.SaveLessonDate(context.Background(), database.SaveLessonDateParams{
+		LessonID: int64(lesson.ID),
+		DateID:   dbDate.ID,
+	})
+	if err != nil {
+		return fmt.Errorf("courseRepo.SaveInstance(), c.queries.SaveLessonDate: %s", err)
+	}
+	log.Println("saved lessonDate: \nDate ID:", lessonDate.DateID, "\nLesson ID:", lessonDate.LessonID)
+	return nil
+}
+
+func (c *courseRepo) SaveLesson(lesson domain.Lesson) (*domain.Lesson, error) {
+	log.Println("lesson name:", lesson.Name, "lesson number: ", lesson.Number)
+	dbLesson := database.Lesson{
+		UnitID: int64(lesson.UnitID),
+		TemplateID: sql.NullInt64{
+			Int64: int64(lesson.TemplateID),
+			Valid: lesson.TemplateID != 0,
+		},
+		Number: int64(lesson.Number),
+		Name: sql.NullString{
+			String: lesson.Name,
+			Valid:  lesson.Name != "",
+		},
+		Description: sql.NullString{
+			String: lesson.Description,
+			Valid:  lesson.Description != "",
+		},
+	}
+	savedLesson, err := c.queries.SaveLesson(context.Background(), database.SaveLessonParams{
+		Number:      dbLesson.Number,
+		Name:        dbLesson.Name,
+		TemplateID:  dbLesson.TemplateID,
+		Description: dbLesson.Description,
+		UnitID:      dbLesson.UnitID,
+	})
+	lesson.ID = int(savedLesson.ID)
+	if err != nil {
+		log.Println(
+			"Lesson Unit ID:", lesson.UnitID,
+			"\nLesson Template ID:", lesson.TemplateID,
+			"\nLesson ID:", lesson.ID,
+		)
+		return nil, fmt.Errorf("c.queries.SaveLesson(): %v, unit id: %s, lesson #: %s",
+			err, strconv.Itoa(int(savedLesson.UnitID)), strconv.Itoa(int(dbLesson.Number)),
+		)
+	}
+	return &lesson, nil
+
+}
+
+// Should not include date
+func (c *courseRepo) SaveLessonTemplate(lesson domain.Lesson) (*domain.Lesson, error) {
+	savedLesson, err := c.SaveLesson(lesson)
+	if err != nil {
+		return nil, fmt.Errorf("c.SaveLesson():%s", err)
+	}
+	return savedLesson, nil
+}
+
+func importCoursesFromCSV() ([]*domain.Course, error) {
 	file, err := os.Open(scheduleCsvDir)
 	if err != nil {
 		return nil, err
@@ -245,7 +403,7 @@ func importCoursesFromCSV() ([]*domain.Course, error) {
 		if err != nil {
 			return nil, fmt.Errorf("error parsing date: %s", err)
 		}
-		lesson := domain.NewLesson(lessonNum, lessonName, lessonDescr, lessonDate)
+		lesson := domain.NewLesson(lessonNum, unit.ID, lessonName, lessonDescr, lessonDate)
 		unit.Lessons = append(unit.Lessons, lesson)
 		courseHolder.Units[unitSequence] = unit
 		courseMap[courseName] = courseHolder
@@ -261,6 +419,17 @@ func importCoursesFromCSV() ([]*domain.Course, error) {
 
 	}
 	return courses, nil
+}
+
+func sortedBySequence(unitMap map[int]domain.Unit) []int {
+	keys := make([]int, 0, len(unitMap))
+	for sequence := range unitMap {
+		keys = append(keys, sequence)
+	}
+
+	slices.Sort(keys)
+	return keys
+
 }
 
 // This imports a course template and a term and generates a course instance

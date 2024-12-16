@@ -44,28 +44,39 @@ FROM
 WHERE
   l.unit_id = ?;
 
--- name: SaveCourse :one
-INSERT INTO courses (
-  name, description
+-- name: GetDate :one
+SELECT * FROM dates WHERE date = ?;
+
+-- name: SaveLessonDate :one
+INSERT INTO lesson_dates (
+  lesson_id, date_id
 ) VALUES (
   ?, ?
+)
+RETURNING *;
+
+-- name: SaveCourse :one
+INSERT INTO courses (
+  template_id, term_id, name, description
+) VALUES (
+  ?, ?, ?, ?
 )
 RETURNING *;
 
 
 -- name: SaveUnit :one
 INSERT INTO units (
-  number, name, description, course_id
+  number, sequence, name, description, course_id, template_id
 ) VALUES (
-  ?, ?, ?, ?
+  ?, ?, ?, ?, ?, ?
 )
 RETURNING *;
 
 -- name: SaveLesson :one
 INSERT INTO lessons (
-  number, name, description, unit_id
+  number, name, description, unit_id, template_id
 ) VALUES (
-  ?, ?, ?, ?
+  ?, ?, ?, ?, ?
 )
 RETURNING *;
 

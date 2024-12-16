@@ -22,10 +22,6 @@ func courseRoutePath(course domain.Course) string {
 	return fmt.Sprintf("%s%s", coursesDir, DirName(course))
 }
 
-func courseSoaRoutePath(course domain.CourseSOA) string {
-	return fmt.Sprintf("%s%s", coursesDir, DirName(course))
-}
-
 func unitRoutePath(unit domain.Unit, course domain.Course) string {
 	return fmt.Sprintf("%s%s%s", coursesDir, DirName(course), DirName(unit))
 }

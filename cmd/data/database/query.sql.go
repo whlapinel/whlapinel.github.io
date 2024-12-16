@@ -78,7 +78,7 @@ func (q *Queries) DeleteTerm(ctx context.Context, id int64) (Term, error) {
 
 const deleteUnit = `-- name: DeleteUnit :one
 DELETE FROM units WHERE id = ?
-RETURNING id, course_id, template_id, number, name, description
+RETURNING id, course_id, template_id, number, sequence, name, description
 `
 
 func (q *Queries) DeleteUnit(ctx context.Context, id int64) (Unit, error) {
@@ -89,6 +89,7 @@ func (q *Queries) DeleteUnit(ctx context.Context, id int64) (Unit, error) {
 		&i.CourseID,
 		&i.TemplateID,
 		&i.Number,
+		&i.Sequence,
 		&i.Name,
 		&i.Description,
 	)
@@ -126,6 +127,22 @@ func (q *Queries) GetCourses(ctx context.Context) ([]Course, error) {
 		return nil, err
 	}
 	return items, nil
+}
+
+const getDate = `-- name: GetDate :one
+SELECT id, term_id, day_number, date FROM dates WHERE date = ?
+`
+
+func (q *Queries) GetDate(ctx context.Context, date string) (Date, error) {
+	row := q.db.QueryRowContext(ctx, getDate, date)
+	var i Date
+	err := row.Scan(
+		&i.ID,
+		&i.TermID,
+		&i.DayNumber,
+		&i.Date,
+	)
+	return i, err
 }
 
 const getInstances = `-- name: GetInstances :many
@@ -311,20 +328,27 @@ func (q *Queries) GetUnits(ctx context.Context, courseID int64) ([]GetUnitsRow, 
 
 const saveCourse = `-- name: SaveCourse :one
 INSERT INTO courses (
-  name, description
+  template_id, term_id, name, description
 ) VALUES (
-  ?, ?
+  ?, ?, ?, ?
 )
 RETURNING id, template_id, term_id, name, description
 `
 
 type SaveCourseParams struct {
+	TemplateID  sql.NullInt64
+	TermID      sql.NullInt64
 	Name        string
 	Description sql.NullString
 }
 
 func (q *Queries) SaveCourse(ctx context.Context, arg SaveCourseParams) (Course, error) {
-	row := q.db.QueryRowContext(ctx, saveCourse, arg.Name, arg.Description)
+	row := q.db.QueryRowContext(ctx, saveCourse,
+		arg.TemplateID,
+		arg.TermID,
+		arg.Name,
+		arg.Description,
+	)
 	var i Course
 	err := row.Scan(
 		&i.ID,
@@ -365,9 +389,9 @@ func (q *Queries) SaveDate(ctx context.Context, arg SaveDateParams) (Date, error
 
 const saveLesson = `-- name: SaveLesson :one
 INSERT INTO lessons (
-  number, name, description, unit_id
+  number, name, description, unit_id, template_id
 ) VALUES (
-  ?, ?, ?, ?
+  ?, ?, ?, ?, ?
 )
 RETURNING id, unit_id, template_id, number, name, description
 `
@@ -377,6 +401,7 @@ type SaveLessonParams struct {
 	Name        sql.NullString
 	Description sql.NullString
 	UnitID      int64
+	TemplateID  sql.NullInt64
 }
 
 func (q *Queries) SaveLesson(ctx context.Context, arg SaveLessonParams) (Lesson, error) {
@@ -385,6 +410,7 @@ func (q *Queries) SaveLesson(ctx context.Context, arg SaveLessonParams) (Lesson,
 		arg.Name,
 		arg.Description,
 		arg.UnitID,
+		arg.TemplateID,
 	)
 	var i Lesson
 	err := row.Scan(
@@ -395,6 +421,27 @@ func (q *Queries) SaveLesson(ctx context.Context, arg SaveLessonParams) (Lesson,
 		&i.Name,
 		&i.Description,
 	)
+	return i, err
+}
+
+const saveLessonDate = `-- name: SaveLessonDate :one
+INSERT INTO lesson_dates (
+  lesson_id, date_id
+) VALUES (
+  ?, ?
+)
+RETURNING lesson_id, date_id
+`
+
+type SaveLessonDateParams struct {
+	LessonID int64
+	DateID   int64
+}
+
+func (q *Queries) SaveLessonDate(ctx context.Context, arg SaveLessonDateParams) (LessonDate, error) {
+	row := q.db.QueryRowContext(ctx, saveLessonDate, arg.LessonID, arg.DateID)
+	var i LessonDate
+	err := row.Scan(&i.LessonID, &i.DateID)
 	return i, err
 }
 
@@ -427,26 +474,30 @@ func (q *Queries) SaveTerm(ctx context.Context, arg SaveTermParams) (Term, error
 
 const saveUnit = `-- name: SaveUnit :one
 INSERT INTO units (
-  number, name, description, course_id
+  number, sequence, name, description, course_id, template_id
 ) VALUES (
-  ?, ?, ?, ?
+  ?, ?, ?, ?, ?, ?
 )
-RETURNING id, course_id, template_id, number, name, description
+RETURNING id, course_id, template_id, number, sequence, name, description
 `
 
 type SaveUnitParams struct {
 	Number      int64
+	Sequence    int64
 	Name        string
 	Description sql.NullString
 	CourseID    int64
+	TemplateID  sql.NullInt64
 }
 
 func (q *Queries) SaveUnit(ctx context.Context, arg SaveUnitParams) (Unit, error) {
 	row := q.db.QueryRowContext(ctx, saveUnit,
 		arg.Number,
+		arg.Sequence,
 		arg.Name,
 		arg.Description,
 		arg.CourseID,
+		arg.TemplateID,
 	)
 	var i Unit
 	err := row.Scan(
@@ -454,6 +505,7 @@ func (q *Queries) SaveUnit(ctx context.Context, arg SaveUnitParams) (Unit, error
 		&i.CourseID,
 		&i.TemplateID,
 		&i.Number,
+		&i.Sequence,
 		&i.Name,
 		&i.Description,
 	)

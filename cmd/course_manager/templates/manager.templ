@@ -60,34 +60,4 @@ templ ManageCourseOOPComponent(courses []*domain.Course) {
 	}
 }
 
-templ ManageCourseComponent(courses []*domain.CourseSOA) {
-	for _, course := range courses {
-		<table>
-			<caption>{ course.Name }</caption>
-			<thead>
-				<tr>
-					<th>Day</th>
-					<th>Unit #</th>
-					<th>Unit Name</th>
-					<th>Lesson #</th>
-					<th>Lesson Name</th>
-				</tr>
-			</thead>
-			for i, day := range course.Day {
-				<tr>
-					<td>{ strconv.Itoa(day) }</td>
-					<td>{ strconv.Itoa(course.UnitNum[i]) }</td>
-					<td>{ course.UnitDescr[i] }</td>
-					<td>{ strconv.Itoa(course.LessonNum[i]) }</td>
-					<td>{ course.LessonDescr[i] }</td>
-					<td><button></button></td>
-				</tr>
-			}
-			<tfoot></tfoot>
-		</table>
-	}
-}
-
-templ ManageInstanceComponent(instances *domain.CourseInstance) {
-}
 

@@ -75,6 +75,7 @@ type Unit struct {
 	CourseID    int64
 	TemplateID  sql.NullInt64
 	Number      int64
+	Sequence    int64
 	Name        string
 	Description sql.NullString
 }

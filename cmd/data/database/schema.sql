@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS units (
     course_id INTEGER NOT NULL,
     template_id INTEGER,
     number INTEGER NOT NULL,
+    sequence INTEGER NOT NULL,
     name TEXT NOT NULL,
     description TEXT,
     FOREIGN KEY (course_id) REFERENCES courses(id),
@@ -28,6 +29,7 @@ CREATE TABLE IF NOT EXISTS lessons (
     name TEXT,
     description TEXT,
     FOREIGN KEY (unit_id) REFERENCES units(id),
+    FOREIGN KEY (template_id) REFERENCES lessons(id),
     UNIQUE(unit_id, number)
 );
 
@@ -43,7 +45,8 @@ CREATE TABLE IF NOT EXISTS lesson_dates (
     lesson_id INTEGER NOT NULL,
     date_id INTEGER NOT NULL,
     FOREIGN KEY (lesson_id) REFERENCES lessons(id),
-    FOREIGN KEY (date_id) REFERENCES dates(id)
+    FOREIGN KEY (date_id) REFERENCES dates(id),
+    UNIQUE(lesson_id, date_id)
 );
 
 
