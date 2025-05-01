@@ -1,0 +1,20 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+
+  update-theme:
+    cmds:
+      - git submodule update --remote --merge
+
+  generate:
+    cmds:
+      - npx @tailwindcss/cli -i ./tailwind.css -o ./assets/css/extended/tailwind.css

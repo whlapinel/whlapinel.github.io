@@ -1,0 +1,50 @@
+baseURL = '/'
+languageCode = 'en-us'
+title = 'Will Lapinel'
+theme = 'PaperMod'
+markup.goldmark.renderer.unsafe = true
+sectionPagesMenu = 'main'
+
+[[menu.main]]
+identifier = "categories"
+name = "Categories"
+url = "/categories/"
+weight = 20
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+
+[params]
+ShowBreadCrumbs = true    # optional: shows nav path
+ShowPostNavLinks = true
+ShowPostCategories = true
+
+[params.profileMode]
+enabled = true
+title = "Will Lapinel"
+subtitle = "Sailor ⚓ Teacher 🧑🏻‍🏫 Software Engineer 🧑🏻‍💻"
+imageUrl = "/images/profile.jpg"
+imageTitle = "Profile"
+imageWidth = 180
+imageHeight = 180
+
+[[params.profileMode.buttons]]
+name = "Resume"
+url = "/resume"
+
+[[params.profileMode.buttons]]
+name = "About Me"
+url = "/about"
+
+[[params.socialIcons]]
+name = "github"
+url = "https://github.com/whlapinel"
+
+[[params.socialIcons]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/will-lapinel-68a1a1183/"
+
+[[params.socialIcons]]
+name = "email"
+url = "mailto:whlapinel@gmail.com"
