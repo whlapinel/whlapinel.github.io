@@ -24,18 +24,18 @@ ShowPostCategories = true
 enabled = true
 title = "Will Lapinel"
 subtitle = "Sailor ⚓ Teacher 🧑🏻‍🏫 Software Engineer 🧑🏻‍💻"
-imageUrl = "/images/profile.jpg"
+imageUrl = "images/profile.jpg"
 imageTitle = "Profile"
 imageWidth = 180
 imageHeight = 180
 
 [[params.profileMode.buttons]]
 name = "Resume"
-url = "/resume"
+url = "resume"
 
 [[params.profileMode.buttons]]
 name = "About Me"
-url = "/about"
+url = "about"
 
 [[params.socialIcons]]
 name = "github"
