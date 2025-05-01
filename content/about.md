@@ -2,7 +2,6 @@
 date = '2025-04-07T11:58:30-04:00'
 draft = false
 title = 'About'
-menu = { main = { weight = 1 } }
 +++
 
 - 🧑🏻‍💻 Software Engineer

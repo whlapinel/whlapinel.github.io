@@ -1,6 +1,6 @@
 # **WILLIAM HENRY LAPINEL**
 
-[Download PDF🔽](/resume.pdf)
+[Download PDF🔽](../resume.pdf)
 
 Charlotte, NC | (757) 537-5532 | [whlapinel@gmail.com](mailto:whlapinel@gmail.com) | [LinkedIn](https://www.linkedin.com/in/will-lapinel-68a1a1183/) | [GitHub](http://github.com/whlapinel)
 
