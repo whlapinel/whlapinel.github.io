@@ -4,6 +4,6 @@ draft = false
 title = 'Posts'
 +++
 
-[Categories](/categories)
+[Categories](./categories)
 
 Awesome, this is the post index thing
