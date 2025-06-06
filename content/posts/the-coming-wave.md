@@ -25,7 +25,7 @@ The overriding message of the book is that `containment` of these technologies i
 
 Throughout the book, he takes great care to justify his warnings and prescriptions with lengthy explanations and many examples of how catastrophe could come about.
 
-The book provides compelling, sweeping narratives of humanity, quite worthy of a book on anthropology or philosophy, that puts the current technological moment in context, as well as putting technology itself in context.
+The book provides compelling, sweeping narratives of humanity, quite worthy of a book on anthropology or philosophy, that put the current technological moment in context, as well as putting technology itself in context.
 
 In an age when most of humanity seems trapped between nihilistic despair and blissful ignorance, either willful or otherwise, Suleyman's warnings come across as a solid and principled vote for for hope, for facing our problems, and for taking collective action.
 
