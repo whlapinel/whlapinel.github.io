@@ -45,6 +45,12 @@ JAN 2025 \- PRESENT,  Charlotte, NC
 
 Led curriculum planning meetings of all Python 1 and 2 teachers.  Used Course Manager to generate and share curricular materials for fellow Python teachers, especially Python 2 teachers since there was no existing materials to draw from.
 
+## **Charlotte Engineering Early College /** Python 1 and 2 Teacher
+
+### AUG 2025 to PRESENT,  Charlotte, NC
+
+Hired for 2025-2026 school year.
+
 ## **Phillip O. Berry Academy of Technology /** Python 1 and 2 Teacher
 
 ### AUG 2024 to PRESENT,  Charlotte, NC
