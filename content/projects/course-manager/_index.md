@@ -1,5 +1,5 @@
 +++
-date = '2025-04-07T11:48:39-04:00'
+date = '2025-06-06T00:03:40-04:00'
 draft = false
 title = 'Course Manager'
 +++
@@ -15,26 +15,5 @@ Features:
 - Quickly create slides from markdown using marp
 - Quickly create documents from markdown rendered to html using goldmark
 - Site generation for each course using Hugo
-
-Technologies/Dependencies:
-
-- Go
-- Echo (web framework for Go)
-- Templ
-- Caddy (for static sites, as well as reverse proxy for web app)
-- Tailwind
-- Hugo
-- Marp
-- Goldmark
-- Task (like Makefiles for Go, this is for managing recurring commands and scripts)
-
-Deployment architecture:
-
-Everything is currently running on a single Virtual Private Server running Ubuntu. Inside this VPS, I am using
-
-- Docker compose with separate containers for
-  - Caddy
-  - Web app with binary (running web app server) and also Hugo for building static sites
-  - Marp server (for fetching html rendering of markdown slides)
 
 [https://course-manager.app](https://course-manager.app)
