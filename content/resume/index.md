@@ -53,7 +53,7 @@ Hired for 2025-2026 school year.
 
 ## **Phillip O. Berry Academy of Technology /** Python 1 and 2 Teacher
 
-### AUG 2024 to PRESENT,  Charlotte, NC
+### AUG 2024 to JUN 2025,  Charlotte, NC
 
 Created an original curriculum for the brand-new Python 2 course, published using the aforementioned Course Manager app.
 
