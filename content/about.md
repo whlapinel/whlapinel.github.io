@@ -4,6 +4,8 @@ draft = false
 title = 'About'
 +++
 
+[Resume]({{<relref "resume">}})
+
 - 🧑🏻‍💻 Software Engineer
 - 🐍 Python teacher (2024 to present)
 - 🌍 Science teacher (2020 to 2024)

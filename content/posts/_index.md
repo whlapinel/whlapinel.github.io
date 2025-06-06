@@ -5,5 +5,3 @@ title = 'Posts'
 +++
 
 [Categories](./categories)
-
-Awesome, this is the post index thing
