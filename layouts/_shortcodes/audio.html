@@ -1,0 +1,5 @@
+<audio controls>
+  {{ range .Page.Params.audio }}
+  <source src="{{ . }}" type="audio/mpeg" />
+  {{ end }}
+</audio>
