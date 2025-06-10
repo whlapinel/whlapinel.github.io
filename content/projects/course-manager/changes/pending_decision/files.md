@@ -24,9 +24,16 @@ Substantial amount of work.
 
 - Mount user data directory to content directory and set
   - includeFiles='**/files/*.md'
-  - excludeFiles='**/slides.md'
+  - excludeFiles='**/slides.md' -- front matter here should be handled separately if at all. Currently it is yaml entered manually.
 - Remove page creation (.AddPage) portion of _content.gotmpl as pages will now be created by Hugo automatically from content directory
 - Modify view markdown handler in app so that TOML front matter portion is not shown to user
 - Modify edit markdown handler in app so that TOML front matter portion is not shown to user
 - Form for editing file metadata should be included when editing markdown file (just start with title)
 - Update, save file handlers should be modified so that metadata captured from the form is written to file as TOML
+
+## Actions taken so far
+
+- Removed the filePage creation portion of _content.gotmpl
+- Mounted UserDataDir i.e. internal/data/users/<user-id>/terms... to the content directory
+  - This results in the pages being built automatically by Hugo according to front matter rather than according to _content.gotmpl
+- In post file handler (currently sent only by file upload there )
