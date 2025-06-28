@@ -8,6 +8,16 @@ title = 'Issues'
 
 <!-- Note: to add issues use snippets with prefixes "major" and "minor" -->
 
+- (major) <span style="color:red">New course calendar doesn't show at smaller screen sizes (I left out a portion of the tailwind template)</span>
+- (major) <span style="color:red">New course calendar buttons don't show text</span>
+- (major) 2025-06-28 <span style="color:red">
+```text
+GET   
+echo-1   | /users/101602110272674353046/terms/3/courses/7/occasions
+echo-1   | /users/:user-id/terms/:term-id/courses/:course-id/occasions
+echo-1   | 200    0            798.275µs       parsing time "" as "2006-01-02": cannot parse "" as "2006"
+```
+</span>
 - (major) <span style="color:red">No way to drop assessments in edit assessment</span>
 - (major) <span style="color:red">Attempting to view or download file that does not exist (e.g. in the assessments part of lesson details) will crash the server completely.</span>
 - (minor) lesson details: assignment file info / view link not displayed on app side
