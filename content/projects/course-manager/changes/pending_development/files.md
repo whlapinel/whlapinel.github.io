@@ -46,7 +46,7 @@ Substantial amount of work.
   - [X] As a solution, I am thinking of the following, but this should be a separate change log entry:
     - for each standalone page, in front matter there could be a Params.files, a list of files that should be linked in the page
     - in the standalone page layout, range over .Params.files and for each file call ~~.GetResource or resources.GetMatch~~ or whatever the right method is (see below)
-    - Ok this is implemented now. Standalone pages can link to files using a shortcode like this: [Example]{{< /*parentresource "my_file.txt"*/>}} which gets the resource from parent page. I should probably auto-insert an html comment with an example of this for all markdown files
+    - Ok this is implemented now. Standalone pages can link to files using a shortcode which gets the resource from parent page. I should probably auto-insert an html comment with an example of this for all markdown files
     - A question remaining is that I am not sure if resources are added automatically or only if they are linked in a page. A little experimentation will answer this quickly. If they are only added when linked then all my problems are solved here, no need for creating metadata for each file or anything like that.
 
 ## Possible actions
