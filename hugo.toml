@@ -25,6 +25,13 @@ url = "about"
 weight = 20
 
 [[menu.main]]
+identifier = "posts"
+name = "Posts"
+url = "posts"
+weight = 20
+
+
+[[menu.main]]
 identifier = "projects"
 name = "Projects"
 url = "projects"
