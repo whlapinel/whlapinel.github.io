@@ -1,6 +1,9 @@
 +++
 title="Improve Course Calendar"
 +++
+## Release comments
+
+Still needs some cosmetic changes but implemented and deployed. Now calendar is monthly with next/previous month buttons instead of loading entire semester at once. Big win! One important result of this is there isn't as much layout shift when using shift lesson or add occasion functionality.
 
 ## Proposed Change
 

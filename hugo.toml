@@ -2,7 +2,14 @@ baseURL = 'https://whlapinel.github.io'
 languageCode = 'en-us'
 title = 'Will Lapinel'
 theme = 'PaperMod'
+[markup]
+[markup.goldmark]
+[markup.goldmark.parser]
+[markup.goldmark.parser.attribute]
+block = true
+title = true
 markup.goldmark.renderer.unsafe = true
+
 sectionPagesMenu = 'main'
 
 [[menu.main]]
@@ -15,6 +22,12 @@ weight = 20
 identifier = "about"
 name = "About"
 url = "about"
+weight = 20
+
+[[menu.main]]
+identifier = "projects"
+name = "Projects"
+url = "projects"
 weight = 20
 
 [taxonomies]

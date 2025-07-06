@@ -17,3 +17,5 @@ Features:
 - Site generation for each course using Hugo
 
 [https://course-manager.app](https://course-manager.app)
+
+{{< figure src="/images/course-mgr-demo.gif" caption="demo - a few months outdated, need to update" >}}

@@ -7,9 +7,7 @@ title = 'Features'
 ## Pending (keep in priority order)
 
 - Add course occasions so that occasions can be specific to a course instead of applying to an entire term
-  - [Course Occaions](./features/course-occasions.md)
-- Add view standards tab to lesson details
-- change title page of static site
+- ~~Add view standards tab to lesson details~~ (postponed indefinitely)
 - change title page for files especially assessment files if possible
 - favicons for static site and server
 - Add hx-indicator to everything so user gets confirmation that request is pending
@@ -20,7 +18,7 @@ title = 'Features'
   - 1/22/25 User can duplicate node files
 - Automatic site regeneration for every change (??)
 - Publish/unpublish for all nodes and assessments
-- Password protection for assessment files
+- ~~Password protection for assessment files~~ (postponed indefinitely)
   - Add table for assessment files
     - columns: title, relative path (relative to node files), password
 - Add password to assessment file
@@ -35,6 +33,7 @@ title = 'Features'
 
 ## Complete
 
+- change title page of static site
 - From lesson details: back to calendar
 - Markdown file editor (non slides)
 - 1/23/25 In calendar, user can add and remove lessons from a date

@@ -48,10 +48,10 @@ Builds app binary and mounts as volume, runs all services with docker compose:
 - marp
 - echo app
 
-To quickly regenerate templates and rebuild go code during development use:
+After starting all containers with `task run-dev`, you can regenerate templates and rebuild go code during development by running:
 
 ```bash
-task restart-echo
+task restart
 ```
 
 To run migrations on development database (already included in production script):
