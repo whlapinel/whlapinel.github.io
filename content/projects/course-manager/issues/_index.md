@@ -7,13 +7,6 @@ title = 'Issues'
 ## Pending
 
 <!-- Note: to add issues use snippets with prefixes "major" and "minor" -->
-
-- New course calendar doesn't show at smaller screen sizes (I left out a portion of the tailwind template)
-{.major}
-
-- New course calendar buttons don't show text
-{.major}
-
 - Need placeholder image for when no user is signed in
 {.minor}
 
@@ -32,6 +25,18 @@ title = 'Issues'
 - (minor) I think FitToTerm won't respect out of order units or lessons, it will put units and lessons in order using sequence and numbers rather than keeping the order as it was in the previous term.
 
 ## Complete
+
+- New course calendar buttons don't show text
+{.major}
+
+- New course calendar doesn't show at smaller screen sizes (I left out a portion of the tailwind template)
+{.major}
+
+- Issue with static site calendar not showing dates. Resolved... didn't append date to date slice!
+{.major}
+
+- Issue with the slides... don't have time to describe in detail at the moment
+{.major}
 
 - (major) 2025-06-28 <span style="color:red">
 
