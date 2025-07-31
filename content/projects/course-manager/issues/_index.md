@@ -5,18 +5,32 @@ title = 'Issues'
 +++
 
 ## Pending
+<!-- Note: to add issues use markdown attributes {.major} and {.major} -->
 
-<!-- Note: to add issues use snippets with prefixes "major" and "minor" -->
-- Need placeholder image for when no user is signed in
+- [ ] In static standalone (markdown) file page, the last breadcrumb doesn't show properly sometimes.
 {.minor}
 
-- signin page after redirect following token expiration does not seem to render properly under certain circumstances
+- [ ] When creating markdown files, there is no input validation for the file name.
+  - [ ] User is allowed to have spaces in file name which could cause issues.
+  - [ ] If user enters file name that already exists, there will be an unhandled error.
+  - [ ] When creating markdown files, there is no default file name. Should default to document1.md, document2.md etc. based on the number of documents already in the directory. In fact, the user should not even need to enter a file name, they should just enter a title, and the file name should be handled automatically.
+{.major}
+
+- [X] No navigation buttons (e.g. breadcrumbs) in static-site calendar page
+{.minor .complete}
+
+- [ ] Need placeholder image for when no user is signed in
+{.minor}
+
+- [ ] signin page after redirect following token expiration does not seem to render properly under certain circumstances
   - in particular when I clicked Generate from the home page, the signin component was sent but not as a complete page including layout
   - maybe htmx problem not redirect problem
 {.major}
 
 - Select lesson to add to date page needs major cosmetic upgrade (functionality is ok)
+{.minor}
 - Assessments list page UI needs major upgrade (functionality is ok)
+{.minor}
 - (major) if there's a lesson on 2 dates, bumping that date left or right on the calendar page will bump BOTH instances, not just the one that's clicked on.
 - (major) forgot to add ON CASCADE DELETE to assessments.lesson_id column; this means deleting a lesson will give a foriegn key error upon attempting to delete a lesson that has assignments. Which might be ok, but will need to adjust the UI accordingly.
 - (major) attempting to view lesson files returns a server error rather than a simple message stating that no files exist for the lesson
@@ -35,7 +49,7 @@ title = 'Issues'
 - Issue with static site calendar not showing dates. Resolved... didn't append date to date slice!
 {.major}
 
-- Issue with the slides... don't have time to describe in detail at the moment
+- Issue with the slides... don't have time to describe in detail at the moment [Details]({{% relref "slides-issues"%}})
 {.major}
 
 - (major) 2025-06-28 <span style="color:red">
