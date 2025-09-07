@@ -6,7 +6,7 @@ title = 'Issues'
 
 ## Pending
 <!-- Note: to add issues use markdown attributes {.major} and {.major} -->
-- [ ] No way to view draft documents (this is currently how I designate private documents, as draft=true will prevent hugo from publishing it in production. Simply need to add a view button which should use the old goldmark service I had built before switching to hugo. 
+- [ ] No way to view draft documents (this is currently how I designate private documents, as draft=true will prevent hugo from publishing it in production. Simply need to add a view button which should use the old goldmark service I had built before switching to hugo.
 
 - [ ] Rendering bulleted lists in markdown doesn't show numbers, presumably due to theme defaults. This might be addressed by creating a render hook template of some sort.
 
