@@ -8,7 +8,8 @@ title = 'Issues'
 <!-- Note: to add issues use markdown attributes {.major} and {.major} -->
 - [ ] No way to view draft documents (this is currently how I designate private documents, as draft=true will prevent hugo from publishing it in production. Simply need to add a view button which should use the old goldmark service I had built before switching to hugo.
 
-- [ ] Rendering bulleted lists in markdown doesn't show numbers, presumably due to theme defaults. This might be addressed by creating a render hook template of some sort.
+- [X] Rendering bulleted lists in markdown doesn't show numbers, presumably due to theme defaults. This might be addressed by creating a render hook template of some sort. *moved the document to an iframe to protect from outer stylesheets*
+{.complete}
 
 - [ ] In static standalone (markdown) file page, the last breadcrumb doesn't show properly sometimes.
 {.minor}
@@ -19,7 +20,7 @@ title = 'Issues'
   - [ ] When creating markdown files, there is no default file name. Should default to document1.md, document2.md etc. based on the number of documents already in the directory. In fact, the user should not even need to enter a file name, they should just enter a title, and the file name should be handled automatically.
 {.major}
 
-- [X] No navigation buttons (e.g. breadcrumbs) in static-site calendar page
+- [ ] No navigation buttons (e.g. breadcrumbs) in static-site calendar page
 {.minor .complete}
 
 - [ ] Need placeholder image for when no user is signed in
