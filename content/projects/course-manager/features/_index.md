@@ -4,12 +4,13 @@ draft = false
 title = 'Features'
 +++
 
-## Pending (keep in priority order)
 
-- Private slides
+- [ ] Private slides
+[See details]({{<relref "private-slides.md">}})
 
 - [x] Add "copy link" to file viewer so you can get static site links from the app side
 - change title page for files especially assessment files if possible
+
 - favicons for static site and server
 - Add hx-indicator to everything so user gets confirmation that request is pending
 - CourseNode files capabilities:
@@ -33,21 +34,36 @@ title = 'Features'
 - Copy course from user
 - ~~Add view standards tab to lesson details~~ (postponed indefinitely)
 
-## Complete
+
 
 - Add course occasions so that occasions can be specific to a course instead of applying to an entire term
+  {.complete}
+
 - change title page of static site
+  {.complete}
 - From lesson details: back to calendar
+  {.complete}
 - Markdown file editor (non slides)
+  {.complete}
 - 1/23/25 In calendar, user can add and remove lessons from a date
   - Add: new screen to select lesson from course
   - Remove: remove date from lesson dates
+  {.complete}
 - From lesson details page, user can edit assessment details
+  {.complete}
 - Static site should show assessments for lesson along with assessment details
+  {.complete}
 - 1/22/25 User can view lesson files
+  {.complete}
 - 1/22/25 User can upload lesson files
+  {.complete}
 - 12/30/24 Go command to generate site should include other build commands e.g. tailwind, templ, etc (all the things that the task command does). Should probably also pass in the data instead of Generator using its own connection and fetching data?
+  {.complete}
 - 12/30/24 Create `New Lesson` UI
+  {.complete}
 - 12/30/24 Create `New Unit` UI
+  {.complete}
 - 12/30/24 Create `New Course` interface
+  {.complete}
 - 12/30/24 Create Copy Course to Term interface (this will use the Course.FitToTerm method)
+  {.complete}

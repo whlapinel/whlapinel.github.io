@@ -4,40 +4,39 @@ draft = false
 title = 'Issues'
 +++
 
-## Pending
 
 <!-- Note: to add issues use markdown attributes {.major} and {.major} -->
 
-- [x] No way to view draft documents (this is currently how I designate private documents, as draft=true will prevent hugo from publishing it in production. Simply need to add a view button which should use the old goldmark service I had built before switching to hugo.
-{.complete}
+- [x] No way to view draft documents (this is currently how I designate private documents, as draft=true will prevent hugo from publishing it in production. Simply need to add a view button which should use the old goldmark service I had built before switching to hugo. (fixed 9/17/25)
+{.complete .minor}
 
-- [x] Rendering bulleted lists in markdown doesn't show numbers, presumably due to theme defaults. This might be addressed by creating a render hook template of some sort. _moved the document to an iframe to protect from outer stylesheets_ 
-{.complete}
+- [x] Rendering bulleted lists in markdown doesn't show numbers, presumably due to theme defaults. This might be addressed by creating a render hook template of some sort. _moved the document to an iframe to protect from outer stylesheets_ (fixed 9/13/25)
+{.complete .minor} 
 
 - [ ] In static standalone (markdown) file page, the last breadcrumb doesn't show properly sometimes.
-      {.minor}
+{.minor}
 
 - [ ] When creating markdown files, there is no input validation for the file name.
   - [ ] User is allowed to have spaces in file name which could cause issues.
   - [ ] If user enters file name that already exists, there will be an unhandled error.
   - [ ] When creating markdown files, there is no default file name. Should default to document1.md, document2.md etc. based on the number of documents already in the directory. In fact, the user should not even need to enter a file name, they should just enter a title, and the file name should be handled automatically.
-        {.major}
+{.major}
 
 - [ ] No navigation buttons (e.g. breadcrumbs) in static-site calendar page
-      {.minor .complete}
+{.minor .complete}
 
 - [ ] Need placeholder image for when no user is signed in
-      {.minor}
+{.minor}
 
 - [ ] signin page after redirect following token expiration does not seem to render properly under certain circumstances
   - in particular when I clicked Generate from the home page, the signin component was sent but not as a complete page including layout
   - maybe htmx problem not redirect problem
-    {.major}
+{.major}
 
 - Select lesson to add to date page needs major cosmetic upgrade (functionality is ok)
-  {.minor}
+{.minor}
 - Assessments list page UI needs major upgrade (functionality is ok)
-  {.minor}
+{.minor}
 - (major) if there's a lesson on 2 dates, bumping that date left or right on the calendar page will bump BOTH instances, not just the one that's clicked on.
 - (major) forgot to add ON CASCADE DELETE to assessments.lesson_id column; this means deleting a lesson will give a foriegn key error upon attempting to delete a lesson that has assignments. Which might be ok, but will need to adjust the UI accordingly.
 - (major) attempting to view lesson files returns a server error rather than a simple message stating that no files exist for the lesson
@@ -45,19 +44,17 @@ title = 'Issues'
 - 1/23/25 (minor) Deleting a course (unit, lesson may take a while as well) takes a long time. Maybe after a course row itself is deleted we should go ahead and return the response to the user and do the rest in the background. If child elements and files are not deleted we should log an error but the user doesn't need to wait on all of that, maybe?
 - (minor) I think FitToTerm won't respect out of order units or lessons, it will put units and lessons in order using sequence and numbers rather than keeping the order as it was in the previous term.
 
-## Complete
-
 - New course calendar buttons don't show text
-  {.major}
+  {.complete .major}
 
 - New course calendar doesn't show at smaller screen sizes (I left out a portion of the tailwind template)
-  {.major}
+  {.major .complete}
 
 - Issue with static site calendar not showing dates. Resolved... didn't append date to date slice!
-  {.major}
+  {.major .complete}
 
 - Issue with the slides... don't have time to describe in detail at the moment [Details]({{% relref "slides-issues"%}})
-  {.major}
+  {.major .complete }
 
 - (major) 2025-06-28 <span style="color:red">
 
