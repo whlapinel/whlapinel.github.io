@@ -7,6 +7,7 @@ title = 'Features'
 ## Pending (keep in priority order)
 
 - Private slides
+
 - [x] Add "copy link" to file viewer so you can get static site links from the app side
 - change title page for files especially assessment files if possible
 - favicons for static site and server
