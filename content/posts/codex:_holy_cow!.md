@@ -1,5 +1,5 @@
 +++
-date = '2025-09-13T08:45:52-04:00'
+date = '2025-09-13T00:45:52-04:00'
 draft = false
 title = 'Codex: Holy Cow!'
 +++

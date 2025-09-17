@@ -5,36 +5,39 @@ title = 'Issues'
 +++
 
 ## Pending
-<!-- Note: to add issues use markdown attributes {.major} and {.major} -->
-- [ ] No way to view draft documents (this is currently how I designate private documents, as draft=true will prevent hugo from publishing it in production. Simply need to add a view button which should use the old goldmark service I had built before switching to hugo.
 
-- [X] Rendering bulleted lists in markdown doesn't show numbers, presumably due to theme defaults. This might be addressed by creating a render hook template of some sort. *moved the document to an iframe to protect from outer stylesheets*
-{.complete}
+<!-- Note: to add issues use markdown attributes {.major} and {.major} -->
+
+- [x] No way to view draft documents (this is currently how I designate private documents, as draft=true will prevent hugo from publishing it in production. Simply need to add a view button which should use the old goldmark service I had built before switching to hugo.
+      {.complete}
+
+- [x] Rendering bulleted lists in markdown doesn't show numbers, presumably due to theme defaults. This might be addressed by creating a render hook template of some sort. _moved the document to an iframe to protect from outer stylesheets_
+      {.complete}
 
 - [ ] In static standalone (markdown) file page, the last breadcrumb doesn't show properly sometimes.
-{.minor}
+      {.minor}
 
 - [ ] When creating markdown files, there is no input validation for the file name.
   - [ ] User is allowed to have spaces in file name which could cause issues.
   - [ ] If user enters file name that already exists, there will be an unhandled error.
   - [ ] When creating markdown files, there is no default file name. Should default to document1.md, document2.md etc. based on the number of documents already in the directory. In fact, the user should not even need to enter a file name, they should just enter a title, and the file name should be handled automatically.
-{.major}
+        {.major}
 
 - [ ] No navigation buttons (e.g. breadcrumbs) in static-site calendar page
-{.minor .complete}
+      {.minor .complete}
 
 - [ ] Need placeholder image for when no user is signed in
-{.minor}
+      {.minor}
 
 - [ ] signin page after redirect following token expiration does not seem to render properly under certain circumstances
   - in particular when I clicked Generate from the home page, the signin component was sent but not as a complete page including layout
   - maybe htmx problem not redirect problem
-{.major}
+    {.major}
 
 - Select lesson to add to date page needs major cosmetic upgrade (functionality is ok)
-{.minor}
+  {.minor}
 - Assessments list page UI needs major upgrade (functionality is ok)
-{.minor}
+  {.minor}
 - (major) if there's a lesson on 2 dates, bumping that date left or right on the calendar page will bump BOTH instances, not just the one that's clicked on.
 - (major) forgot to add ON CASCADE DELETE to assessments.lesson_id column; this means deleting a lesson will give a foriegn key error upon attempting to delete a lesson that has assignments. Which might be ok, but will need to adjust the UI accordingly.
 - (major) attempting to view lesson files returns a server error rather than a simple message stating that no files exist for the lesson
@@ -45,21 +48,21 @@ title = 'Issues'
 ## Complete
 
 - New course calendar buttons don't show text
-{.major}
+  {.major}
 
 - New course calendar doesn't show at smaller screen sizes (I left out a portion of the tailwind template)
-{.major}
+  {.major}
 
 - Issue with static site calendar not showing dates. Resolved... didn't append date to date slice!
-{.major}
+  {.major}
 
 - Issue with the slides... don't have time to describe in detail at the moment [Details]({{% relref "slides-issues"%}})
-{.major}
+  {.major}
 
 - (major) 2025-06-28 <span style="color:red">
 
 ```text
-GET   
+GET
 echo-1   | /users/101602110272674353046/terms/3/courses/7/occasions
 echo-1   | /users/:user-id/terms/:term-id/courses/:course-id/occasions
 echo-1   | 200    0            798.275µs       parsing time "" as "2006-01-02": cannot parse "" as "2006"
@@ -74,7 +77,7 @@ echo-1   | 200    0            798.275µs       parsing time "" as "2006-01-02":
 - (major) Sync does not seem to work
 - (major) Static calendar not displaying data
 - No way to delete occasions from term calendar
-- (major) under certain conditions, have to generate site a second or third time for slides to show up. suspect there's an issue with the files modification times falsely reporting no changes. Resolved by removing slides.html from data directory. Copying the slides.html in to the static site was causing the html mod time to be later than the markdown mod time. Not sure why it ever worked actually. (Note: I re-added the slides.html to the data directory and removed the slide generation phase from the site generator, and  made sure that every time an edit is made to the slides, the html is regenerated)
+- (major) under certain conditions, have to generate site a second or third time for slides to show up. suspect there's an issue with the files modification times falsely reporting no changes. Resolved by removing slides.html from data directory. Copying the slides.html in to the static site was causing the html mod time to be later than the markdown mod time. Not sure why it ever worked actually. (Note: I re-added the slides.html to the data directory and removed the slide generation phase from the site generator, and made sure that every time an edit is made to the slides, the html is regenerated)
 
 - 2/23/25 (major) 405 error (method not allowed) when attempting to post a file to a course. Resolved by adding the necessary functions to handlers/node.go to ensure the route was registered.
 
@@ -85,13 +88,13 @@ echo-1   | 200    0            798.275µs       parsing time "" as "2006-01-02":
 
 - 12/30/24 (major) ShowCalendar shows wrong course! Resolved 12/30/24
 
-- 12/26/24 There's a serious problem with how the courses are saved, at least when imported from CSV. I noticed that the calendar for Spring 2025 was showing dates for January but none of the other term months. After some digging I realized that the problem in the "lesson dates" table and how lesson dates are saved.  Basically all I know is that the date_id column in the lesson_dates table consists only of Fall 2024 dates. Resolved 12/26 (new domain.Course method `FitToTerm(term Term) Course` which just sets the dates sequentially for each lesson to dates from the new term, with one date per lesson. After instructional days are exhausted, lesson dates are left empty. Lessons will be visible from course tree but not in course calendar.)
+- 12/26/24 There's a serious problem with how the courses are saved, at least when imported from CSV. I noticed that the calendar for Spring 2025 was showing dates for January but none of the other term months. After some digging I realized that the problem in the "lesson dates" table and how lesson dates are saved. Basically all I know is that the date_id column in the lesson_dates table consists only of Fall 2024 dates. Resolved 12/26 (new domain.Course method `FitToTerm(term Term) Course` which just sets the dates sequentially for each lesson to dates from the new term, with one date per lesson. After instructional days are exhausted, lesson dates are left empty. Lessons will be visible from course tree but not in course calendar.)
 
 - 12/18/24 Resolved 12/27/24 (see proposal 2): figure out how to relate templates to instances. should the template
-id only be present for a row if they are marked by user as synchronized? i.e. until the user marks sync?
+  id only be present for a row if they are marked by user as synchronized? i.e. until the user marks sync?
   - Proposed solution 1 (rejected): whenever a user edits a course, unit or lesson that is an instance, i.e. where template is NOT NULL, the change should be also be made to the template row (and vice versa). If the user has elected to de-link the course, unit or lesson instance from the template, the change will not be reflected in the template object.
   - Proposed solution 2 (implemented): completely eliminate the entire concept and all implementations of course template as opposed to course instance.
-    - There would only be a course, which will always be associated with a term. The fact that the dates table has a day number column will facilitate copying a course from one term to another.  This would be a very big change but the impact would be to dramatically simplify the code.
+    - There would only be a course, which will always be associated with a term. The fact that the dates table has a day number column will facilitate copying a course from one term to another. This would be a very big change but the impact would be to dramatically simplify the code.
     - Would probably add the fields currently exclusively found in CourseInstance and move them to Course. Need to identify all parts of the code that depend on a distinction between the two, for example any use of templateID, and alter essential parts and eliminate non-essential ones.
     - Make sure the Database tables reflect this change completely.
 - 12/19/24 calendar looks better now

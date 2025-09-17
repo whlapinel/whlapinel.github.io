@@ -6,7 +6,8 @@ title = 'Features'
 
 ## Pending (keep in priority order)
 
-- Add "copy link" to file viewer so you can get static site links from the app side
+- Private slides
+- [x] Add "copy link" to file viewer so you can get static site links from the app side
 - change title page for files especially assessment files if possible
 - favicons for static site and server
 - Add hx-indicator to everything so user gets confirmation that request is pending
