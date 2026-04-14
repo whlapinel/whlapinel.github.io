@@ -6,10 +6,10 @@ title = 'About'
 
 [Resume]({{<relref "resume">}})
 
-- 🧑🏻‍💻 Software Engineer
-- 🐍 Python teacher (2024 to present)
+- 🧑🏻‍💻 Software Engineer at Amazon (November 2025 to present)
+- 🐍 Python teacher (2024 to 2025)
 - 🌍 Science teacher (2020 to 2024)
 - ⚓ Veteran & Reservist
 - 🎵 Musician
-- 💖 Husband to a great woman
-- 🚸 Proud father of 3
+- 💖 Husband to a fantastic woman
+- 🚸 Proud father of 3 amazing kids
