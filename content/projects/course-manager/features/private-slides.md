@@ -17,8 +17,6 @@ When slides are created via the app, they are written to .slides.md. The `.` in 
     - `func (svc *SlidesService) SlidesContent(nodes ports.Nodes) ([]byte, error)`
     - `func (svc *SlidesService) UpdateSlides(nodes ports.Nodes, content []byte) error`
     - `func (s *SlidesService) dataPathToMarpURL(path string) (string, error)`
-    - this writes the markdown sent in on post request to .slides.md
-    - this takes the bytes from the client and writes to a file called .slides.html
 1. ui
 
 

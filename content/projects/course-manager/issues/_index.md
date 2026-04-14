@@ -4,6 +4,7 @@ draft = false
 title = 'Issues'
 +++
 
+Starting 9/19 all issues will be posted using GitHub instead of here.
 
 <!-- Note: to add issues use markdown attributes {.major} and {.major} -->
 
@@ -22,7 +23,7 @@ title = 'Issues'
   - [ ] When creating markdown files, there is no default file name. Should default to document1.md, document2.md etc. based on the number of documents already in the directory. In fact, the user should not even need to enter a file name, they should just enter a title, and the file name should be handled automatically.
 {.major}
 
-- [ ] No navigation buttons (e.g. breadcrumbs) in static-site calendar page
+- [X] No navigation buttons (e.g. breadcrumbs) in static-site calendar page
 {.minor .complete}
 
 - [ ] Need placeholder image for when no user is signed in

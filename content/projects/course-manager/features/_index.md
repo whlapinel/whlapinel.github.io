@@ -4,6 +4,7 @@ draft = false
 title = 'Features'
 +++
 
+Starting 9/19 all features will be added in GitHub instead of here.
 
 - [ ] Private slides
 [See details]({{<relref "private-slides.md">}})

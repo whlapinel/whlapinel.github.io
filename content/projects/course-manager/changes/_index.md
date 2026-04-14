@@ -4,6 +4,8 @@ draft = false
 title = 'Change Log'
 +++
 
+Update: starting 9/19 all change-related info will be posted via GitHub instead of here.
+
 This change log is mainly to help me keep track of what I've done and what I'm planning to do. I've considered making the application open-source, which would probably mean putting a change log on GitHub along with the code, but I'm not sure about that. So in the meantime, I'm sharing my progress on this work here.
 
 Changes will fall into one of the following categories:
