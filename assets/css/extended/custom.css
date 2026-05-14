@@ -18,6 +18,21 @@
   text-decoration: line-through;
 }
 
-ul, menu {
+ul,
+menu {
   list-style: none;
+}
+
+.post-content ul {
+  list-style-type: disc;
+  padding-left: 2rem;
+}
+
+.post-content ol {
+  list-style-type: decimal;
+  padding-left: 2rem;
+}
+
+.post-content li {
+  margin-bottom: 0.5rem;
 }
