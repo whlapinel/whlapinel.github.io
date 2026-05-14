@@ -18,3 +18,10 @@ tasks:
   generate:
     cmds:
       - npx @tailwindcss/cli -i ./tailwind.css -o ./assets/css/extended/tailwind.css
+
+  learning-plan:
+    dir: /home/whlapinel/personal_projects/portfolio_hugo
+    desc: copies marp slides from learning plan into static directory
+    cmds:
+      - rsync -av --include='*/' --include='_index.md' --exclude='*' ../../mob_learning/ ./portfolio/content/projects/learning-plan
+      - rsync -av --include='*/' --include='*.html' --exclude='*' ../../mob_learning/ ./portfolio/static/learning-plan
